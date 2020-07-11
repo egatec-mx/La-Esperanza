@@ -1,0 +1,9 @@
+/* 
+  Info.plist.strings
+  La Esperanza
+
+  Created by Efrain Garcia Rocha on 02/07/20.
+  Copyright © 2020 Efrain Garcia Rocha. All rights reserved.
+*/
+
+"NSFaceIDUsageDescription" = "Authenticate with biometrics to save time.";

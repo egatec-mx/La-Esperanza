@@ -1,0 +1,56 @@
+/* 
+  messages.strings
+  La Esperanza
+
+  Created by Efrain Garcia Rocha on 02/07/20.
+  Copyright © 2020 Efrain Garcia Rocha. All rights reserved.
+*/
+
+//Errors
+"error_title" = "Error";
+"error_not_connection" = "The app cannot connect to the server.\n\rTry again.";
+"error_not_response" = "The app couldn't retrieve information from server.\n\rTry again.";
+"error_auth_failed" = "There was a problem verifying your identity.";
+"error_auth_cancel" = "You pressed cancel.";
+"error_auth_fallback" = "You pressed password.";
+"error_auth_biometric_not_available" = "Face ID/Touch ID is not available.";
+"error_auth_not_enrolled" = "Face ID/Touch ID is not set up.";
+"error_auth_biometric_locked" = "Face ID/Touch ID is locked.";
+"error_auth_default" = "Face ID/Touch ID may not be configured";
+
+//Success
+"alert_success" = "Success!";
+"alert_delete_success" = "The order was canceled.";
+
+//Alerts
+"alert_accept" = "Accept";
+"alert_delete_title" = "Cancel order?";
+"alert_delete_message" = "Do you really want to cancel this order?";
+"alert_delete_accept" = "Yes, I want";
+"alert_delete_cancel" = "No, sorry";
+"alert_delete_reason" = "Why are you canceling the order?";
+
+//FaceID
+"auth_reason" = "Authentication is required.";
+
+//Status
+"status_new" = "New";
+"status_processing" = "Processing";
+"status_delivering" = "To deliver";
+"status_completed" = "Completed";
+"status_canceled" = "Canceled";
+"status_rejected" = "Rejected";
+
+//Swipe Actions
+"swipe_left" = "Advance";
+"swipe_right" = "Cancel";
+
+//3D Context Menu
+"menu_call" = "Make a call";
+"menu_whatsapp" = "Send whatsApp";
+"menu_message" = "Send message";
+"menu_actions" = "Actions";
+
+//Tabs Titles
+"tab_orders" = "Orders";
+"tab_admin" = "Configuration";

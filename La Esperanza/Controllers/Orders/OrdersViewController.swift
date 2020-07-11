@@ -1,0 +1,351 @@
+//
+//  OrdersViewController.swift
+//  La Esperanza
+//
+//  Created by Efrain Garcia Rocha on 02/07/20.
+//  Copyright © 2020 Efrain Garcia Rocha. All rights reserved.
+//
+
+import UIKit
+
+class OrdersViewController: UITableViewController, UISearchBarDelegate {
+    let webApi: WebApi = WebApi()
+    var ordersReport: [OrdersReport] = []
+    var searchModel: SearchModel = SearchModel()
+    var moveOrderModel: MoveOrderModel = MoveOrderModel()
+    var cancelOrderModel: CancelOrderModel = CancelOrderModel()
+    var selectedOrderId: CLongLong = 0
+    var cancelReasonTextField: UITextField!
+    
+    @IBOutlet var searchBar: UISearchBar!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let tabParent = self.parent as? UITabBarController {
+            tabParent.navigationItem.title = NSLocalizedString("tab_orders", tableName: "messages", comment: "")
+        }
+        
+        refreshControl?.addTarget(self, action: #selector(getOrdersReport), for: .allEvents)
+        
+        searchBar.delegate = self
+                
+        getOrdersReport()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let tabParent = self.parent as? UITabBarController {
+            tabParent.navigationItem.title = NSLocalizedString("tab_orders", tableName: "messages", comment: "")
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setToolbarHidden(true, animated: true)
+    }
+        
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return ordersReport.count
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let section = self.ordersReport[section]
+        return section.orders.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let section = self.ordersReport[indexPath.section]
+        let order = section.orders[indexPath.row]
+        
+        let cell: OrderTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "OrdersCell", for: indexPath) as! OrderTableViewCell
+        
+        switch section.status {
+        case 1:
+            cell.ImageStatus.image = UIImage(systemName: "bell")
+            cell.ImageStatus.tintColor = UIColor.systemTeal
+        case 2:
+            cell.ImageStatus.image = UIImage(systemName: "clock")
+            cell.ImageStatus.tintColor = UIColor.systemOrange
+        case 3:
+            cell.ImageStatus.image = UIImage(systemName: "car")
+            cell.ImageStatus.tintColor = UIColor.systemPurple
+        case 4:
+            cell.ImageStatus.image = UIImage(systemName: "hand.thumbsup")
+            cell.ImageStatus.tintColor = UIColor.systemGreen
+        case 5:
+            cell.ImageStatus.image = UIImage(systemName: "trash.slash")
+            cell.ImageStatus.tintColor = UIColor.systemRed
+        case 6:
+           cell.ImageStatus.image = UIImage(systemName: "hand.thumbsdown")
+           cell.ImageStatus.tintColor = UIColor.systemPink
+        default:
+            cell.ImageStatus.image = UIImage(systemName: "bell")
+            cell.ImageStatus.tintColor = UIColor.systemGray
+        }
+        
+        cell.LabelOrderId.text = "#\(String(order.orderId).leftPadding(toLength: 6, withPad: "0"))"
+        cell.LabelCustomer.text = order.customer
+                
+        let format = NumberFormatter()
+        format.numberStyle = .currency
+        format.locale = Locale(identifier: "es_MX")
+        cell.LabelTotal.text = format.string(for: order.orderTotal)
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let section = self.ordersReport[section]
+        switch section.status {
+        case 1:
+            return NSLocalizedString("status_new", tableName: "messages", comment: "")
+        case 2:
+            return NSLocalizedString("status_processing", tableName: "messages", comment: "")
+        case 3:
+            return NSLocalizedString("status_delivering", tableName: "messages", comment: "")
+        case 4:
+            return NSLocalizedString("status_completed", tableName: "messages", comment: "")
+        case 5:
+            return NSLocalizedString("status_canceled", tableName: "messages", comment: "")
+        case 6:
+            return NSLocalizedString("status_rejected", tableName: "messages", comment: "")
+        default:
+            return ""
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = ordersReport[indexPath.section]
+        let order = section.orders[indexPath.row]
+        selectedOrderId = order.orderId
+        performSegue(withIdentifier: "DetailSegue", sender: self)
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        switch ordersReport[indexPath.section].status {
+        case 1, 2, 3:
+            let cancelAction = UIContextualAction(style: .destructive, title: NSLocalizedString("swipe_right", tableName: "messages", comment: ""), handler: { (_, _, performed: (Bool) -> Void) in
+                
+                let deleteAlert = UIAlertController(title: NSLocalizedString("alert_delete_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_delete_message", tableName: "messages", comment: ""), preferredStyle: .alert)
+                
+                deleteAlert.addTextField(configurationHandler: self.configurationTextField)
+                
+                deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
+                    
+                    if self.selectedOrderId == 0 {
+                        self.cancelOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
+                    } else {
+                        self.cancelOrderModel.orderId = self.selectedOrderId
+                    }
+                    
+                    self.cancelOrderModel.cancelReason = self.cancelReasonTextField.text!
+                                    
+                    do {
+                        let data = try JSONEncoder().encode(self.cancelOrderModel)
+                        
+                        self.webApi.DoPost("orders/cancel", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                            do {
+                                guard error == nil else { return }
+                                guard response != nil else { return }
+                                
+                                if let data = response {
+                                    self.cancelOrderModel = try JSONDecoder().decode(CancelOrderModel.self, from: data)
+                                }
+                                
+                                DispatchQueue.main.async {
+                                    if !self.cancelOrderModel.message.isEmpty {
+                                        self.showSuccessAlert(self.cancelOrderModel.message, onCompleteHandler: {() -> Void in
+                                            self.getOrdersReport()
+                                            self.tableView.reloadData()
+                                        })
+                                    }
+                                }
+                                
+                            } catch {
+                                
+                                print(error)
+                                
+                                return
+                            }
+                        })
+                                                
+                    } catch {
+                        
+                    }
+                }))
+                
+                deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .destructive, handler: nil))
+                
+                self.present(deleteAlert, animated: true, completion: nil)
+                
+                performed(true)
+                
+            })
+            
+            return UISwipeActionsConfiguration(actions: [cancelAction])
+        default:
+            return UISwipeActionsConfiguration(actions: [])
+        }
+    }
+    
+    func configurationTextField(_ textField: UITextField) {
+        self.cancelReasonTextField = textField
+        textField.placeholder = NSLocalizedString("alert_delete_reason", tableName: "messages", comment: "")
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        switch ordersReport[indexPath.section].status {
+        case 1, 2, 3:
+            let moveAction = UIContextualAction(style: .normal, title: NSLocalizedString("swipe_left", tableName: "messages", comment: ""), handler: { (_, _, performed: (Bool) -> Void) in
+                
+                if self.selectedOrderId == 0 {
+                    self.moveOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
+                } else {
+                    self.moveOrderModel.orderId = self.selectedOrderId
+                }
+                
+                do {
+                    let data = try JSONEncoder().encode(self.moveOrderModel)
+                    
+                    self.webApi.DoPost("orders/advance", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                        do {
+                            guard error == nil else { return }
+                            guard response != nil else { return }
+                            
+                            if let data = response {
+                                self.moveOrderModel = try JSONDecoder().decode(MoveOrderModel.self, from: data)
+                            }
+                            
+                            DispatchQueue.main.async {
+                                if !self.moveOrderModel.message.isEmpty {
+                                    self.showSuccessAlert(self.moveOrderModel.message, onCompleteHandler: {() -> Void in
+                                        self.getOrdersReport()
+                                        self.tableView.reloadData()
+                                    })
+                                }
+                            }
+                            
+                        } catch {
+                            print(error)
+                            return
+                        }
+                    })
+                    
+                    performed(true)
+                    
+                } catch {
+                    
+                    performed(false)
+                    
+                }
+            })
+                        
+            moveAction.backgroundColor = .systemGreen
+            
+            return UISwipeActionsConfiguration(actions: [moveAction])
+            
+        default:
+            return UISwipeActionsConfiguration(actions: [])
+        }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
+        performSegue(withIdentifier: "DetailSegue", sender: self)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+           getOrdersReport()
+        } else if searchText.count > 2 {
+           getSearchResults(searchText)
+        }
+    }
+    
+    func showErrorAlert(_ message: String, onCompleteHandler: (() -> Void)?) {
+        let alert = UIAlertController(title: NSLocalizedString("error_title", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
+            onCompleteHandler?()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showSuccessAlert(_ message: String, onCompleteHandler: (() -> Void)?) {
+        let alert = UIAlertController(title: NSLocalizedString("alert_success", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
+            onCompleteHandler?()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+        
+    @objc func getOrdersReport() {
+        webApi.DoGet("orders/report", onCompleteHandler: { (response, error) -> Void in
+            do {
+                guard error == nil else { return }
+                guard response != nil else { return }
+                
+                if let data = response {
+                    let orders = try JSONDecoder().decode([OrdersModel].self, from: data)
+                    self.ordersReport = OrdersReport.group(orders: orders).sorted(by: {(lr, rr) -> Bool in lr.status < rr.status })
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
+                }
+            } catch {
+                return
+            }
+        })
+    }
+        
+    func getSearchResults(_ searchTerm: String) {
+        searchModel.searchTerm = String(searchTerm)
+        
+        let data = try! JSONEncoder().encode(searchModel)
+        
+        webApi.DoPost("orders/search", jsonData: data, onCompleteHandler: { (response, error) -> Void in
+            do {
+                guard error == nil else { return }
+                guard response != nil else { return }
+                
+                if let data = response {
+                    let results = try JSONDecoder().decode([OrdersModel].self, from: data)
+                    self.ordersReport = OrdersReport.group(orders: results)
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.refreshControl?.endRefreshing()
+                    }
+                    
+                }
+            } catch {
+                print("Error in Search: \(error)")
+                return
+            }
+        })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let details = segue.destination as? OrderDetailsController else { return }
+        details.orderId = selectedOrderId
+    }
+    
+    @IBAction func performUnwindSegueOperation(_ sender: UIStoryboardSegue) {
+        guard let view = sender.destination as? OrdersViewController else { return }
+        view.getOrdersReport()
+        view.tableView.reloadData()
+    }
+}
