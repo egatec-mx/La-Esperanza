@@ -524,7 +524,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mx.com.egatec.esperanza;
 				PRODUCT_NAME = "La Esperanza";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -545,7 +545,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mx.com.egatec.esperanza;
 				PRODUCT_NAME = "La Esperanza";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

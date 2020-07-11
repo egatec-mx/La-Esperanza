@@ -37,6 +37,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     @IBOutlet var MoveButton: UIBarButtonItem!
     @IBOutlet var DeleteButton: UIBarButtonItem!
     @IBOutlet var EditButton: UIBarButtonItem!
+    @IBOutlet var IconStatus: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,8 +83,11 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if indexPath.section == 2 {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            if orderDetails.orderQrCode == nil {
+                return 0
+            }
+        } else if indexPath.section == 2 {
             return CGFloat((orderDetails.articles.count + 1) * 35)
         } else if indexPath.section == 4 {
             return (LabelNotes.frame.height * 0.85 < 150 ? 150 : LabelNotes.frame.height * 0.85)
@@ -210,6 +214,30 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         
         tableView.beginUpdates()
         tableView.endUpdates()
+        
+        switch orderDetails.statusId {
+        case 1:
+            IconStatus.image = UIImage(systemName: "bell")
+            IconStatus.tintColor = UIColor.systemTeal
+        case 2:
+            IconStatus.image = UIImage(systemName: "clock")
+            IconStatus.tintColor = UIColor.systemOrange
+        case 3:
+            IconStatus.image = UIImage(systemName: "car")
+            IconStatus.tintColor = UIColor.systemPurple
+        case 4:
+            IconStatus.image = UIImage(systemName: "hand.thumbsup")
+            IconStatus.tintColor = UIColor.systemGreen
+        case 5:
+            IconStatus.image = UIImage(systemName: "trash.slash")
+            IconStatus.tintColor = UIColor.systemRed
+        case 6:
+            IconStatus.image = UIImage(systemName: "hand.thumbsdown")
+            IconStatus.tintColor = UIColor.systemPink
+        default:
+            IconStatus.image = UIImage(systemName: "bell")
+            IconStatus.tintColor = UIColor.systemTeal
+        }
     }
         
     func formatPhoneNumber(_ phoneNumber: String) -> String {
@@ -293,6 +321,10 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
          
          //Label Notes
          LabelNotes.text = ""
+        
+        //Icon Status
+        IconStatus.image = UIImage(systemName: "bell")
+        IconStatus.tintColor = UIColor.systemTeal
     }
     
     func showErrorAlert(_ message: String, onCompleteHandler: (() -> Void)?) {
