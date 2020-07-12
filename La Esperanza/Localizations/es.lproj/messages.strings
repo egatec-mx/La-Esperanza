@@ -25,10 +25,13 @@
 //Alerts
 "alert_accept" = "Aceptar";
 "alert_delete_title" = "¿Cancelar pedido?";
-"alert_delete_message" = "¿Está seguro de cancelar el pedido?";
+"alert_delete_message" = "¿Está por cancelar el pedido?";
 "alert_delete_accept" = "Sí";
 "alert_delete_cancel" = "No";
-"alert_delete_reason" = "Razón: ";
+"alert_delete_reason" = "Escriba una razón ...";
+"alert_reject_title" = "¿Rechazar el pedido?";
+"alert_reject_message" = "¿Está por rechazar el pedido?";
+"alert_reject_reason" = "Escriba una razón ...";
 
 //FaceID
 "auth_reason" = "Se requirede de autenticarse para continuar.";
@@ -44,6 +47,7 @@
 //Swipe Actions
 "swipe_left" = "Avanzar";
 "swipe_right" = "Cancelar";
+"swipe_right_reject" = "Rechazar";
 
 //3D Context Menu
 "menu_call" = "Llamar";

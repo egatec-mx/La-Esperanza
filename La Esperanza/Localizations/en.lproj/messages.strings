@@ -29,6 +29,9 @@
 "alert_delete_accept" = "Yes, I want";
 "alert_delete_cancel" = "No, sorry";
 "alert_delete_reason" = "Why are you canceling the order?";
+"alert_reject_title" = "Reject the order?";
+"alert_reject_message" = "You will reject the order, are you sure?";
+"alert_reject_reason" = "Why are you rejecting the order?";
 
 //FaceID
 "auth_reason" = "Authentication is required.";
@@ -44,6 +47,7 @@
 //Swipe Actions
 "swipe_left" = "Advance";
 "swipe_right" = "Cancel";
+"swipe_right_reject" = "Reject";
 
 //3D Context Menu
 "menu_call" = "Make a call";

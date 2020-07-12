@@ -720,6 +720,13 @@
                                 <action selector="cancelOrder:" destination="lc6-TE-WTj" id="SU9-3k-LMj"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="EwP-Xq-bSU"/>
+                        <barButtonItem image="hand.thumbsdown" catalog="system" id="ldu-jD-muO">
+                            <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="rejectOrder:" destination="lc6-TE-WTj" id="78T-ai-ooQ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="h3T-QA-aS3"/>
                         <barButtonItem systemItem="action" id="BJ8-hp-e3t"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="yN1-Oo-cam"/>
@@ -733,6 +740,7 @@
                     <navigationItem key="navigationItem" title="Details" largeTitleDisplayMode="never" id="Gr9-Fb-elc">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="I0j-Gb-HUE"/>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="ArticlesTable" destination="QpI-Bh-k4X" id="BZn-Jj-FlE"/>
                         <outlet property="DeleteButton" destination="BjG-AA-iYg" id="147-hP-SUk"/>
@@ -752,10 +760,13 @@
                         <outlet property="LabelPaymentMethod" destination="ERa-Q3-z2x" id="eXc-Pm-6cd"/>
                         <outlet property="LabelPhoneNumber" destination="sLX-f5-E17" id="YLc-n4-Q1B"/>
                         <outlet property="MoveButton" destination="SBg-fc-hAF" id="YbP-jl-Fed"/>
+                        <outlet property="RejectButton" destination="ldu-jD-muO" id="0lA-E9-ySV"/>
                         <outlet property="ScrollView" destination="Awk-uc-Xuj" id="VaL-qS-ARm"/>
+                        <segue destination="dDF-Ry-zJ2" kind="unwind" identifier="GoBackSegue" unwindAction="reloadOrdersView:" id="mGv-6a-dVK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="93i-uq-1KH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="dDF-Ry-zJ2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2292" y="-367.46626686656674"/>
         </scene>
@@ -768,6 +779,7 @@
         <image name="bag.fill" catalog="system" width="128" height="128"/>
         <image name="bell" catalog="system" width="128" height="124"/>
         <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="hand.thumbsdown" catalog="system" width="128" height="128"/>
         <image name="lock" catalog="system" width="128" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>

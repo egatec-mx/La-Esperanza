@@ -14,6 +14,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
     var searchModel: SearchModel = SearchModel()
     var moveOrderModel: MoveOrderModel = MoveOrderModel()
     var cancelOrderModel: CancelOrderModel = CancelOrderModel()
+    var rejectOrderModel: RejectOrderModel = RejectOrderModel()
     var selectedOrderId: CLongLong = 0
     var cancelReasonTextField: UITextField!
     
@@ -126,67 +127,129 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        switch ordersReport[indexPath.section].status {
-        case 1, 2, 3:
-            let cancelAction = UIContextualAction(style: .destructive, title: NSLocalizedString("swipe_right", tableName: "messages", comment: ""), handler: { (_, _, performed: (Bool) -> Void) in
-                
-                let deleteAlert = UIAlertController(title: NSLocalizedString("alert_delete_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_delete_message", tableName: "messages", comment: ""), preferredStyle: .alert)
-                
-                deleteAlert.addTextField(configurationHandler: self.configurationTextField)
-                
-                deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
-                    
-                    if self.selectedOrderId == 0 {
-                        self.cancelOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
-                    } else {
-                        self.cancelOrderModel.orderId = self.selectedOrderId
-                    }
-                    
-                    self.cancelOrderModel.cancelReason = self.cancelReasonTextField.text!
-                                    
-                    do {
-                        let data = try JSONEncoder().encode(self.cancelOrderModel)
-                        
-                        self.webApi.DoPost("orders/cancel", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                            do {
-                                guard error == nil else { return }
-                                guard response != nil else { return }
-                                
-                                if let data = response {
-                                    self.cancelOrderModel = try JSONDecoder().decode(CancelOrderModel.self, from: data)
-                                }
-                                
-                                DispatchQueue.main.async {
-                                    if !self.cancelOrderModel.message.isEmpty {
-                                        self.showSuccessAlert(self.cancelOrderModel.message, onCompleteHandler: {() -> Void in
-                                            self.getOrdersReport()
-                                            self.tableView.reloadData()
-                                        })
-                                    }
-                                }
-                                
-                            } catch {
-                                
-                                print(error)
-                                
-                                return
-                            }
-                        })
-                                                
-                    } catch {
-                        
-                    }
-                }))
-                
-                deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .destructive, handler: nil))
-                
-                self.present(deleteAlert, animated: true, completion: nil)
-                
-                performed(true)
-                
-            })
+        let cancelAction = UIContextualAction(style: .destructive, title: NSLocalizedString("swipe_right", tableName: "messages", comment: ""), handler: { (_, _, performed: (Bool) -> Void) in
             
+            let deleteAlert = UIAlertController(title: NSLocalizedString("alert_delete_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_delete_message", tableName: "messages", comment: ""), preferredStyle: .alert)
+            
+            deleteAlert.addTextField(configurationHandler: self.configurationTextField)
+            
+            deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .destructive, handler: nil))
+            
+            deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
+                
+                if self.selectedOrderId == 0 {
+                    self.cancelOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
+                } else {
+                    self.cancelOrderModel.orderId = self.selectedOrderId
+                }
+                
+                self.cancelOrderModel.cancelReason = self.cancelReasonTextField.text!
+                                
+                do {
+                    let data = try JSONEncoder().encode(self.cancelOrderModel)
+                    
+                    self.webApi.DoPost("orders/cancel", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                        do {
+                            guard error == nil else { return }
+                            guard response != nil else { return }
+                            
+                            if let data = response {
+                                self.cancelOrderModel = try JSONDecoder().decode(CancelOrderModel.self, from: data)
+                            }
+                            
+                            DispatchQueue.main.async {
+                                if !self.cancelOrderModel.message.isEmpty {
+                                    self.showSuccessAlert(self.cancelOrderModel.message, onCompleteHandler: {() -> Void in
+                                        self.getOrdersReport()
+                                        self.tableView.reloadData()
+                                    })
+                                }
+                            }
+                            
+                        } catch {
+                            
+                            print(error)
+                            
+                            return
+                        }
+                    })
+                                            
+                } catch {
+                    
+                }
+            }))
+            
+            self.present(deleteAlert, animated: true, completion: nil)
+            
+            performed(true)
+            
+        })
+        
+        let rejectAction = UIContextualAction(style: .normal, title: NSLocalizedString("swipe_right_reject", tableName: "messages", comment: ""), handler: { (_, _, performed: (Bool) -> Void) in
+            
+            let rejectAlert = UIAlertController(title: NSLocalizedString("alert_reject_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_reject_message", tableName: "messages", comment: ""), preferredStyle: .alert)
+            
+            rejectAlert.addTextField(configurationHandler: self.configurationTextField)
+            
+            rejectAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .destructive, handler: nil))
+            
+            rejectAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
+                
+                if self.selectedOrderId == 0 {
+                    self.rejectOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
+                } else {
+                    self.rejectOrderModel.orderId = self.selectedOrderId
+                }
+                
+                self.rejectOrderModel.rejectReason = self.cancelReasonTextField.text!
+                                
+                do {
+                    let data = try JSONEncoder().encode(self.rejectOrderModel)
+                    
+                    self.webApi.DoPost("orders/reject", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                        do {
+                            guard error == nil else { return }
+                            guard response != nil else { return }
+                            
+                            if let data = response {
+                                self.rejectOrderModel = try JSONDecoder().decode(RejectOrderModel.self, from: data)
+                            }
+                            
+                            DispatchQueue.main.async {
+                                if !self.rejectOrderModel.message.isEmpty {
+                                    self.showSuccessAlert(self.cancelOrderModel.message, onCompleteHandler: {() -> Void in
+                                        self.getOrdersReport()
+                                        self.tableView.reloadData()
+                                    })
+                                }
+                            }
+                            
+                        } catch {
+                            
+                            print(error)
+                            
+                            return
+                        }
+                    })
+                                            
+                } catch {
+                    
+                }
+            }))
+            
+            self.present(rejectAlert, animated: true, completion: nil)
+            
+            performed(true)
+            
+        })
+        
+        rejectAction.backgroundColor = UIColor.systemPurple
+        
+        switch ordersReport[indexPath.section].status {
+        case 1, 2:
             return UISwipeActionsConfiguration(actions: [cancelAction])
+        case 3:
+            return UISwipeActionsConfiguration(actions: [rejectAction, cancelAction])
         default:
             return UISwipeActionsConfiguration(actions: [])
         }
@@ -345,9 +408,9 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         details.orderId = selectedOrderId
     }
     
-    @IBAction func performUnwindSegueOperation(_ sender: UIStoryboardSegue) {
-        guard let view = sender.destination as? OrdersViewController else { return }
-        view.getOrdersReport()
-        view.tableView.reloadData()
+    @IBAction func reloadOrdersView(_ sender: UIStoryboardSegue) {
+        guard let ordersView = sender.destination as? OrdersViewController else { return }
+        ordersView.getOrdersReport()
+        ordersView.tableView.reloadData()
     }
 }

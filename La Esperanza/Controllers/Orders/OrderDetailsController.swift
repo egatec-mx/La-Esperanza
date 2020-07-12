@@ -17,6 +17,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     var orderDetails: OrderDetailsModel = OrderDetailsModel()
     var moveOrderModel: MoveOrderModel = MoveOrderModel()
     var cancelOrderModel: CancelOrderModel = CancelOrderModel()
+    var rejectOrderModel: RejectOrderModel = RejectOrderModel()
     var reasonTextField: UITextField!
         
     @IBOutlet var ImageQrCode: UIImageView!
@@ -38,6 +39,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     @IBOutlet var DeleteButton: UIBarButtonItem!
     @IBOutlet var EditButton: UIBarButtonItem!
     @IBOutlet var IconStatus: UIImageView!
+    @IBOutlet var RejectButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,24 +64,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         
         self.navigationController?.setToolbarHidden(false, animated: true)
         
-        webApi.DoGet("orders/\(orderId)", onCompleteHandler: {(response, error) -> Void in
-            do {
-                guard error == nil else { return }
-                guard response != nil else { return }
-                
-                if let data = response {
-                    self.orderDetails = try JSONDecoder().decode(OrderDetailsModel.self, from: data)
-                    
-                    DispatchQueue.main.async {
-                        self.displayInfo()
-                    }
-                    
-                }
-            } catch {
-                print("Error in details: \(error)")
-                return
-            }
-        })
+        getDetails()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -88,7 +73,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                 return 0
             }
         } else if indexPath.section == 2 {
-            return CGFloat((orderDetails.articles.count + 1) * 35)
+            return CGFloat(orderDetails.articles.count * 45)
         } else if indexPath.section == 4 {
             return (LabelNotes.frame.height * 0.85 < 150 ? 150 : LabelNotes.frame.height * 0.85)
         }
@@ -104,6 +89,9 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     }
         
     func displayInfo() {
+        
+        tableView.beginUpdates()
+        
         //Qr Code
         if orderDetails.orderQrCode != nil {
             if let qrData: Data = Data(base64Encoded: orderDetails.orderQrCode!) {
@@ -210,10 +198,12 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             MoveButton.isEnabled = false
             DeleteButton.isEnabled = false
             EditButton.isEnabled = false
+            RejectButton.isEnabled = false
+        } else if orderDetails.statusId == 3 {
+            RejectButton.isEnabled = true
+        } else {
+            RejectButton.isEnabled = false
         }
-        
-        tableView.beginUpdates()
-        tableView.endUpdates()
         
         switch orderDetails.statusId {
         case 1:
@@ -238,6 +228,9 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             IconStatus.image = UIImage(systemName: "bell")
             IconStatus.tintColor = UIColor.systemTeal
         }
+        
+        tableView.endUpdates()
+        
     }
         
     func formatPhoneNumber(_ phoneNumber: String) -> String {
@@ -345,7 +338,11 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     
     func configurationTextField(_ textField: UITextField) {
         self.reasonTextField = textField
-        textField.placeholder = NSLocalizedString("alert_delete_reason", tableName: "messages", comment: "")
+        if orderDetails.statusId == 3 {
+            textField.placeholder = NSLocalizedString("alert_reject_reason", tableName: "messages", comment: "")
+        } else {
+            textField.placeholder = NSLocalizedString("alert_delete_reason", tableName: "messages", comment: "")
+        }
     }
     
     @IBAction func moveOrder(_ sender: Any) {
@@ -366,7 +363,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                     DispatchQueue.main.async {
                         if !self.moveOrderModel.message.isEmpty {
                             self.showSuccessAlert(self.moveOrderModel.message, onCompleteHandler: {() -> Void in
-                                
+                                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
                             })
                         }
                     }
@@ -390,6 +387,8 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         
         deleteAlert.addTextField(configurationHandler: self.configurationTextField)
         
+        deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .destructive, handler: nil))
+        
         deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
             
             self.cancelOrderModel.orderId = self.orderId
@@ -410,9 +409,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                         DispatchQueue.main.async {
                             if !self.cancelOrderModel.message.isEmpty {
                                 self.showSuccessAlert(self.cancelOrderModel.message, onCompleteHandler: {() -> Void in
-                                    self.EditButton.isEnabled = false
-                                    self.DeleteButton.isEnabled = false
-                                    self.MoveButton.isEnabled = false
+                                    self.performSegue(withIdentifier: "GoBackSegue", sender: self)
                                 })
                             }
                         }
@@ -430,10 +427,79 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             }
         }))
         
-        deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .destructive, handler: nil))
-        
         self.present(deleteAlert, animated: true, completion: nil)
         
+    }
+    
+    @IBAction func rejectOrder(_ sender: Any) {
+        
+        let rejectAlert = UIAlertController(title: NSLocalizedString("alert_reject_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_reject_message", tableName: "messages", comment: ""), preferredStyle: .alert)
+        
+        rejectAlert.addTextField(configurationHandler: self.configurationTextField)
+        
+        rejectAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .destructive, handler: nil))
+        
+        rejectAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
+            
+            self.rejectOrderModel.orderId = self.orderId
+            self.rejectOrderModel.rejectReason = self.reasonTextField.text!
+                            
+            do {
+                let data = try JSONEncoder().encode(self.rejectOrderModel)
+                
+                self.webApi.DoPost("orders/reject", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                    do {
+                        guard error == nil else { return }
+                        guard response != nil else { return }
+                        
+                        if let data = response {
+                            self.rejectOrderModel = try JSONDecoder().decode(RejectOrderModel.self, from: data)
+                        }
+                        
+                        DispatchQueue.main.async {
+                            if !self.rejectOrderModel.message.isEmpty {
+                                self.showSuccessAlert(self.rejectOrderModel.message, onCompleteHandler: {() -> Void in
+                                    self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                                })
+                            }
+                        }
+                        
+                    } catch {
+                        
+                        print(error)
+                        
+                        return
+                    }
+                })
+                                        
+            } catch {
+                
+            }
+        }))
+        
+        self.present(rejectAlert, animated: true, completion: nil)
+    }
+    
+    
+    func getDetails() {
+        webApi.DoGet("orders/\(orderId)", onCompleteHandler: {(response, error) -> Void in
+            do {
+                guard error == nil else { return }
+                guard response != nil else { return }
+                
+                if let data = response {
+                    self.orderDetails = try JSONDecoder().decode(OrderDetailsModel.self, from: data)
+                    
+                    DispatchQueue.main.async {
+                        self.displayInfo()
+                    }
+                    
+                }
+            } catch {
+                print("Error in details: \(error)")
+                return
+            }
+        })
     }
     
 }
