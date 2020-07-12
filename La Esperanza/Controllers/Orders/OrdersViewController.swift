@@ -321,6 +321,8 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                 guard error == nil else { return }
                 guard response != nil else { return }
                 
+                print(String(data: response!, encoding: .utf8)!)
+                
                 if let data = response {
                     let results = try JSONDecoder().decode([OrdersModel].self, from: data)
                     self.ordersReport = OrdersReport.group(orders: results)

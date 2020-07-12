@@ -36,7 +36,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
         
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -87,11 +87,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func showErrorAlert(_ message: String, onCompleteHandler: (() -> Void)?) {
-        let alert = UIAlertController(title: NSLocalizedString("error_title", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
-            onCompleteHandler?()
-        }))
-        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: NSLocalizedString("error_title", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
+                onCompleteHandler?()
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func logInWithCredentials() {
@@ -188,12 +190,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                           message = NSLocalizedString("error_auth_cancel", tableName: "messages", comment: "")
                         case LAError.userFallback?:
                           message = NSLocalizedString("error_auth_fallback", tableName: "messages", comment: "")
+                          UserDefaults.standard.set("", forKey: "UserName")
+                          UserDefaults.standard.set("", forKey: "UserPassword")
+                          UserDefaults.standard.set(false, forKey: "SavedCredentials")
+                          UserDefaults.standard.synchronize()
+                          self.savedCredentials = false
                         case LAError.biometryNotAvailable?:
                           message = NSLocalizedString("error_auth_biometric_not_available", tableName: "messages", comment: "")
-                          canContinue = true
+                          canContinue = !self.savedCredentials
                         case LAError.biometryNotEnrolled?:
                           message = NSLocalizedString("error_auth_not_enrolled", tableName: "messages", comment: "")
-                          canContinue = true
+                          canContinue = !self.savedCredentials
                         case LAError.biometryLockout?:
                           message = NSLocalizedString("error_auth_biometric_locked", tableName: "messages", comment: "")
                         default:
@@ -201,15 +208,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     if canContinue {
-                        DispatchQueue.main.async {
-                            self.showErrorAlert(message, onCompleteHandler: {() -> Void in
-                                self.navigateToNextView("MainViewController")
-                            })
-                        }
+                        self.showErrorAlert(message, onCompleteHandler: {() -> Void in
+                            self.navigateToNextView("MainViewController")
+                        })
                     } else {
-                        DispatchQueue.main.async {
-                            self.showErrorAlert(message, onCompleteHandler: nil)
-                        }
+                        self.showErrorAlert(message, onCompleteHandler: nil)
                     }
                 }
             }
@@ -218,9 +221,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     func navigateToNextView(_ viewId: String) {
         DispatchQueue.main.async {
-            if self.view.frame.origin.y != 0 {
-                self.view.frame.origin.y = 0
-            }
+            if self.view.frame.origin.y != 0 { self.view.frame.origin.y = 0 }
             let next = (self.storyboard?.instantiateViewController(identifier: viewId))!
             next.modalPresentationStyle = .currentContext
             self.present(next, animated: true, completion: nil)
