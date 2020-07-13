@@ -32,6 +32,8 @@
 "alert_reject_title" = "¿Rechazar el pedido?";
 "alert_reject_message" = "¿Está por rechazar el pedido?";
 "alert_reject_reason" = "Escriba una razón ...";
+"alert_session_timeout" = "Por seguridad de la aplicación su sesión ha sido terminada.\r\nPor lo que se le pedirá iniciar sesión de nuevo...";
+"alert_session_timeout_title" = "Se acabó el tiempo";
 
 //FaceID
 "auth_reason" = "Se requirede de autenticarse para continuar.";

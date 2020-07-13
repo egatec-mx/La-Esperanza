@@ -24,15 +24,19 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
+                
         savedCredentials = UserDefaults.standard.bool(forKey: "SavedCredentials")
         
         if savedCredentials && useFaceID {
             logInWithCredentials()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -148,7 +152,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                             if self.useFaceID {
                                 self.useBiometrics()
                             } else {
-                                self.navigateToNextView("MainViewController")
+                                self.navigateToNextView()
                             }
                         }
                     }
@@ -176,7 +180,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                         UserDefaults.standard.synchronize()
                     }
                     
-                    self.navigateToNextView("MainViewController")
+                    self.navigateToNextView()
                     
                 } else {
                     var message: String = ""
@@ -208,7 +212,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     
                     if canContinue {
                         self.showErrorAlert(message, onCompleteHandler: {() -> Void in
-                            self.navigateToNextView("MainViewController")
+                            self.navigateToNextView()
                         })
                     } else {
                         self.showErrorAlert(message, onCompleteHandler: nil)
@@ -218,12 +222,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func navigateToNextView(_ viewId: String) {
+    func navigateToNextView() {
         DispatchQueue.main.async {
             if self.view.frame.origin.y != 0 { self.view.frame.origin.y = 0 }
-            let next = (self.storyboard?.instantiateViewController(identifier: viewId))!
-            next.modalPresentationStyle = .currentContext
-            self.present(next, animated: true, completion: nil)
+            self.performSegue(withIdentifier: "MainViewSegue", sender: self)
         }
+    }
+    
+    @IBAction func sessionExpired(_ segue: UIStoryboardSegue){
+        self.showErrorAlert(NSLocalizedString("alert_session_timeout", tableName: "messages", comment: ""), onCompleteHandler: {() -> Void in
+            self.TextFieldPassword.text = ""
+            self.TextFieldUsername.text = ""
+            self.logInWithCredentials()
+        })
     }
 }

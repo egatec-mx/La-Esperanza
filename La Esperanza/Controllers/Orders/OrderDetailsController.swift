@@ -352,7 +352,14 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             
             self.webApi.DoPost("orders/advance", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                 do {
-                    guard error == nil else { return }
+                    
+                    guard error == nil else {
+                        if (error as NSError?)?.code == 401 {
+                            self.performSegue(withIdentifier: "DetailsTimeoutSegue", sender: self)
+                        }
+                        return
+                    }
+                    
                     guard response != nil else { return }
                     
                     if let data = response {
@@ -398,7 +405,14 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                 
                 self.webApi.DoPost("orders/cancel", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                     do {
-                        guard error == nil else { return }
+                                                
+                        guard error == nil else {
+                            if (error as NSError?)?.code == 401 {
+                                self.performSegue(withIdentifier: "DetailsTimeoutSegue", sender: self)
+                            }
+                            return
+                        }
+                        
                         guard response != nil else { return }
                         
                         if let data = response {
@@ -448,7 +462,14 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                 
                 self.webApi.DoPost("orders/reject", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                     do {
-                        guard error == nil else { return }
+                        
+                        guard error == nil else {
+                            if (error as NSError?)?.code == 401 {
+                                self.performSegue(withIdentifier: "DetailsTimeoutSegue", sender: self)
+                            }
+                            return
+                        }
+                        
                         guard response != nil else { return }
                         
                         if let data = response {
@@ -483,14 +504,14 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     func getDetails() {
         webApi.DoGet("orders/\(orderId)", onCompleteHandler: {(response, error) -> Void in
             do {
-                guard response != nil else { return }
-                
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
-                        self.dismiss(animated: true, completion: nil)
+                        self.performSegue(withIdentifier: "DetailsTimeoutSegue", sender: self)
                     }
                     return
                 }
+                
+                guard response != nil else { return }
                 
                 if let data = response {
                     self.orderDetails = try JSONDecoder().decode(OrderDetailsModel.self, from: data)

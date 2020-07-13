@@ -150,7 +150,14 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                     
                     self.webApi.DoPost("orders/cancel", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                         do {
-                            guard error == nil else { return }
+                                                        
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                                }
+                                return
+                            }
+                            
                             guard response != nil else { return }
                             
                             if let data = response {
@@ -208,7 +215,14 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                     
                     self.webApi.DoPost("orders/reject", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                         do {
-                            guard error == nil else { return }
+                                                        
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                                }
+                                return
+                            }
+                            
                             guard response != nil else { return }
                             
                             if let data = response {
@@ -277,7 +291,14 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                     
                     self.webApi.DoPost("orders/advance", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                         do {
-                            guard error == nil else { return }
+                            
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                                }
+                                return
+                            }
+                            
                             guard response != nil else { return }
                             
                             if let data = response {
@@ -356,7 +377,14 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
     @objc func getOrdersReport() {
         webApi.DoGet("orders/report", onCompleteHandler: { (response, error) -> Void in
             do {
-                guard error == nil else { return }
+                                
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                    }
+                    return
+                }
+                
                 guard response != nil else { return }
                 
                 if let data = response {
@@ -381,9 +409,16 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         
         webApi.DoPost("orders/search", jsonData: data, onCompleteHandler: { (response, error) -> Void in
             do {
-                guard error == nil else { return }
+                
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                    }
+                    return
+                }
+                
                 guard response != nil else { return }
-
+                
                 if let data = response {
                     let results = try JSONDecoder().decode([OrdersModel].self, from: data)
                     self.ordersReport = OrdersReport.group(orders: results)

@@ -133,6 +133,7 @@
                         <outlet property="TextFieldPassword" destination="Pbq-QN-nfa" id="1wD-bs-OnD"/>
                         <outlet property="TextFieldUsername" destination="qCV-aZ-7jQ" id="c9H-fu-sM6"/>
                         <outlet property="VerticalStackLogIn" destination="giO-LI-UiK" id="KtH-HB-OZA"/>
+                        <segue destination="Ryb-S1-9WX" kind="show" identifier="MainViewSegue" id="Vcd-eh-oVS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fiZ-dT-e1g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -142,12 +143,13 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1339" y="-11"/>
+            <point key="canvasLocation" x="-1436" y="-11"/>
         </scene>
         <!--Main View-->
         <scene sceneID="A5E-qb-PAg">
             <objects>
-                <navigationController storyboardIdentifier="MainViewController" title="Main View" modalTransitionStyle="flipHorizontal" id="Ryb-S1-9WX" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainViewController" title="Main View" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="flipHorizontal" modalPresentationStyle="currentContext" id="Ryb-S1-9WX" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="RbP-ic-zwI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="eOd-hw-Ws4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -325,9 +327,11 @@
                     <connections>
                         <outlet property="searchBar" destination="zbV-ga-MEa" id="lMx-1g-1Mf"/>
                         <segue destination="lc6-TE-WTj" kind="show" identifier="DetailSegue" id="587-jv-QV1"/>
+                        <segue destination="SoO-BF-LmZ" kind="unwind" identifier="OrdersTimeoutSegue" unwindAction="sessionExpired:" id="u95-VS-aHY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRz-RY-3g1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="SoO-BF-LmZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1340" y="-366.56671664167919"/>
         </scene>
@@ -552,7 +556,7 @@
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ArticlesCell" rowHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="LO1-AE-U5r" customClass="ArticlesTableViewCell" customModule="La_Esperanza" customModuleProvider="target">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ArticlesCell" rowHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="LO1-AE-U5r" customClass="ArticlesTableViewCell" customModule="La_Esperanza" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="27" width="375" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LO1-AE-U5r" id="Hpx-No-reG">
@@ -732,6 +736,7 @@
                         <outlet property="RejectButton" destination="ldu-jD-muO" id="0lA-E9-ySV"/>
                         <outlet property="ScrollView" destination="Awk-uc-Xuj" id="VaL-qS-ARm"/>
                         <segue destination="dDF-Ry-zJ2" kind="unwind" identifier="GoBackSegue" unwindAction="reloadOrdersView:" id="mGv-6a-dVK"/>
+                        <segue destination="dDF-Ry-zJ2" kind="unwind" identifier="DetailsTimeoutSegue" unwindAction="sessionExpired:" id="SK0-IO-REV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="93i-uq-1KH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
