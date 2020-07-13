@@ -20,7 +20,7 @@ class ArticlesTableView: UITableView, UITableViewDelegate, UITableViewDataSource
             
         let article = articles[indexPath.row]
         
-        cell.LabelQuantity.text = "\(article.orderDetailQuantity) Kg"
+        cell.LabelQuantity.text = "\(article.orderDetailQuantity)"
         cell.LabelProduct.text = article.productName
         
         let format = NumberFormatter()

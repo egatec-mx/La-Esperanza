@@ -36,8 +36,18 @@ class WebApi: NSObject, URLSessionDelegate {
         
         let task = session.dataTask(with: request) { (data, response, error) -> Void in
             guard error == nil else { onCompleteHandler(nil, error); return }
-            guard let responseData = data else { return }
-            onCompleteHandler(responseData, error)
+            
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                switch statusCode {
+                case 200:
+                    onCompleteHandler(data, error)
+                case 401:
+                    let nError = NSError(domain: "", code: 401, userInfo: nil)
+                    onCompleteHandler(nil, nError)
+                default:
+                    onCompleteHandler(data, error)
+                }
+            }
         }
         
         task.resume()
@@ -60,8 +70,18 @@ class WebApi: NSObject, URLSessionDelegate {
                 
         let task = session.dataTask(with: request) { (data, response, error) -> Void in
             guard error == nil else { onCompleteHandler(nil, error); return }
-            guard let responseData = data else { return }
-            onCompleteHandler(responseData, error)
+            
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                switch statusCode {
+                case 200:
+                    onCompleteHandler(data, error)
+                case 401:
+                    let nError = NSError(domain: "", code: 401, userInfo: nil)
+                    onCompleteHandler(nil, nError)
+                default:
+                    onCompleteHandler(data, error)
+                }
+            }
         }
         
         task.resume()

@@ -20,7 +20,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var VerticalStackLogIn: UIStackView!
     @IBOutlet var TextFieldUsername: UITextField!
     @IBOutlet var TextFieldPassword: UITextField!
-    @IBOutlet var ButtonContinue: UIButton!
+    @IBOutlet var ButtonContinue: CustomUIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,6 +182,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     var message: String = ""
                     var canContinue: Bool = false;
                     self.useFaceID = false
+                    UserDefaults.standard.set("", forKey: "UserName")
+                    UserDefaults.standard.set("", forKey: "UserPassword")
+                    UserDefaults.standard.set(false, forKey: "SavedCredentials")
+                    UserDefaults.standard.synchronize()
                     
                     switch error {
                         case LAError.authenticationFailed?:
@@ -190,11 +194,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                           message = NSLocalizedString("error_auth_cancel", tableName: "messages", comment: "")
                         case LAError.userFallback?:
                           message = NSLocalizedString("error_auth_fallback", tableName: "messages", comment: "")
-                          UserDefaults.standard.set("", forKey: "UserName")
-                          UserDefaults.standard.set("", forKey: "UserPassword")
-                          UserDefaults.standard.set(false, forKey: "SavedCredentials")
-                          UserDefaults.standard.synchronize()
-                          self.savedCredentials = false
                         case LAError.biometryNotAvailable?:
                           message = NSLocalizedString("error_auth_biometric_not_available", tableName: "messages", comment: "")
                           canContinue = !self.savedCredentials

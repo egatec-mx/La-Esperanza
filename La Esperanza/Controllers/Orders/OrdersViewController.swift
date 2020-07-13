@@ -332,7 +332,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
            getOrdersReport()
-        } else if searchText.count > 2 {
+        } else if searchText.count >= 3 {
            getSearchResults(searchText)
         }
     }
@@ -383,9 +383,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
             do {
                 guard error == nil else { return }
                 guard response != nil else { return }
-                
-                print(String(data: response!, encoding: .utf8)!)
-                
+
                 if let data = response {
                     let results = try JSONDecoder().decode([OrdersModel].self, from: data)
                     self.ordersReport = OrdersReport.group(orders: results)
@@ -397,7 +395,6 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                     
                 }
             } catch {
-                print("Error in Search: \(error)")
                 return
             }
         })

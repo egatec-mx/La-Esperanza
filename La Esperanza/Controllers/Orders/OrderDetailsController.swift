@@ -194,14 +194,13 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             ScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: (LabelNotes.frame.height * 1.15), right: 0)
         }
         
-        if orderDetails.statusId >= 4 {
+        if orderDetails.statusId == 1 || orderDetails.statusId == 2 {
+            toolbarItems?.remove(at: 1)
+            toolbarItems?.remove(at: 1)
+        } else if orderDetails.statusId >= 4 {
             MoveButton.isEnabled = false
             DeleteButton.isEnabled = false
             EditButton.isEnabled = false
-            RejectButton.isEnabled = false
-        } else if orderDetails.statusId == 3 {
-            RejectButton.isEnabled = true
-        } else {
             RejectButton.isEnabled = false
         }
         
@@ -484,8 +483,14 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     func getDetails() {
         webApi.DoGet("orders/\(orderId)", onCompleteHandler: {(response, error) -> Void in
             do {
-                guard error == nil else { return }
                 guard response != nil else { return }
+                
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    return
+                }
                 
                 if let data = response {
                     self.orderDetails = try JSONDecoder().decode(OrderDetailsModel.self, from: data)
@@ -495,8 +500,8 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                     }
                     
                 }
+                
             } catch {
-                print("Error in details: \(error)")
                 return
             }
         })
