@@ -44,8 +44,6 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.setContentOffset(CGPoint(x: 0, y: -tableView.contentInset.top), animated: true)
-        
         clearDataFromUI()
         
         dateFormatter.locale = Locale.current
@@ -355,7 +353,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                     
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
-                            self.performSegue(withIdentifier: "DetailsTimeoutSegue", sender: self)
+                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                         }
                         return
                     }
@@ -408,7 +406,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                                                 
                         guard error == nil else {
                             if (error as NSError?)?.code == 401 {
-                                self.performSegue(withIdentifier: "DetailsTimeoutSegue", sender: self)
+                                self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                             }
                             return
                         }
@@ -465,7 +463,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                         
                         guard error == nil else {
                             if (error as NSError?)?.code == 401 {
-                                self.performSegue(withIdentifier: "DetailsTimeoutSegue", sender: self)
+                                self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                             }
                             return
                         }
@@ -506,7 +504,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             do {
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "DetailsTimeoutSegue", sender: self)
+                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                     }
                     return
                 }

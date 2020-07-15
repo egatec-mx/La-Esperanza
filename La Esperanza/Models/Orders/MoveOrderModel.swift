@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct MoveOrderModel: BaseModel, Encodable, Decodable {
+struct MoveOrderModel: BaseModel {
     var errors: [String]
     var message: String
     var orderId: CLongLong

@@ -137,12 +137,8 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
             
             deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
                 
-                if self.selectedOrderId == 0 {
-                    self.cancelOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
-                } else {
-                    self.cancelOrderModel.orderId = self.selectedOrderId
-                }
-                
+                self.cancelOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
+            
                 self.cancelOrderModel.cancelReason = self.cancelReasonTextField.text!
                                 
                 do {
@@ -153,7 +149,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                                                         
                             guard error == nil else {
                                 if (error as NSError?)?.code == 401 {
-                                    self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                                 }
                                 return
                             }
@@ -201,13 +197,9 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
             rejectAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .destructive, handler: nil))
             
             rejectAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
-                
-                if self.selectedOrderId == 0 {
-                    self.rejectOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
-                } else {
-                    self.rejectOrderModel.orderId = self.selectedOrderId
-                }
-                
+                               
+                self.rejectOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
+            
                 self.rejectOrderModel.rejectReason = self.cancelReasonTextField.text!
                                 
                 do {
@@ -218,7 +210,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                                                         
                             guard error == nil else {
                                 if (error as NSError?)?.code == 401 {
-                                    self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                                 }
                                 return
                             }
@@ -280,11 +272,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         case 1, 2, 3:
             let moveAction = UIContextualAction(style: .normal, title: NSLocalizedString("swipe_left", tableName: "messages", comment: ""), handler: { (_, _, performed: (Bool) -> Void) in
                 
-                if self.selectedOrderId == 0 {
-                    self.moveOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
-                } else {
-                    self.moveOrderModel.orderId = self.selectedOrderId
-                }
+                self.moveOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
                 
                 do {
                     let data = try JSONEncoder().encode(self.moveOrderModel)
@@ -294,7 +282,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                             
                             guard error == nil else {
                                 if (error as NSError?)?.code == 401 {
-                                    self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                                 }
                                 return
                             }
@@ -375,12 +363,12 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
     }
         
     @objc func getOrdersReport() {
-        webApi.DoGet("orders/report", onCompleteHandler: { (response, error) -> Void in
+        webApi.DoGet("orders", onCompleteHandler: { (response, error) -> Void in
             do {
                                 
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                     }
                     return
                 }
@@ -412,7 +400,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                 
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "OrdersTimeoutSegue", sender: self)
+                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                     }
                     return
                 }

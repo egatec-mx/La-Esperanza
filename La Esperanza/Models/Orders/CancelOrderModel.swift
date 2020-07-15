@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct CancelOrderModel: BaseModel, Encodable, Decodable {
+struct CancelOrderModel: BaseModel {
     var errors: [String]
     var message: String
     var orderId: CLongLong
