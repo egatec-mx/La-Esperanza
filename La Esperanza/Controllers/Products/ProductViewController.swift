@@ -22,6 +22,8 @@ class ProductViewController: UITableViewController {
         self.numberFormat.minimumFractionDigits = 2
         self.numberFormat.maximumFractionDigits = 2
         
+        self.navigationController?.setToolbarHidden(true, animated: true)
+        
         self.getProduct()
     }
     

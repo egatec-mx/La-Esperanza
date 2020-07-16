@@ -23,10 +23,14 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         self.refreshControl?.addTarget(self, action: #selector(getProducts), for: .allEvents)
+               
+        getProducts()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         self.navigationController?.setToolbarHidden(false, animated: true)
-                            
-        getProducts()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
