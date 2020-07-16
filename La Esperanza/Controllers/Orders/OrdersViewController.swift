@@ -17,6 +17,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
     var rejectOrderModel: RejectOrderModel = RejectOrderModel()
     var selectedOrderId: CLongLong = 0
     var cancelReasonTextField: UITextField!
+    var badgeValue: Int = 0
     
     @IBOutlet var searchBar: UISearchBar!
     
@@ -27,11 +28,9 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
             tabParent.navigationItem.title = NSLocalizedString("tab_orders", tableName: "messages", comment: "")
         }
         
-        refreshControl?.addTarget(self, action: #selector(getOrdersReport), for: .allEvents)
+        self.refreshControl?.addTarget(self, action: #selector(getOrdersReport), for: .allEvents)
         
-        searchBar.delegate = self
-                
-        getOrdersReport()
+        self.getOrdersReport()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -377,12 +376,24 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                 
                 if let data = response {
                     let orders = try JSONDecoder().decode([OrdersModel].self, from: data)
-                    self.ordersReport = OrdersReport.group(orders: orders).sorted(by: {(lr, rr) -> Bool in lr.status < rr.status })
+                    self.badgeValue = orders.filter{$0.statusId == 1}.count
+                    self.ordersReport = OrdersReport.group(orders: orders).sorted(by: { (a, b) -> Bool in
+                        return a.status < b.status
+                    })
                 }
                 
                 DispatchQueue.main.async {
+                    
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
+                    
+                    if self.badgeValue > 0 {
+                        self.tabBarItem.badgeValue = String(self.badgeValue)
+                        self.tabBarItem.badgeColor = UIColor.red
+                    } else {
+                        self.tabBarItem.badgeValue = ""
+                        self.tabBarItem.badgeColor = UIColor.clear
+                    }
                 }
             } catch {
                 return

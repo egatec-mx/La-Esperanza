@@ -13,6 +13,7 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
     var productsList: [ProductModel] = []
     var searchList:[ProductModel] = []
     var productModel: ProductModel = ProductModel()
+    var selectedProductId: Int = 0
     
     @IBOutlet var searchBar: UISearchBar!
     
@@ -66,12 +67,9 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return nil
-    }
-    
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return nil
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedProductId = searchList[indexPath.row].productId
+        return indexPath
     }
     
     @objc func getProducts() {
@@ -119,14 +117,16 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
         tableView.reloadData()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func reloadProductsList(_ segue: UIStoryboardSegue){
+        let destination = segue.destination as! ProductsTableViewController
+        destination.selectedProductId = 0
+        destination.getProducts()
     }
-    */
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let editView = segue.destination as! ProductViewController
+        editView.productModel.productId = selectedProductId
+    }
 
 }
