@@ -8,16 +8,9 @@
 
 import UIKit
 
-struct RejectOrderModel: BaseModel {
-    var errors: [String]
-    var message: String
-    var orderId: CLongLong
-    var rejectReason: String
-    
-    init() {
-        errors = []
-        message = ""
-        orderId = 0
-        rejectReason = ""
-    }
+struct RejectOrderModel: ActionModel {
+    var errors: [String] = []
+    var message: String = ""
+    var orderId: CLongLong = 0
+    var rejectReason: String = ""
 }

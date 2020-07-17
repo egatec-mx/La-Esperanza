@@ -9,7 +9,7 @@
 import Foundation
 
 struct ArticlesModel: Encodable, Decodable {
-    var orderDetailQuantity: Decimal
-    var orderDetailTotal: Decimal
-    var productName: String
+    var orderDetailQuantity: Decimal = 0
+    var orderDetailTotal: Decimal = 0
+    var productName: String = ""
 }

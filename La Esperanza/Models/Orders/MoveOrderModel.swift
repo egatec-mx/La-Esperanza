@@ -8,14 +8,8 @@
 
 import UIKit
 
-struct MoveOrderModel: BaseModel {
-    var errors: [String]
-    var message: String
-    var orderId: CLongLong
-    
-    init() {
-        errors = []
-        message = ""
-        orderId = 0
-    }
+struct MoveOrderModel: ActionModel {
+    var errors: [String] = []
+    var message: String = ""
+    var orderId: CLongLong = 0
 }

@@ -9,11 +9,6 @@
 import UIKit
 
 struct ProfileModel: Encodable, Decodable {
-    var name: String
-    var role: String
-    
-    init() {
-        name = ""
-        role = ""
-    }
+    var name: String = ""
+    var role: String = ""
 }

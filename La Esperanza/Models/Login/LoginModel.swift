@@ -8,18 +8,10 @@
 
 import UIKit
 
-struct LoginModel: BaseModel {
-    var errors: [String]
-    var message: String
-    var userName: String
-    var password: String
-    var token: String
-    
-    init() {
-        errors = []
-        message = ""
-        userName = ""
-        password = ""
-        token = ""
-    }
+struct LoginModel: ActionModel {
+    var errors: [String] = []
+    var message: String = ""
+    var userName: String = ""
+    var password: String = ""
+    var token: String = ""
 }

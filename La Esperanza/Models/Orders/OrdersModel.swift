@@ -9,17 +9,9 @@
 import  UIKit
 
 struct OrdersModel: Encodable, Decodable {
-    var orderId: CLongLong
-    var orderDate: String
-    var orderTotal: Decimal
-    var customer: String
-    var statusId: Int
-    
-    init() {
-        orderId = 0
-        orderDate = ""
-        orderTotal = 0.0
-        customer = ""
-        statusId = 0
-    }
+    var orderId: CLongLong = 0
+    var orderDate: String = ""
+    var orderTotal: Decimal = 0.00
+    var customer: String = ""
+    var statusId: Int = 0
 }

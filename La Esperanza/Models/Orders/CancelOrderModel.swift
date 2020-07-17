@@ -8,16 +8,9 @@
 
 import UIKit
 
-struct CancelOrderModel: BaseModel {
-    var errors: [String]
-    var message: String
-    var orderId: CLongLong
-    var cancelReason: String
-    
-    init() {
-        errors = []
-        message = ""
-        orderId = 0
-        cancelReason = ""
-    }
+struct CancelOrderModel: ActionModel {
+    var errors: [String] = []
+    var message: String = ""
+    var orderId: CLongLong = 0
+    var cancelReason: String = ""
 }

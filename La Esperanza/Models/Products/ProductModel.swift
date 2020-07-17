@@ -9,15 +9,8 @@
 import UIKit
 
 struct ProductModel: Encodable, Decodable, Equatable {
-    var productId: Int
-    var productName: String
-    var productPrice: Decimal
-    var productActive: Bool
-    
-    init() {
-        productId = 0
-        productName = ""
-        productPrice = 0.0
-        productActive = true
-    }
+    var productId: Int = 0
+    var productName: String = ""
+    var productPrice: Decimal = 0.00
+    var productActive: Bool = true
 }

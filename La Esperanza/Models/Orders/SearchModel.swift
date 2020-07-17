@@ -8,14 +8,8 @@
 
 import Foundation
 
-struct SearchModel: BaseModel {
-    var errors: [String]
-    var message: String
-    var searchTerm: String
-    
-    init() {
-        searchTerm = ""
-        errors = []
-        message = ""
-    }
+struct SearchModel: ActionModel {
+    var errors: [String] = []
+    var message: String = ""
+    var searchTerm: String = ""
 }

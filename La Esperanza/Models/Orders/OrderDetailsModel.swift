@@ -9,18 +9,18 @@
 import Foundation
 
 struct OrderDetailsModel: Decodable, Encodable {
-    var orderId: CLongLong
-    var customerName: String
-    var customerLastname: String
-    var customerPhone: String
-    var customerStreet: String
-    var customerColony: String
-    var customerCity: String
-    var customerZipcode: Int
-    var stateName: String
-    var countryName: String
-    var orderDate: String
-    var paymentMethod: String
+    var orderId: CLongLong = 0
+    var customerName: String = ""
+    var customerLastname: String = ""
+    var customerPhone: String = ""
+    var customerStreet: String = ""
+    var customerColony: String = ""
+    var customerCity: String = ""
+    var customerZipcode: Int = 0
+    var stateName: String = ""
+    var countryName: String = ""
+    var orderDate: String = ""
+    var paymentMethod: String = ""
     var orderScheduleDate: String?
     var orderCanceledDate: String?
     var orderCanceledReason: String?
@@ -32,46 +32,12 @@ struct OrderDetailsModel: Decodable, Encodable {
     var orderRejectedDate: String?
     var orderRejectedReason: String?
     var orderStartedDate: String?
-    var orderSubtotal: Decimal
-    var orderTax: Decimal
-    var orderTotal: Decimal
-    var statusName: String
-    var userFirstname: String
-    var userLastname: String
-    var articles: [ArticlesModel]
-    var statusId: Int
-    
-    init() {
-        orderId = 0
-        customerName = ""
-        customerLastname = ""
-        customerPhone = ""
-        customerStreet = ""
-        customerColony = ""
-        customerCity = ""
-        customerZipcode = 0
-        stateName = ""
-        countryName = ""
-        orderDate = ""
-        paymentMethod = ""
-        orderScheduleDate = nil
-        orderCanceledDate = nil
-        orderCanceledReason = nil
-        orderDeliveredDate = nil
-        orderDeliveryTax = 0.0
-        orderNotes = nil
-        orderProcessedDate = nil
-        orderQrCode = nil
-        orderRejectedDate = nil
-        orderRejectedReason = nil
-        orderStartedDate = nil
-        orderSubtotal = 0.0
-        orderTax = 0.0
-        orderTotal = 0.0
-        statusName = ""
-        userFirstname = ""
-        userLastname = ""
-        articles = []
-        statusId = 0
-    }
+    var orderSubtotal: Decimal = 0.0
+    var orderTax: Decimal = 0.0
+    var orderTotal: Decimal = 0.0
+    var statusName: String = ""
+    var userFirstname: String = ""
+    var userLastname: String = ""
+    var articles: [ArticlesModel] = []
+    var statusId: Int = 0
 }
