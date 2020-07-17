@@ -38,6 +38,8 @@
 "alert_product_delete" = "Está por borrar este producto.";
 "alert_validation_title" = "¡Alto!";
 "alert_validation_message" = "Hay algunos campos incorrectos, revise porfavor.";
+"alert_product_success_add" = "Se agregó el producto correctamente.";
+"alert_product_success_edit" = "Se ha actualizado el producto correctamente.";
 
 //FaceID
 "auth_reason" = "Se requirede de autenticarse para continuar.";

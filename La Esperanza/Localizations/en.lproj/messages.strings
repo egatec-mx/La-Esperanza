@@ -38,6 +38,8 @@
 "alert_product_delete" = "You are about to delete this product.";
 "alert_validation_title" = "Hey!";
 "alert_validation_message" = "There are incorrect fields, please check.";
+"alert_product_success_add" = "The product has been added.";
+"alert_product_success_edit" = "The product has been updated.";
 
 //FaceID
 "auth_reason" = "Authentication is required.";

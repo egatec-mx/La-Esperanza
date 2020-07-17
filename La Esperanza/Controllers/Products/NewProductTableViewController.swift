@@ -1,14 +1,14 @@
 //
-//  ProductViewController.swift
+//  NewProductTableViewController.swift
 //  La Esperanza
 //
-//  Created by Efrain Garcia Rocha on 15/07/20.
+//  Created by Efrain Garcia Rocha on 16/07/20.
 //  Copyright © 2020 Efrain Garcia Rocha. All rights reserved.
 //
 
 import UIKit
 
-class ProductViewController: UITableViewController {
+class NewProductTableViewController: UITableViewController {
     let webApi: WebApi = WebApi()
     var productModel: ProductModel = ProductModel()
     let numberFormat: NumberFormatter = NumberFormatter()
@@ -23,8 +23,6 @@ class ProductViewController: UITableViewController {
         self.numberFormat.maximumFractionDigits = 2
         
         self.navigationController?.setToolbarHidden(true, animated: true)
-        
-        self.getProduct()
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -33,7 +31,7 @@ class ProductViewController: UITableViewController {
         productCell.productPrice.text = self.numberFormat.string(for: self.productModel.productPrice)
     }
     
-    @IBAction func update(_ sender: Any) {
+    @IBAction func save(_ sender: Any) {
         let productCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ProductTableViewCell
         
         if productCell.productName.text!.isEmpty || productCell.productPrice.text!.isEmpty {
@@ -62,7 +60,7 @@ class ProductViewController: UITableViewController {
             do {
                 let data = try JSONEncoder().encode(productModel)
             
-                webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                webApi.DoPost("products/add", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                                         
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
@@ -73,7 +71,15 @@ class ProductViewController: UITableViewController {
                     
                     guard response != nil else { return }
                     
-                    self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                    let successAlert = UIAlertController(title: NSLocalizedString("alert_success", tableName: "messages", comment: ""), message: NSLocalizedString("alert_product_success_add", tableName: "messages", comment: ""), preferredStyle: .alert)
+                    
+                    successAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
+                        
+                        self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                        
+                    }))
+                    
+                    self.present(successAlert, animated: true, completion: nil)
                     
                 })
             } catch {
@@ -82,41 +88,4 @@ class ProductViewController: UITableViewController {
             }
         }
     }
-    
-    @objc func getProduct(){
-        webApi.DoGet("products/\(productModel.productId)", onCompleteHandler: { (response, error) -> Void in
-            do {
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                    }
-                    return
-                }
-                
-                guard response != nil else { return }
-                
-                if let data = response {
-                    self.productModel = try JSONDecoder().decode(ProductModel.self, from: data)
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }
-                
-            } catch {
-                return
-            }
-        })
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

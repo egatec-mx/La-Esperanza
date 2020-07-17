@@ -364,7 +364,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="SbK-E0-dQv" kind="show" id="WHV-nS-Azt"/>
+                                    <segue destination="SbK-E0-dQv" kind="show" identifier="EditProductSegue" id="WHV-nS-Azt"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -375,7 +375,11 @@
                     </tableView>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="ak9-AE-Cxl"/>
-                        <barButtonItem systemItem="compose" id="AKv-JS-rhu"/>
+                        <barButtonItem systemItem="compose" id="AKv-JS-rhu">
+                            <connections>
+                                <segue destination="hKU-T4-Bch" kind="show" identifier="NewProductSegue" id="3Oj-Kx-35x"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Products" id="UcF-Qt-HnL"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="t60-DU-e1q">
@@ -392,10 +396,101 @@
             </objects>
             <point key="canvasLocation" x="2292" y="475"/>
         </scene>
-        <!--Product View-->
+        <!--New Product View-->
+        <scene sceneID="Nig-ED-jqQ">
+            <objects>
+                <tableViewController title="New Product View" modalPresentationStyle="fullScreen" id="hKU-T4-Bch" customClass="NewProductTableViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="l5L-71-P2Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <sections>
+                            <tableViewSection id="DAb-w2-K3Z">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="96" id="tmW-6w-HKw" customClass="ProductTableViewCell" customModule="La_Esperanza" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="96"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tmW-6w-HKw" id="eMa-ln-LEb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q5Q-Ab-6DR" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="11" width="343" height="34"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="36"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="cube.box" catalog="system"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wvE-oT-xxT" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="51" width="343" height="34"/>
+                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="36"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="dollarsign.circle" catalog="system"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="wvE-oT-xxT" firstAttribute="bottom" secondItem="eMa-ln-LEb" secondAttribute="bottomMargin" id="OFD-R6-TNz"/>
+                                                <constraint firstItem="Q5Q-Ab-6DR" firstAttribute="top" secondItem="eMa-ln-LEb" secondAttribute="topMargin" id="dzj-Dg-ruh"/>
+                                                <constraint firstItem="Q5Q-Ab-6DR" firstAttribute="leading" secondItem="eMa-ln-LEb" secondAttribute="leadingMargin" id="gco-pJ-yt6"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Q5Q-Ab-6DR" secondAttribute="trailing" id="hT1-z1-Yre"/>
+                                                <constraint firstItem="wvE-oT-xxT" firstAttribute="leading" secondItem="eMa-ln-LEb" secondAttribute="leadingMargin" id="ugK-Ib-Nmn"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="wvE-oT-xxT" secondAttribute="trailing" id="vzH-m9-oer"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="productName" destination="Q5Q-Ab-6DR" id="Tte-DX-7fG"/>
+                                            <outlet property="productPrice" destination="wvE-oT-xxT" id="Zgy-cW-qpH"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="hKU-T4-Bch" id="2Br-eJ-GL9"/>
+                            <outlet property="delegate" destination="hKU-T4-Bch" id="kRg-p3-iAR"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="New Product" id="Ole-w1-jJe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="vr9-fI-Ft1">
+                            <connections>
+                                <action selector="save:" destination="hKU-T4-Bch" id="ueG-hQ-FRt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="gSJ-QF-9Y8" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="p4a-AJ-ijB"/>
+                        <segue destination="gSJ-QF-9Y8" kind="unwind" identifier="GoBackSegue" unwindAction="reloadProductsList:" id="6gq-9D-Qms"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4mC-FS-r35" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="gSJ-QF-9Y8" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2292" y="1354"/>
+        </scene>
+        <!--Edit Product View-->
         <scene sceneID="hwG-ts-69R">
             <objects>
-                <tableViewController title="Product View" extendedLayoutIncludesOpaqueBars="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="fullScreen" id="SbK-E0-dQv" customClass="ProductViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Edit Product View" extendedLayoutIncludesOpaqueBars="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="fullScreen" id="SbK-E0-dQv" customClass="EditProductViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LBN-no-pBW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -482,7 +577,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YrX-dC-DeI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="AKP-X1-uwp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3212" y="474.51274362818594"/>
+            <point key="canvasLocation" x="3342" y="475"/>
         </scene>
         <!--Orders Tab-->
         <scene sceneID="tSw-eI-Vbr">
@@ -1032,6 +1127,7 @@
         <image name="bag" catalog="system" width="128" height="128"/>
         <image name="bag.fill" catalog="system" width="128" height="128"/>
         <image name="bell" catalog="system" width="128" height="124"/>
+        <image name="cube.box" catalog="system" width="128" height="124"/>
         <image name="cube.box.fill" catalog="system" width="128" height="124"/>
         <image name="dollarsign.circle" catalog="system" width="128" height="121"/>
         <image name="gear" catalog="system" width="128" height="119"/>

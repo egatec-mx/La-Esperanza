@@ -141,8 +141,14 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let editView = segue.destination as! ProductViewController
-        editView.productModel.productId = selectedProductId
+        if segue.identifier == "NewProductSegue" {
+            
+        }
+        
+        if segue.identifier == "EditProductSegue" {
+            let editView = segue.destination as! EditProductViewController
+            editView.productModel.productId = selectedProductId
+        }
     }
 
 }
