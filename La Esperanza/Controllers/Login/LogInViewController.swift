@@ -20,7 +20,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var VerticalStackLogIn: UIStackView!
     @IBOutlet var TextFieldUsername: UITextField!
     @IBOutlet var TextFieldPassword: UITextField!
-    @IBOutlet var ButtonContinue: CustomUIButton!
+    @IBOutlet var ButtonContinue: RoundedUIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

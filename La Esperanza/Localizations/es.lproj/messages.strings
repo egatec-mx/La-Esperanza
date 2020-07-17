@@ -34,6 +34,10 @@
 "alert_reject_reason" = "Escriba una razón ...";
 "alert_session_timeout" = "Por seguridad de la aplicación su sesión ha sido terminada.\r\nPor lo que se le pedirá iniciar sesión de nuevo...";
 "alert_session_timeout_title" = "Se acabó el tiempo";
+"alert_warning_title" = "¡Cudiado!";
+"alert_product_delete" = "Está por borrar este producto.";
+"alert_validation_title" = "¡Alto!";
+"alert_validation_message" = "Hay algunos campos incorrectos, revise porfavor.";
 
 //FaceID
 "auth_reason" = "Se requirede de autenticarse para continuar.";

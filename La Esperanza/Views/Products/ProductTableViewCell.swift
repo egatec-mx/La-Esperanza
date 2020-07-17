@@ -8,20 +8,25 @@
 
 import UIKit
 
-class ProductTableViewCell: UITableViewCell {
+class ProductTableViewCell: UITableViewCell, UITextFieldDelegate {
     
-    @IBOutlet var productName: UITextField!
-    @IBOutlet var productPrice: UITextField!
+    @IBOutlet var productName: ImageTextField!
+    @IBOutlet var productPrice: ImageTextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-                
+        
+        productName.delegate = self
+        productPrice.delegate = self
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == productName {
+            productPrice.becomeFirstResponder()
+        } else {
+            productPrice.resignFirstResponder()
+        }
+        
+        return true
     }
-
 }

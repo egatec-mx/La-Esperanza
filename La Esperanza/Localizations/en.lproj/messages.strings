@@ -34,6 +34,10 @@
 "alert_reject_reason" = "Why are you rejecting the order?";
 "alert_session_timeout" = "Your session has ended...\n\rLet's try login again....";
 "alert_session_timeout_title" = "Timeout!";
+"alert_warning_title" = "Warning!";
+"alert_product_delete" = "You are about to delete this product.";
+"alert_validation_title" = "Hey!";
+"alert_validation_message" = "There are incorrect fields, please check.";
 
 //FaceID
 "auth_reason" = "Authentication is required.";

@@ -36,30 +36,50 @@ class ProductViewController: UITableViewController {
     @IBAction func update(_ sender: Any) {
         let productCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ProductTableViewCell
         
-        productModel.productName = productCell.productName.text!
-        productModel.productPrice = numberFormat.number(from: productCell.productPrice.text!) as! Decimal
-        productModel.productActive = true
-        
-        do {
-            let data = try JSONEncoder().encode(productModel)
-        
-            webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                                    
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                    }
-                    return
+        if productCell.productName.text!.isEmpty || productCell.productPrice.text!.isEmpty {
+            
+            let valAlert = UIAlertController(title: NSLocalizedString("alert_validation_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), preferredStyle: .alert)
+            
+            valAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: nil))
+            
+            self.present(valAlert, animated: true, completion: {() -> Void in
+                
+                if productCell.productName.text!.isEmpty {
+                    productCell.productName.setValidationError()
                 }
                 
-                guard response != nil else { return }
-                
-                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                if productCell.productPrice.text!.isEmpty {
+                    productCell.productPrice.setValidationError()
+                }
                 
             })
-        } catch {
             
-            return
+        } else {
+            productModel.productName = productCell.productName.text!
+            productModel.productPrice = numberFormat.number(from: productCell.productPrice.text!) as! Decimal
+            productModel.productActive = true
+            
+            do {
+                let data = try JSONEncoder().encode(productModel)
+            
+                webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                                        
+                    guard error == nil else {
+                        if (error as NSError?)?.code == 401 {
+                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        }
+                        return
+                    }
+                    
+                    guard response != nil else { return }
+                    
+                    self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                    
+                })
+            } catch {
+                
+                return
+            }
         }
     }
     

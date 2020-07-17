@@ -51,21 +51,33 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            productModel = searchList[indexPath.row]
-            productModel.productActive = false
-            let data = try! JSONEncoder().encode(productModel)
-            webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+            let warningAlert = UIAlertController(title: NSLocalizedString("alert_warning_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_product_delete", tableName: "messages", comment: ""), preferredStyle: .alert)
+            
+            warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .cancel, handler: nil))
+            
+            warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .destructive, handler: { (action) -> Void in
+                
+                self.productModel = self.searchList[indexPath.row]
+                self.productModel.productActive = false
+                
+                let data = try! JSONEncoder().encode(self.productModel)
+                
+                self.webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                    guard error == nil else {
+                        if (error as NSError?)?.code == 401 {
+                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        }
+                        return
                     }
-                    return
-                }
-                
-                guard response != nil else { return }
-                
-                self.getProducts()
-            })
+                    
+                    guard response != nil else { return }
+                    
+                    self.getProducts()
+                })
+            }))
+            
+            self.present(warningAlert, animated: true, completion: nil)
+            
         default:
             return
         }
