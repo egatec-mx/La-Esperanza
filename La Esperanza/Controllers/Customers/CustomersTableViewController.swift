@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomersTableViewController: BaseUITableViewController {
+class CustomersTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConfigurationViewController: BaseUITableViewController {
+class ConfigurationViewController: UITableViewController {
     var webApi: WebApi = WebApi()
     var profile: ProfileModel = ProfileModel()
 

@@ -9,7 +9,7 @@
 import UIKit
 import LocalAuthentication
 
-class LogInViewController: BaseUIViewController, UITextFieldDelegate {
+class LogInViewController: UIViewController, UITextFieldDelegate {
     let authenticationContext = LAContext()
     let webApi: WebApi = WebApi()
     var isKeyboardAppear: Bool = false

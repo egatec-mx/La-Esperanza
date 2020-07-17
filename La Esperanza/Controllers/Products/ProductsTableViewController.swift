@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProductsTableViewController: BaseUITableViewController, UISearchBarDelegate {
+class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
     var webApi: WebApi = WebApi()
     var productsList: [ProductModel] = []
     var searchList:[ProductModel] = []

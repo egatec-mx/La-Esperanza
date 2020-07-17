@@ -21,6 +21,30 @@ import UIKit
         }
     }
     
+    @IBInspectable var borderColor: UIColor = .black {
+        didSet {
+            layer.borderColor = borderColor.cgColor
+        }
+    }
+    
+    @IBInspectable var borderWidth: CGFloat = 1 {
+        didSet {
+            layer.borderWidth = borderWidth
+        }
+    }
+    
+    @IBInspectable var borderRadius: CGFloat = 5 {
+        didSet {
+            layer.cornerRadius = borderRadius
+        }
+    }
+    
+    @IBInspectable var placeHolderColor: UIColor = .gray {
+        didSet {
+            attributedPlaceholder = NSAttributedString(string: placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : placeHolderColor])
+        }
+    }
+    
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: padding + imageWidth, dy: padding)
     }
@@ -30,20 +54,16 @@ import UIKit
     }
     
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
-        return CGRect(x: 0, y: 0, width: imageWidth, height: frame.height).insetBy(dx: padding, dy: padding)
+        return CGRect(x: padding, y: 0, width: imageWidth, height: frame.height).insetBy(dx: padding / 2, dy: padding / 2)
     }
     
     func setValidationError() {
         layer.borderColor = UIColor.red.cgColor
-        layer.borderWidth = 1
-        layer.cornerRadius = 5
         layer.setNeedsDisplay()
     }
     
     func clearValidationError(){
-        layer.borderColor = UIColor.clear.cgColor
-        layer.borderWidth = 1
-        layer.cornerRadius = 5
+        layer.borderColor = borderColor.cgColor
         layer.setNeedsDisplay()
     }
 }

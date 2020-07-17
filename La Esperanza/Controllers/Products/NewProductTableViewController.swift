@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewProductTableViewController: BaseUITableViewController {
+class NewProductTableViewController: UITableViewController {
     let webApi: WebApi = WebApi()
     var productModel: ProductModel = ProductModel()
     let numberFormat: NumberFormatter = NumberFormatter()

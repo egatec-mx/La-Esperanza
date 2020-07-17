@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "fresh_snow.png",
+      "filename" : "whitey.png",
       "idiom" : "iphone",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "binding_dark.png",
+      "filename" : "black-Linen.png",
       "idiom" : "iphone",
       "scale" : "1x"
     },
     {
-      "filename" : "fresh_snow_@2X.png",
+      "filename" : "whitey_@2X.png",
       "idiom" : "iphone",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "binding_dark_@2X.png",
+      "filename" : "black-Linen_@2X.png",
       "idiom" : "iphone",
       "scale" : "2x"
     },
     {
-      "filename" : "fresh_snow_@3X.png",
+      "filename" : "whitey_@3X.png",
       "idiom" : "iphone",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "binding_dark_@3X.png",
+      "filename" : "black-Linen_@3X.png",
       "idiom" : "iphone",
       "scale" : "3x"
     }
