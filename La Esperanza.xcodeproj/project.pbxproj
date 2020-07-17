@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C1C461924C2006200591641 /* BaseUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1C461824C2006200591641 /* BaseUIView.swift */; };
 		7C2AA5D724C0090F00F5CE94 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AA5D624C0090F00F5CE94 /* EditProductViewController.swift */; };
 		7C2AA5DA24C015D100F5CE94 /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AA5D924C015D100F5CE94 /* ProductTableViewCell.swift */; };
 		7C2DE86924BF6D7100491D85 /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2DE86824BF6D7100491D85 /* ProductsTableViewController.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C1C461824C2006200591641 /* BaseUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIView.swift; sourceTree = "<group>"; };
 		7C2AA5D624C0090F00F5CE94 /* EditProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProductViewController.swift; sourceTree = "<group>"; };
 		7C2AA5D924C015D100F5CE94 /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 		7C2DE86824BF6D7100491D85 /* ProductsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +106,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C1C461724C1FF2400591641 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C1C461824C2006200591641 /* BaseUIView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7C2AA5D824C015BD00F5CE94 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +314,7 @@
 				7CB0502D245DD0EB00CF8245 /* LaunchScreen.storyboard */,
 				7CB05025245DD0EA00CF8245 /* Main.storyboard */,
 				7CCAC6E824AE664E00D4D1F9 /* Controllers */,
+				7C1C461724C1FF2400591641 /* Extensions */,
 				7CCAC6E924AE68EF00D4D1F9 /* Controls */,
 				7C65120A24AEB61D00E1CEFB /* Localizations */,
 				7C60244F24AE4A0A00FB6D5A /* Models */,
@@ -424,6 +435,7 @@
 				7C2DE86924BF6D7100491D85 /* ProductsTableViewController.swift in Sources */,
 				7C60244B24AD788D00FB6D5A /* LogInViewController.swift in Sources */,
 				7C65120424AE8CF000E1CEFB /* OrdersViewController.swift in Sources */,
+				7C1C461924C2006200591641 /* BaseUIView.swift in Sources */,
 				7C42B37324B57E46008C014D /* ArticlesViewTableCell.swift in Sources */,
 				7C70395224AF1B2E0031E123 /* OrderTableViewCell.swift in Sources */,
 				7C65C20C24C133F200158112 /* CustomerModel.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 import LocalAuthentication
 
-class LogInViewController: UIViewController, UITextFieldDelegate {
+class LogInViewController: BaseUIViewController, UITextFieldDelegate {
     let authenticationContext = LAContext()
     let webApi: WebApi = WebApi()
     var isKeyboardAppear: Bool = false
@@ -24,12 +24,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         savedCredentials = UserDefaults.standard.bool(forKey: "SavedCredentials")
         
         if savedCredentials && useFaceID {
             logInWithCredentials()
-        }
+        }        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

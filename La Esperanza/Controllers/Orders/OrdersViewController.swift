@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OrdersViewController: UITableViewController, UISearchBarDelegate {
+class OrdersViewController: BaseUITableViewController, UISearchBarDelegate {
     let webApi: WebApi = WebApi()
     var ordersReport: [OrdersReport] = []
     var searchModel: SearchModel = SearchModel()

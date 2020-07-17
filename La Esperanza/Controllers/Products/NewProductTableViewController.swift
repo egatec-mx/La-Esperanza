@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewProductTableViewController: UITableViewController {
+class NewProductTableViewController: BaseUITableViewController {
     let webApi: WebApi = WebApi()
     var productModel: ProductModel = ProductModel()
     let numberFormat: NumberFormatter = NumberFormatter()
@@ -23,12 +23,6 @@ class NewProductTableViewController: UITableViewController {
         self.numberFormat.maximumFractionDigits = 2
         
         self.navigationController?.setToolbarHidden(true, animated: true)
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let productCell = cell as! ProductTableViewCell
-        productCell.productName.text = self.productModel.productName
-        productCell.productPrice.text = self.numberFormat.string(for: self.productModel.productPrice)
     }
     
     @IBAction func save(_ sender: Any) {

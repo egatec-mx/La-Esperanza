@@ -3,6 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -128,6 +129,9 @@
                             <outletCollection property="gestureRecognizers" destination="AHp-vN-Flr" appends="YES" id="1GY-wR-Eh0"/>
                         </connections>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="ButtonContinue" destination="OdN-dI-gfB" id="8i0-XD-UwX"/>
                         <outlet property="TextFieldPassword" destination="Pbq-QN-nfa" id="1wD-bs-OnD"/>
@@ -194,11 +198,14 @@
         <!--Configuration Tab-->
         <scene sceneID="j0Q-R6-KhE">
             <objects>
-                <tableViewController title="Configuration Tab" extendedLayoutIncludesOpaqueBars="YES" providesPresentationContextTransitionStyle="YES" modalTransitionStyle="partialCurl" modalPresentationStyle="fullScreen" id="koD-3J-Pev" customClass="ConfigurationViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Configuration Tab" extendedLayoutIncludesOpaqueBars="YES" modalTransitionStyle="partialCurl" modalPresentationStyle="fullScreen" id="koD-3J-Pev" customClass="ConfigurationViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="0Et-v8-n8j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
                             <tableViewSection headerTitle="PROFILE" id="psN-T4-pxE">
                                 <cells>
@@ -231,6 +238,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -265,6 +273,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Bee-SL-wct" detailTextLabel="zpq-Ez-9LP" imageView="R0T-rW-XfQ" rowHeight="56" style="IBUITableViewCellStyleSubtitle" id="UB9-9d-DUT">
                                         <rect key="frame" x="0.0" y="223.5" width="375" height="56"/>
@@ -295,6 +304,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                         <connections>
                                             <segue destination="i0C-Io-DBQ" kind="show" id="twL-52-Tzc"/>
                                         </connections>
@@ -308,6 +318,9 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Configuration" image="gear" catalog="system" selectedImage="gear" id="D6t-b1-x9O"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="0n4-3B-f9Q" kind="show" identifier="ProductSegue" id="dj9-RF-hC6"/>
                         <segue destination="3nI-Qg-gQw" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="wS8-hc-SLb"/>
@@ -321,10 +334,14 @@
         <!--Products View-->
         <scene sceneID="RVL-68-4aZ">
             <objects>
-                <tableViewController title="Products View" extendedLayoutIncludesOpaqueBars="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="fullScreen" id="0n4-3B-f9Q" customClass="ProductsTableViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Products View" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" id="0n4-3B-f9Q" customClass="ProductsTableViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" allowsSelection="NO" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Mmb-dd-p7B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Search Products" id="Bbr-vC-cop">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -366,6 +383,7 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="CellBackgroundColor"/>
                                 <connections>
                                     <segue destination="SbK-E0-dQv" kind="show" identifier="EditProductSegue" id="WHV-nS-Azt"/>
                                 </connections>
@@ -389,6 +407,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="searchBar" destination="Bbr-vC-cop" id="Rxm-P2-6Na"/>
                         <segue destination="2Jz-29-soH" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="tF2-13-cfV"/>
@@ -402,19 +423,23 @@
         <!--Customers View-->
         <scene sceneID="iWl-l6-dSy">
             <objects>
-                <tableViewController title="Customers View" extendedLayoutIncludesOpaqueBars="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="fullScreen" id="i0C-Io-DBQ" customClass="CustomersTableViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Customers View" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" id="i0C-Io-DBQ" customClass="CustomersTableViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" allowsSelection="NO" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="AbE-rg-au9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="4Lm-Sy-MrC">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CustomerCell" editingAccessoryType="disclosureIndicator" id="4Lm-Sy-MrC">
                                 <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4Lm-Sy-MrC" id="ntK-Ch-R2Z">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="CellBackgroundColor"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -424,8 +449,12 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Customers" id="wyf-Fk-AE3"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="fx1-ix-H6x">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
+                    </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VXw-nN-xLa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -438,7 +467,10 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="l5L-71-P2Y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
                             <tableViewSection id="DAb-w2-K3Z">
                                 <cells>
@@ -451,7 +483,7 @@
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q5Q-Ab-6DR" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="11" width="343" height="34"/>
-                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="tintColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
@@ -467,7 +499,7 @@
                                                 </textField>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wvE-oT-xxT" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="51" width="343" height="34"/>
-                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="tintColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -491,10 +523,51 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="wvE-oT-xxT" secondAttribute="trailing" id="vzH-m9-oer"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="productName" destination="Q5Q-Ab-6DR" id="Tte-DX-7fG"/>
                                             <outlet property="productPrice" destination="wvE-oT-xxT" id="Zgy-cW-qpH"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="65" id="E1e-Vf-A56">
+                                        <rect key="frame" x="0.0" y="124" width="375" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E1e-Vf-A56" id="zIZ-bp-PKo">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BXk-9i-G87" customClass="RoundedUIButton" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="107" y="11" width="161" height="43"/>
+                                                    <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" title="Save">
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="light"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="20"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="save:" destination="hKU-T4-Bch" eventType="touchUpInside" id="ERv-wL-oEs"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BXk-9i-G87" firstAttribute="centerX" secondItem="zIZ-bp-PKo" secondAttribute="centerX" id="0dw-93-DJX"/>
+                                                <constraint firstItem="BXk-9i-G87" firstAttribute="centerY" secondItem="zIZ-bp-PKo" secondAttribute="centerY" id="6Lo-m3-zzl"/>
+                                                <constraint firstItem="BXk-9i-G87" firstAttribute="leading" secondItem="zIZ-bp-PKo" secondAttribute="leadingMargin" constant="91" id="8ou-63-BPA"/>
+                                                <constraint firstItem="BXk-9i-G87" firstAttribute="top" secondItem="zIZ-bp-PKo" secondAttribute="topMargin" id="YIk-qR-DPL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -505,13 +578,10 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="New Product" id="Ole-w1-jJe">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="vr9-fI-Ft1">
-                            <connections>
-                                <action selector="save:" destination="hKU-T4-Bch" id="ueG-hQ-FRt"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="New Product" id="Ole-w1-jJe"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="gSJ-QF-9Y8" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="p4a-AJ-ijB"/>
                         <segue destination="gSJ-QF-9Y8" kind="unwind" identifier="GoBackSegue" unwindAction="reloadProductsList:" id="6gq-9D-Qms"/>
@@ -520,16 +590,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4mC-FS-r35" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="gSJ-QF-9Y8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2292" y="1354"/>
+            <point key="canvasLocation" x="2292" y="1353.3733133433284"/>
         </scene>
         <!--Edit Product View-->
         <scene sceneID="hwG-ts-69R">
             <objects>
-                <tableViewController title="Edit Product View" extendedLayoutIncludesOpaqueBars="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="fullScreen" id="SbK-E0-dQv" customClass="EditProductViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Edit Product View" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" id="SbK-E0-dQv" customClass="EditProductViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LBN-no-pBW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
                             <tableViewSection id="bY2-Pr-0Ov">
                                 <cells>
@@ -542,7 +612,7 @@
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GPc-uz-tO6" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="11" width="343" height="34"/>
-                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="tintColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" spellCheckingType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
@@ -558,7 +628,7 @@
                                                 </textField>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.00" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gnq-1J-dhA" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="55" width="343" height="34"/>
-                                                    <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="tintColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
@@ -582,6 +652,7 @@
                                                 <constraint firstItem="GPc-uz-tO6" firstAttribute="leading" secondItem="3zR-Lf-8WG" secondAttribute="leadingMargin" id="mgH-sR-Dku"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" updatesFrequently="YES"/>
                                         </accessibility>
@@ -589,6 +660,48 @@
                                             <outlet property="productName" destination="GPc-uz-tO6" id="aKP-Nh-Eog"/>
                                             <outlet property="productPrice" destination="gnq-1J-dhA" id="MTh-AB-Zdv"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="65" id="rE4-fx-SEG">
+                                        <rect key="frame" x="0.0" y="128" width="375" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rE4-fx-SEG" id="8qX-Yb-lNx">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNl-gK-J8g" customClass="RoundedUIButton" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="105" y="11" width="165" height="43"/>
+                                                    <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" title="Update">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="20"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="update:" destination="SbK-E0-dQv" eventType="touchUpInside" id="UA5-gr-Eab"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aNl-gK-J8g" firstAttribute="centerX" secondItem="8qX-Yb-lNx" secondAttribute="centerX" id="W5q-P1-jue"/>
+                                                <constraint firstItem="aNl-gK-J8g" firstAttribute="leading" secondItem="8qX-Yb-lNx" secondAttribute="leadingMargin" constant="89" id="fK0-sU-XV4"/>
+                                                <constraint firstItem="aNl-gK-J8g" firstAttribute="top" secondItem="8qX-Yb-lNx" secondAttribute="topMargin" id="mtS-Ql-npx"/>
+                                                <constraint firstItem="aNl-gK-J8g" firstAttribute="bottom" secondItem="8qX-Yb-lNx" secondAttribute="bottomMargin" id="pg5-9G-Wu0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" updatesFrequently="YES"/>
+                                        </accessibility>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -598,13 +711,10 @@
                             <outlet property="delegate" destination="SbK-E0-dQv" id="GtQ-lu-NHM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Product" id="sxJ-q9-b9e">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="N96-GW-aaA">
-                            <connections>
-                                <action selector="update:" destination="SbK-E0-dQv" id="p7k-VW-UlV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Product" id="sxJ-q9-b9e"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="AKP-X1-uwp" kind="unwind" identifier="GoBackSegue" unwindAction="reloadProductsList:" id="AH2-cQ-vqd"/>
                     </connections>
@@ -612,7 +722,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YrX-dC-DeI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="AKP-X1-uwp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3342" y="475"/>
+            <point key="canvasLocation" x="3341.5999999999999" y="474.51274362818594"/>
         </scene>
         <!--Orders Tab-->
         <scene sceneID="tSw-eI-Vbr">
@@ -621,7 +731,10 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" sectionIndexMinimumDisplayRowCount="-1" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="20" sectionFooterHeight="20" id="9Sa-E3-a5Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Search Orders" id="zbV-ga-MEa">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -631,7 +744,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OrdersCell" rowHeight="70" id="DdR-7T-EKx" customClass="OrderTableViewCell" customModule="La_Esperanza" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OrdersCell" rowHeight="70" id="DdR-7T-EKx" customClass="OrderTableViewCell" customModule="La_Esperanza" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="99.5" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DdR-7T-EKx" id="aAJ-8l-pVr">
@@ -714,6 +827,7 @@
                                         <constraint firstItem="V4y-6S-AiT" firstAttribute="leading" secondItem="aAJ-8l-pVr" secondAttribute="leadingMargin" id="vac-xB-2kf"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="CellBackgroundColor"/>
                                 <connections>
                                     <outlet property="ImageStatus" destination="KSx-ft-cJG" id="DCQ-47-b0J"/>
                                     <outlet property="LabelCustomer" destination="A9I-aq-oqm" id="jgs-I7-gAR"/>
@@ -734,6 +848,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle"/>
                     </refreshControl>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="searchBar" destination="zbV-ga-MEa" id="lMx-1g-1Mf"/>
                         <segue destination="lc6-TE-WTj" kind="show" identifier="DetailSegue" id="587-jv-QV1"/>
@@ -748,11 +865,14 @@
         <!--Order Details View-->
         <scene sceneID="ecY-SD-2KP">
             <objects>
-                <tableViewController title="Order Details View" extendedLayoutIncludesOpaqueBars="YES" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="fullScreen" hidesBottomBarWhenPushed="YES" id="lc6-TE-WTj" customClass="OrderDetailsController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Order Details View" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" hidesBottomBarWhenPushed="YES" id="lc6-TE-WTj" customClass="OrderDetailsController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="static" style="grouped" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Y77-4m-3ZR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="sectionIndexColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
                             <tableViewSection headerTitle="Information" id="dIb-EE-b0z">
                                 <cells>
@@ -769,6 +889,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="0.0" shouldIndentWhileEditing="NO" rowHeight="190" id="77L-0O-qwi">
                                         <rect key="frame" x="0.0" y="195.5" width="375" height="190"/>
@@ -868,6 +989,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -923,6 +1045,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="9LG-LV-N97" secondAttribute="trailing" id="uxk-dg-o0M"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="0.0" rowHeight="145" id="Dd7-39-YPf">
                                         <rect key="frame" x="0.0" y="531.5" width="375" height="145"/>
@@ -948,6 +1071,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -963,10 +1087,13 @@
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QpI-Bh-k4X" customClass="ArticlesTableView" customModule="La_Esperanza" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="sectionIndexColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ArticlesCell" rowHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="LO1-AE-U5r" customClass="ArticlesTableViewCell" customModule="La_Esperanza" customModuleProvider="target">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ArticlesCell" rowHeight="40" translatesAutoresizingMaskIntoConstraints="NO" id="LO1-AE-U5r" customClass="ArticlesTableViewCell" customModule="La_Esperanza" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="27" width="375" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LO1-AE-U5r" id="Hpx-No-reG">
@@ -996,6 +1123,7 @@
                                                                     </label>
                                                                 </subviews>
                                                             </tableViewCellContentView>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <viewLayoutGuide key="safeArea" id="fvi-5I-55W"/>
                                                             <connections>
                                                                 <outlet property="LabelPrice" destination="yPL-6k-bie" id="pPv-ph-epn"/>
@@ -1006,7 +1134,9 @@
                                                     </prototypes>
                                                 </tableView>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1035,6 +1165,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="0.0" rowHeight="35" id="Jof-fZ-LmT">
                                         <rect key="frame" x="0.0" y="918.5" width="375" height="35"/>
@@ -1059,6 +1190,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1087,6 +1219,7 @@
                                                 </scrollView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellBackgroundColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1123,7 +1256,9 @@
                     <navigationItem key="navigationItem" title="Details" id="Gr9-Fb-elc">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="I0j-Gb-HUE"/>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="ArticlesTable" destination="QpI-Bh-k4X" id="BZn-Jj-FlE"/>
                         <outlet property="DeleteButton" destination="BjG-AA-iYg" id="147-hP-SUk"/>
@@ -1156,6 +1291,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Background" width="250" height="250"/>
         <image name="Company" width="128" height="31"/>
         <image name="Logo" width="256" height="256"/>
         <image name="arrowshape.turn.up.right" catalog="system" width="128" height="106"/>
@@ -1173,5 +1309,8 @@
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="person.crop.square" catalog="system" width="128" height="114"/>
         <image name="phone" catalog="system" width="128" height="115"/>
+        <namedColor name="CellBackgroundColor">
+            <color red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

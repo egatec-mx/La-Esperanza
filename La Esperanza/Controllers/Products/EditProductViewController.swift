@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditProductViewController: UITableViewController {
+class EditProductViewController: BaseUITableViewController {
     let webApi: WebApi = WebApi()
     var productModel: ProductModel = ProductModel()
     let numberFormat: NumberFormatter = NumberFormatter()
@@ -28,9 +28,11 @@ class EditProductViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let productCell = cell as! ProductTableViewCell
-        productCell.productName.text = self.productModel.productName
-        productCell.productPrice.text = self.numberFormat.string(for: self.productModel.productPrice)
+        if indexPath.row == 0 {
+            let productCell = cell as! ProductTableViewCell
+            productCell.productName.text = self.productModel.productName
+            productCell.productPrice.text = self.numberFormat.string(for: self.productModel.productPrice)
+        }
     }
     
     @IBAction func update(_ sender: Any) {

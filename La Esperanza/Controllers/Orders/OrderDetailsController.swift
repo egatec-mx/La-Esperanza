@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OrderDetailsController: UITableViewController, UIContextMenuInteractionDelegate {
+class OrderDetailsController: BaseUITableViewController, UIContextMenuInteractionDelegate {
     let webApi: WebApi = WebApi()
     let numberFormatter: NumberFormatter = NumberFormatter()
     let dateFormatter: DateFormatter = DateFormatter()
