@@ -11,7 +11,7 @@ import UIKit
 class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
     var webApi: WebApi = WebApi()
     var productsList: [ProductModel] = []
-    var searchList:[ProductModel] = []
+    var searchList: [ProductModel] = []
     var productModel: ProductModel = ProductModel()
     var selectedProductId: Int = 0
     
@@ -109,6 +109,8 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
                 }
             } catch {
                 return
@@ -141,10 +143,6 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "NewProductSegue" {
-            
-        }
-        
         if segue.identifier == "EditProductSegue" {
             let editView = segue.destination as! EditProductViewController
             editView.productModel.productId = selectedProductId

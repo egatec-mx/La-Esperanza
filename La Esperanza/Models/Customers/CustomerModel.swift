@@ -19,7 +19,7 @@ struct CustomerModel: Encodable, Decodable, Equatable {
     var countryName: String = ""
     var customerZipcode: Int = 0
     var customerActive: Bool = true
-    var customerMail: String = ""
+    var customerMail: String?
     var customerPhone: String = ""
     var stateId: Int = 0
 }

@@ -8,79 +8,188 @@
 
 import UIKit
 
-class CustomersTableViewController: UITableViewController {
-
+class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
+    var webApi: WebApi = WebApi()
+    var customersList: [CustomerModel] = []
+    var searchList: [CustomerModel] = []
+    var customerModel: CustomerModel = CustomerModel()
+    var selectedCustomerId: Int = 0
+    var selectedIndexPath: IndexPath?
+    
+    @IBOutlet var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.refreshControl?.addTarget(self, action: #selector(getCustomers), for: .allEvents)
+        
+        getCustomers()
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      self.navigationController?.setToolbarHidden(false, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+      return searchList.count
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomerCell", for: indexPath) as! CustomerTableViewCell
+        let customer = searchList[indexPath.row]
+        cell.CustomerName.text = "\(customer.customerName) \(customer.customerLastname)"
+        cell.CustomerPhone.text = customer.customerPhone.formatPhoneNumber()
+        cell.CustomerMail.text = customer.customerMail
+        cell.CustomerAddress.text = """
+                                    \(customer.customerStreet),
+                                    \(customer.customerColony),
+                                    \(customer.customerCity),
+                                    \(customer.stateName), \(customer.countryName), C.P \(customer.customerZipcode)
+                                    """
+        cell.CustomerAddress.frame.size = CGSize(width: cell.CustomerAddress.frame.width, height: cell.CustomerAddress.height(text: cell.CustomerAddress.text!, font: cell.CustomerAddress.font, width: cell.CustomerAddress.frame.width))
         return cell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        switch editingStyle {
+          case .delete:
+              let warningAlert = UIAlertController(title: NSLocalizedString("alert_warning_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_customer_delete", tableName: "messages", comment: ""), preferredStyle: .alert)
+              
+              warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .cancel, handler: nil))
+              
+              warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .destructive, handler: { (action) -> Void in
+                  
+                  self.customerModel = self.searchList[indexPath.row]
+                  self.customerModel.customerActive = false
+                  
+                  let data = try! JSONEncoder().encode(self.customerModel)
+                  
+                  self.webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                      guard error == nil else {
+                          if (error as NSError?)?.code == 401 {
+                              self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                          }
+                          return
+                      }
+                      
+                      guard response != nil else { return }
+                      
+                      self.getCustomers()
+                
+                  })
+              }))
+              
+              self.present(warningAlert, animated: true, completion: nil)
+              
+          default:
+              return
+          }
     }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedCustomerId = searchList[indexPath.row].customerId
+        selectedIndexPath = indexPath
+        return indexPath
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            searchList = customersList
+        } else {
+            searchList = customersList.filter({ $0.customerName.localizedCaseInsensitiveContains(searchText) || $0.customerLastname.localizedCaseInsensitiveContains(searchText) })
+        }
+        tableView.reloadData()
+    }
+    
+    @IBAction func reloadCustomersList(_ segue: UIStoryboardSegue){
+        let destination = segue.destination as! CustomersTableViewController
+        destination.selectedCustomerId = 0
+        destination.getCustomers()
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "EditCustomerSegue" {
+            let editView = segue.destination as! EditProductViewController
+            editView.productModel.productId = selectedCustomerId
+        }
     }
-    */
-
+    
+    @objc func getCustomers() {
+        webApi.DoGet("customers", onCompleteHandler: {(response, error) -> Void in
+            do {
+                                
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                    }
+                    return
+                }
+                
+                guard response != nil else { return }
+                
+                if let data = response {
+                    self.customersList = try JSONDecoder().decode([CustomerModel].self, from: data)
+                    self.searchList = self.customersList
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
+                }
+            } catch {
+                return
+            }
+        })
+    }
+    
+    @IBAction func openMaps(_ sender: Any) {
+        let mapsAlert = UIAlertController(title: NSLocalizedString("alert_navigation_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_navigation_message", tableName: "messages", comment: ""), preferredStyle: .actionSheet)
+        
+        let mapsAction = UIAlertAction(title: "Apple Maps", style: .default, handler: {(action) -> Void in
+            if let row = self.selectedIndexPath?.row {
+                let customer = self.searchList[row]
+                let address = "\(customer.customerStreet.replacingOccurrences(of: " ", with: "+")),\(customer.customerColony.replacingOccurrences(of: " ", with: "+")),\(customer.customerCity.replacingOccurrences(of: " ", with: "+")),\(customer.stateName.replacingOccurrences(of: " ", with: "+")),\(customer.customerZipcode),\(customer.countryName)".folding(options: .diacriticInsensitive, locale: .current)
+                if let mapsURL = URL(string: "https://maps.apple.com/?address=\(address)") {
+                    UIApplication.shared.open(mapsURL, options: [:], completionHandler: nil)
+                }
+            }
+        })
+        
+        let wazeAction = UIAlertAction(title: "Waze", style: .default, handler: {(action) -> Void in
+            if let row = self.selectedIndexPath?.row {
+                let customer = self.searchList[row]
+                let address = "\(customer.customerStreet.replacingOccurrences(of: " ", with: "%20")),\(customer.customerColony.replacingOccurrences(of: " ", with: "%20")),\(customer.customerCity.replacingOccurrences(of: " ", with: "%20")),\(customer.stateName.replacingOccurrences(of: " ", with: "%20")),\(customer.customerZipcode),\(customer.countryName)".folding(options: .diacriticInsensitive, locale: .current)
+                if let mapsURL = URL(string: "https://waze.com/ul?q=\(address)&navigate=yes") {
+                    UIApplication.shared.open(mapsURL, options: [:], completionHandler: nil)
+                }
+            }
+        })
+        
+        let dismissAction = UIAlertAction(title: NSLocalizedString("alert_navigation_dismiss", tableName: "messages", comment: ""), style: .cancel, handler: nil)
+        
+        if UIApplication.shared.canOpenURL(URL(string: "waze://")!) {
+            mapsAlert.addAction(wazeAction)
+        }
+        
+        mapsAlert.addAction(mapsAction)
+        mapsAlert.addAction(dismissAction)
+        
+        self.present(mapsAlert, animated: true, completion: nil)
+        
+    }
 }

@@ -156,7 +156,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         LabelCustomerName.text = "\(orderDetails.customerName) \(orderDetails.customerLastname)"
         
         //Label Customer Phone
-        LabelPhoneNumber.text = formatPhoneNumber(orderDetails.customerPhone)
+        LabelPhoneNumber.text = orderDetails.customerPhone.formatPhoneNumber()
         
         //Label Address
         LabelAddress.text = """
@@ -165,7 +165,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                             \(orderDetails.customerCity),
                             \(orderDetails.stateName), \(orderDetails.countryName), C.P \(orderDetails.customerZipcode)
                             """
-        LabelAddress.frame.size = CGSize(width: LabelAddress.frame.width, height: heightForLabel(text: LabelAddress.text!, font: LabelAddress.font, width: LabelAddress.frame.width))
+        LabelAddress.frame.size = CGSize(width: LabelAddress.frame.width, height: LabelAddress.height(text: LabelAddress.text!, font: LabelAddress.font, width: LabelAddress.frame.width))
         
         //Articles
         ArticlesTable.articles = orderDetails.articles
@@ -186,7 +186,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         //Label Notes
         if orderDetails.orderNotes != nil {
             LabelNotes.text = orderDetails.orderNotes
-            LabelNotes.frame.size = CGSize(width: LabelNotes.frame.width, height: heightForLabel(text: orderDetails.orderNotes!, font: LabelNotes.font, width: LabelNotes.frame.width))
+            LabelNotes.frame.size = CGSize(width: LabelNotes.frame.width, height: LabelNotes.height(text: orderDetails.orderNotes!, font: LabelNotes.font, width: LabelNotes.frame.width))
         
             //Update Scroll View
             ScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: (LabelNotes.frame.height * 1.15), right: 0)
@@ -229,37 +229,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         tableView.endUpdates()
         
     }
-        
-    func formatPhoneNumber(_ phoneNumber: String) -> String {
-        var phone: String = ""
-        var i = 0
-        for n in phoneNumber {
-            switch i {
-            case 0:
-                phone += "(\(n)"
-            case 1:
-                phone += "\(n)) "
-            case 6:
-                phone += " - \(n)"
-            default:
-                phone += String(n)
-            }
-            i += 1
-        }
-        return phone
-    }
-    
-    func heightForLabel(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
-        label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font = font
-        label.text = text
-
-        label.sizeToFit()
-        return label.frame.height
-    }
-    
+       
     func createContextMenu() -> UIMenu {
         
         let callAction = UIAction(title: NSLocalizedString("menu_call", tableName: "messages", comment: ""), image: UIImage(systemName: "phone.arrow.up.right")) { _ in

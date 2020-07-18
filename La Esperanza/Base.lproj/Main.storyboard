@@ -103,14 +103,14 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="regular"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="mainColor">
-                                                <color key="value" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
                                                 <real key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.0"/>
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -152,9 +152,6 @@
                             <outletCollection property="gestureRecognizers" destination="AHp-vN-Flr" appends="YES" id="1GY-wR-Eh0"/>
                         </connections>
                     </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="ButtonContinue" destination="OdN-dI-gfB" id="8i0-XD-UwX"/>
                         <outlet property="TextFieldPassword" destination="Pbq-QN-nfa" id="1wD-bs-OnD"/>
@@ -305,21 +302,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Customers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bee-SL-wct">
-                                                    <rect key="frame" x="59.75" y="9" width="83.5" height="20.5"/>
+                                                    <rect key="frame" x="55.25" y="9" width="83.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Manage your customers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zpq-Ez-9LP">
-                                                    <rect key="frame" x="59.75" y="31.5" width="136" height="14.5"/>
+                                                    <rect key="frame" x="55.25" y="31.5" width="136" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="person.2" catalog="system" id="R0T-rW-XfQ">
-                                                    <rect key="frame" x="11.25" y="17.5" width="33.5" height="21.5"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="person.circle.fill" catalog="system" id="R0T-rW-XfQ">
+                                                    <rect key="frame" x="15.75" y="16" width="24.5" height="23.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="tintColor" name="CustomersColor"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="light"/>
@@ -343,9 +340,6 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Configuration" image="gear" catalog="system" selectedImage="gear" id="D6t-b1-x9O"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="0n4-3B-f9Q" kind="show" identifier="ProductSegue" id="dj9-RF-hC6"/>
                         <segue destination="3nI-Qg-gQw" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="wS8-hc-SLb"/>
@@ -435,9 +429,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="searchBar" destination="Bbr-vC-cop" id="Rxm-P2-6Na"/>
                         <segue destination="2Jz-29-soH" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="tF2-13-cfV"/>
@@ -452,22 +443,93 @@
         <scene sceneID="iWl-l6-dSy">
             <objects>
                 <tableViewController title="Customers View" extendedLayoutIncludesOpaqueBars="YES" modalPresentationStyle="fullScreen" id="i0C-Io-DBQ" customClass="CustomersTableViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" allowsSelection="NO" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="AbE-rg-au9" customClass="BaseUITableView" customModule="La_Esperanza" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" allowsSelectionDuringEditing="YES" rowHeight="125" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="AbE-rg-au9" customClass="BaseUITableView" customModule="La_Esperanza" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Search Customers" id="Kdo-gR-LJG">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                            <connections>
+                                <outlet property="delegate" destination="i0C-Io-DBQ" id="llx-6F-nIj"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CustomerCell" editingAccessoryType="disclosureIndicator" id="4Lm-Sy-MrC">
-                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomerCell" editingAccessoryType="disclosureIndicator" rowHeight="125" id="4Lm-Sy-MrC" customClass="CustomerTableViewCell" customModule="La_Esperanza" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="125"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4Lm-Sy-MrC" id="ntK-Ch-R2Z">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="uKI-cL-Cqc">
+                                            <rect key="frame" x="16" y="11" width="343" height="55.5"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KgI-QY-jKB">
+                                                    <rect key="frame" x="0.0" y="-2" width="29" height="23.5"/>
+                                                    <color key="tintColor" name="CustomersColor"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="light"/>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="m2b-hO-xPt">
+                                                    <rect key="frame" x="34" y="0.0" width="309" height="55.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Efraín García Rocha" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KlT-8e-7qJ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="151.5" height="19.5"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tkm-nV-4s4">
+                                                            <rect key="frame" x="0.0" y="21.5" width="309" height="16"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(55) 4342 - 0120" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTG-A6-CfZ">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="152" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="egatec@hotmail.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAN-EY-fEN">
+                                                                    <rect key="frame" x="157" y="0.0" width="152" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="id8-d2-JtU">
+                                                            <rect key="frame" x="0.0" y="39.5" width="309" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="id8-d2-JtU" firstAttribute="leading" secondItem="m2b-hO-xPt" secondAttribute="leading" id="7pQ-hR-ind"/>
+                                                        <constraint firstAttribute="trailing" secondItem="tkm-nV-4s4" secondAttribute="trailing" id="AYf-41-qRQ"/>
+                                                        <constraint firstItem="tkm-nV-4s4" firstAttribute="leading" secondItem="m2b-hO-xPt" secondAttribute="leading" id="he6-rg-n1H"/>
+                                                        <constraint firstAttribute="trailing" secondItem="id8-d2-JtU" secondAttribute="trailing" id="rCh-fM-xDs"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="uKI-cL-Cqc" firstAttribute="leading" secondItem="ntK-Ch-R2Z" secondAttribute="leadingMargin" id="4gB-cF-PG1"/>
+                                        <constraint firstItem="uKI-cL-Cqc" firstAttribute="top" secondItem="ntK-Ch-R2Z" secondAttribute="topMargin" id="AWD-GB-oK8"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="uKI-cL-Cqc" secondAttribute="trailing" id="ezJ-Dr-Lrj"/>
+                                    </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" name="CellBackgroundColor"/>
+                                <color key="backgroundColor" name="CellColor"/>
+                                <connections>
+                                    <outlet property="CustomerAddress" destination="id8-d2-JtU" id="9bP-tE-kJ7"/>
+                                    <outlet property="CustomerMail" destination="XAN-EY-fEN" id="HIu-Ro-Av8"/>
+                                    <outlet property="CustomerName" destination="KlT-8e-7qJ" id="efK-og-ijW"/>
+                                    <outlet property="CustomerPhone" destination="LTG-A6-CfZ" id="Aue-EW-OpK"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <userDefinedRuntimeAttributes>
@@ -478,18 +540,29 @@
                             <outlet property="delegate" destination="i0C-Io-DBQ" id="hVP-am-2Po"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Customers" id="wyf-Fk-AE3"/>
+                    <toolbarItems>
+                        <barButtonItem image="map" catalog="system" id="GNN-XD-w8u">
+                            <connections>
+                                <action selector="openMaps:" destination="i0C-Io-DBQ" id="kT4-br-Olr"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Mlc-zt-mx2"/>
+                        <barButtonItem image="person.badge.plus" catalog="system" id="6Xj-By-C6O"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Customers" id="Rrq-sP-wRH"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="fx1-ix-H6x">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
-                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="searchBar" destination="Kdo-gR-LJG" id="geR-wE-njM"/>
+                        <segue destination="Udx-EV-OnA" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="hAq-KC-wAR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VXw-nN-xLa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Udx-EV-OnA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1340" y="1353"/>
+            <point key="canvasLocation" x="1340" y="1352.473763118441"/>
         </scene>
         <!--New Product View-->
         <scene sceneID="Nig-ED-jqQ">
@@ -513,7 +586,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Product Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q5Q-Ab-6DR" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="11" width="343" height="35"/>
+                                                    <rect key="frame" x="16" y="11" width="343" height="34.5"/>
                                                     <color key="backgroundColor" name="InputsColor"/>
                                                     <color key="tintColor" name="BoxColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -541,7 +614,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="0.00" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wvE-oT-xxT" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="50" width="343" height="35"/>
+                                                    <rect key="frame" x="16" y="50.5" width="343" height="34.5"/>
                                                     <color key="backgroundColor" name="InputsColor"/>
                                                     <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -637,9 +710,6 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="New Product" id="Ole-w1-jJe"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="gSJ-QF-9Y8" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="p4a-AJ-ijB"/>
                         <segue destination="gSJ-QF-9Y8" kind="unwind" identifier="GoBackSegue" unwindAction="reloadProductsList:" id="6gq-9D-Qms"/>
@@ -669,7 +739,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Product Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GPc-uz-tO6" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="11" width="343" height="35"/>
+                                                    <rect key="frame" x="16" y="11" width="343" height="34.5"/>
                                                     <color key="backgroundColor" name="InputsColor"/>
                                                     <color key="tintColor" name="BoxColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -697,7 +767,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="0.00" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gnq-1J-dhA" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="54" width="343" height="35"/>
+                                                    <rect key="frame" x="16" y="54.5" width="343" height="34.5"/>
                                                     <color key="backgroundColor" name="InputsColor"/>
                                                     <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -797,9 +867,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Product" id="sxJ-q9-b9e"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="AKP-X1-uwp" kind="unwind" identifier="GoBackSegue" unwindAction="reloadProductsList:" id="AH2-cQ-vqd"/>
                     </connections>
@@ -821,7 +888,7 @@
                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" placeholder="Search Orders" id="zbV-ga-MEa">
-                            <rect key="frame" x="0.0" y="0.0" width="336" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="yes" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                             <connections>
@@ -936,9 +1003,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle"/>
                     </refreshControl>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="searchBar" destination="zbV-ga-MEa" id="lMx-1g-1Mf"/>
                         <segue destination="lc6-TE-WTj" kind="show" identifier="DetailSegue" id="587-jv-QV1"/>
@@ -1349,9 +1413,6 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="ArticlesTable" destination="QpI-Bh-k4X" id="BZn-Jj-FlE"/>
                         <outlet property="DeleteButton" destination="BjG-AA-iYg" id="147-hP-SUk"/>
@@ -1397,19 +1458,18 @@
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="hand.thumbsdown" catalog="system" width="128" height="128"/>
         <image name="lock" catalog="system" width="128" height="128"/>
+        <image name="map" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="117"/>
-        <image name="person.2" catalog="system" width="128" height="81"/>
+        <image name="person.badge.plus" catalog="system" width="128" height="116"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <image name="person.crop.square" catalog="system" width="128" height="114"/>
         <image name="phone" catalog="system" width="128" height="115"/>
         <namedColor name="BoxColor">
-            <color red="0.0" green="0.32941177487373352" blue="0.57647061347961426" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="CellBackgroundColor">
-            <color red="1" green="1" blue="1" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.32899999618530273" blue="0.57599997520446777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="CellColor">
-            <color red="1" green="1" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="1" green="1" blue="1" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="CustomersColor">
             <color red="0.58039218187332153" green="0.066666670143604279" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
