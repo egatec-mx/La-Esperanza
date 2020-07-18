@@ -84,7 +84,7 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
               }))
               
               self.present(warningAlert, animated: true, completion: nil)
-              
+            
           default:
               return
           }
@@ -94,6 +94,12 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
         selectedCustomerId = searchList[indexPath.row].customerId
         selectedIndexPath = indexPath
         return indexPath
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.isEditing {
+            performSegue(withIdentifier: "EditSegue", sender: nil)
+        }
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -121,9 +127,9 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "EditCustomerSegue" {
-            let editView = segue.destination as! EditProductViewController
-            editView.productModel.productId = selectedCustomerId
+        if segue.identifier == "EditSegue" {
+            let editView = segue.destination as! EditCustomerTableViewController
+            editView.customerModel.customerId = selectedCustomerId
         }
     }
     
@@ -192,4 +198,5 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
         self.present(mapsAlert, animated: true, completion: nil)
         
     }
+    
 }

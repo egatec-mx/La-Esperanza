@@ -44,6 +44,8 @@
 "alert_navigation_message" = "Seleccione un app para mostrar la dirección";
 "alert_navigation_title" = "Mapa";
 "alert_navigation_dismiss" = "Cancelar";
+"alert_customer_success_add" = "Se agregó el cliente correctamente.";
+"alert_customer_success_edit" = "Se ha actualizado el cliente correctamente.";
 
 //FaceID
 "auth_reason" = "Se requirede de autenticarse para continuar.";

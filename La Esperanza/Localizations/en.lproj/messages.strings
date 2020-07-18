@@ -44,6 +44,8 @@
 "alert_navigation_message" = "Select your navigation App.";
 "alert_navigation_title" = "Navigation";
 "alert_navigation_dismiss" = "Cancel";
+"alert_customer_success_add" = "The customer has been added.";
+"alert_customer_success_edit" = "The customer has been updated.";
 
 //FaceID
 "auth_reason" = "Authentication is required.";

@@ -45,6 +45,15 @@ import UIKit
         }
     }
     
+    @IBInspectable var showBottomBorder: Bool = false {
+        didSet {
+            let bottomLine = CALayer()
+            bottomLine.frame = CGRect(x: 0.0, y: frame.height - 1, width: frame.width, height: 1.0)
+            bottomLine.backgroundColor = borderColor.cgColor
+            layer.addSublayer(bottomLine)
+        }
+    }
+        
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: padding + imageWidth, dy: padding)
     }
@@ -58,12 +67,30 @@ import UIKit
     }
     
     func setValidationError() {
-        layer.borderColor = UIColor.red.cgColor
-        layer.setNeedsDisplay()
+        if !showBottomBorder {
+            layer.borderColor = UIColor.red.cgColor
+            layer.setNeedsDisplay()
+        } else {
+            let bottomLine = CALayer()
+            bottomLine.frame = CGRect(x: 0.0, y: frame.height - 1, width: frame.width, height: 1.0)
+            bottomLine.backgroundColor = UIColor.red.cgColor
+            layer.addSublayer(bottomLine)
+            layer.setNeedsLayout()
+            layer.setNeedsDisplay()
+        }
     }
     
-    func clearValidationError(){
-        layer.borderColor = borderColor.cgColor
-        layer.setNeedsDisplay()
+    func clearValidationError() {
+        if !showBottomBorder {
+            layer.borderColor = borderColor.cgColor
+            layer.setNeedsDisplay()
+        } else {
+            let bottomLine = CALayer()
+            bottomLine.frame = CGRect(x: 0.0, y: frame.height - 1, width: frame.width, height: 1.0)
+            bottomLine.backgroundColor = borderColor.cgColor
+            layer.addSublayer(bottomLine)
+            layer.setNeedsLayout()
+            layer.setNeedsDisplay()
+        }
     }
 }

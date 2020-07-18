@@ -28,4 +28,9 @@ extension String {
         }
         return phone
     }
+    
+    public subscript(i: Int) -> Character {
+        let index: String.Index = self.index(self.startIndex, offsetBy: i)
+        return self[index]
+    }
 }
