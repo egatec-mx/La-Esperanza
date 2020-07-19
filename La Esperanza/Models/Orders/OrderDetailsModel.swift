@@ -16,7 +16,7 @@ struct OrderDetailsModel: Decodable, Encodable {
     var customerStreet: String = ""
     var customerColony: String = ""
     var customerCity: String = ""
-    var customerZipcode: Int = 0
+    var customerZipcode: String = ""
     var stateName: String = ""
     var countryName: String = ""
     var orderDate: String = ""

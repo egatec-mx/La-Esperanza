@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C0CC26C24C4DA1600D015F5 /* AlertsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0CC26B24C4DA1600D015F5 /* AlertsHelper.swift */; };
 		7C1C461924C2006200591641 /* BaseUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1C461824C2006200591641 /* BaseUIView.swift */; };
 		7C1C997824C28DA700DE9A2B /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1C997724C28DA700DE9A2B /* UILabelExtension.swift */; };
 		7C24776F24C27BA8009433AA /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24776E24C27BA8009433AA /* StringExtension.swift */; };
@@ -43,6 +44,7 @@
 		7C7D097E24C3A9D7001280C5 /* FixedLengthTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D097D24C3A9D7001280C5 /* FixedLengthTextField.swift */; };
 		7C7D098024C3B4FD001280C5 /* PhoneNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D097F24C3B4FD001280C5 /* PhoneNumberTextField.swift */; };
 		7C7D098224C3DC78001280C5 /* NewCustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D098124C3DC78001280C5 /* NewCustomerTableViewController.swift */; };
+		7C7D098424C3EFBD001280C5 /* EditOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */; };
 		7C88E38F24BB9242002D449E /* RejectOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C88E38E24BB9242002D449E /* RejectOrderModel.swift */; };
 		7CB05020245DD0EA00CF8245 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB0501F245DD0EA00CF8245 /* AppDelegate.swift */; };
 		7CB05022245DD0EA00CF8245 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB05021245DD0EA00CF8245 /* SceneDelegate.swift */; };
@@ -55,6 +57,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C0CC26B24C4DA1600D015F5 /* AlertsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsHelper.swift; sourceTree = "<group>"; };
 		7C1C461824C2006200591641 /* BaseUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUIView.swift; sourceTree = "<group>"; };
 		7C1C997724C28DA700DE9A2B /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		7C24776E24C27BA8009433AA /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -95,6 +98,7 @@
 		7C7D097D24C3A9D7001280C5 /* FixedLengthTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedLengthTextField.swift; sourceTree = "<group>"; };
 		7C7D097F24C3B4FD001280C5 /* PhoneNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberTextField.swift; sourceTree = "<group>"; };
 		7C7D098124C3DC78001280C5 /* NewCustomerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCustomerTableViewController.swift; sourceTree = "<group>"; };
+		7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrderTableViewController.swift; sourceTree = "<group>"; };
 		7C88E38E24BB9242002D449E /* RejectOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectOrderModel.swift; sourceTree = "<group>"; };
 		7CB0501C245DD0EA00CF8245 /* La Esperanza.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "La Esperanza.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CB0501F245DD0EA00CF8245 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +124,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C0CC26A24C4D9FA00D015F5 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				7C0CC26B24C4DA1600D015F5 /* AlertsHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		7C1C461724C1FF2400591641 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +267,7 @@
 			children = (
 				7C65120324AE8CF000E1CEFB /* OrdersViewController.swift */,
 				7C6A3B1624AFD86100EA296A /* OrderDetailsController.swift */,
+				7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -351,6 +364,7 @@
 				7CCAC6E824AE664E00D4D1F9 /* Controllers */,
 				7CCAC6E924AE68EF00D4D1F9 /* Controls */,
 				7C24776D24C27B7E009433AA /* Extensions */,
+				7C0CC26A24C4D9FA00D015F5 /* Helpers */,
 				7C65120A24AEB61D00E1CEFB /* Localizations */,
 				7C60244F24AE4A0A00FB6D5A /* Models */,
 				7C60244924AD6E3700FB6D5A /* Previous */,
@@ -485,6 +499,7 @@
 				7C74D09824BD31770042F3A8 /* ProfileModel.swift in Sources */,
 				7C7D098224C3DC78001280C5 /* NewCustomerTableViewController.swift in Sources */,
 				7CB05022245DD0EA00CF8245 /* SceneDelegate.swift in Sources */,
+				7C0CC26C24C4DA1600D015F5 /* AlertsHelper.swift in Sources */,
 				7CB0502A245DD0EA00CF8245 /* esperanza.xcdatamodeld in Sources */,
 				7C42B37724B588BF008C014D /* ArticlesTableView.swift in Sources */,
 				7C65C20624C1273800158112 /* NewProductTableViewController.swift in Sources */,
@@ -497,6 +512,7 @@
 				7C6EE78924C0D345006632A2 /* ImageTextField.swift in Sources */,
 				7C88E38F24BB9242002D449E /* RejectOrderModel.swift in Sources */,
 				7C7992D924C347980070FEFF /* EditCustomerTableViewController.swift in Sources */,
+				7C7D098424C3EFBD001280C5 /* EditOrderTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

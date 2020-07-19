@@ -8,9 +8,14 @@
 
 import UIKit
 
-struct ProductModel: Encodable, Decodable, Equatable {
+struct ProductModel: ActionModel {
+    var errors: [String] = []
+    var message: String = ""
+    
     var productId: Int = 0
     var productName: String = ""
     var productPrice: Decimal = 0.00
     var productActive: Bool = true
+    
+    var orderDetails: [String] = []
 }

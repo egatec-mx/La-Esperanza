@@ -12,6 +12,7 @@ import LocalAuthentication
 class LogInViewController: UIViewController, UITextFieldDelegate {
     let authenticationContext = LAContext()
     let webApi: WebApi = WebApi()
+    let alerts: AlertsHelper = AlertsHelper()
     var isKeyboardAppear: Bool = false
     var loginModel: LoginModel = LoginModel()
     var savedCredentials: Bool = false
@@ -91,16 +92,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         doLogIn()
     }
     
-    func showErrorAlert(_ message: String, onCompleteHandler: (() -> Void)?) {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(title: NSLocalizedString("error_title", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
-                onCompleteHandler?()
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
     func logInWithCredentials() {
         loginModel.userName = UserDefaults.standard.string(forKey: "UserName")!
         loginModel.password = UserDefaults.standard.string(forKey: "UserPassword")!
@@ -115,17 +106,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             webApi.DoPost("account/login", jsonData: data, onCompleteHandler: { (response, error) -> Void in
                 
                 guard error == nil else {
-                    self.showErrorAlert(NSLocalizedString("error_not_connection", tableName: "messages", comment: ""), onCompleteHandler: nil)
+                    if (error as NSError?)?.code != 401 {
+                        self.alerts.showErrorAlert(self, message: NSLocalizedString("error_not_connection", tableName: "messages", comment: ""), onComplete: nil)
+                    }
                     return
                 }
                 
-                guard response != nil else {
-                    self.showErrorAlert(NSLocalizedString("error_not_response", tableName: "messages", comment: ""), onCompleteHandler: nil)
-                    return
-                }
+                guard response != nil else { return }
                 
                 do {
+                    
                     if let data = response {
+                        
                         self.loginModel = try JSONDecoder().decode(LoginModel.self, from: data)
                         
                         if self.loginModel.errors.count > 0 {
@@ -138,7 +130,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                                 i += 1
                             }
                             
-                            self.showErrorAlert(message, onCompleteHandler: nil)
+                            self.alerts.showErrorAlert(self, message: message, onComplete: nil)
                         }
                         
                         if !self.loginModel.token.isEmpty {
@@ -212,11 +204,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     if canContinue {
-                        self.showErrorAlert(message, onCompleteHandler: {() -> Void in
-                            self.navigateToNextView()
-                        })
+                        self.alerts.showErrorAlert(self, message: message, onComplete: {() -> Void in self.navigateToNextView() })
                     } else {
-                        self.showErrorAlert(message, onCompleteHandler: nil)
+                        self.alerts.showErrorAlert(self, message: message, onComplete: nil)
                     }
                 }
             }
@@ -230,8 +220,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func sessionExpired(_ segue: UIStoryboardSegue){
-        self.showErrorAlert(NSLocalizedString("alert_session_timeout", tableName: "messages", comment: ""), onCompleteHandler: {() -> Void in
+    @IBAction func sessionExpired(_ segue: UIStoryboardSegue) {
+        self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_session_timeout", tableName: "messages", comment: ""), onComplete: {() -> Void in
             self.TextFieldPassword.text = ""
             self.TextFieldUsername.text = ""
             self.logInWithCredentials()

@@ -60,9 +60,13 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         ArticlesTable.delegate = ArticlesTable.self
         ArticlesTable.dataSource = ArticlesTable.self
         
-        self.navigationController?.setToolbarHidden(false, animated: true)
-        
         getDetails()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setToolbarHidden(false, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -496,4 +500,10 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         })
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditSegue" {
+            let editView = segue.destination as! EditOrderTableViewController
+            editView.orderModel = orderDetails
+        }
+    }
 }

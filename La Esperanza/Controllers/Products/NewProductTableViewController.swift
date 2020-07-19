@@ -10,6 +10,7 @@ import UIKit
 
 class NewProductTableViewController: UITableViewController, UITextFieldDelegate {
     let webApi: WebApi = WebApi()
+    let alerts: AlertsHelper = AlertsHelper()
     var productModel: ProductModel = ProductModel()
     let numberFormat: NumberFormatter = NumberFormatter()
     
@@ -42,11 +43,7 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
     @IBAction func save(_ sender: Any) {
         if inputProductName.text!.isEmpty || inputProductPrice.text!.isEmpty {
             
-            let valAlert = UIAlertController(title: NSLocalizedString("alert_validation_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), preferredStyle: .alert)
-            
-            valAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: nil))
-            
-            self.present(valAlert, animated: true, completion: {() -> Void in
+            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages" , comment: ""), onComplete: {() -> Void in
                 
                 if self.inputProductName.text!.isEmpty {
                     self.inputProductName.setValidationError()
@@ -55,7 +52,6 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
                 if self.inputProductPrice.text!.isEmpty {
                     self.inputProductPrice.setValidationError()
                 }
-                
             })
             
         } else {
@@ -77,15 +73,19 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
                     
                     guard response != nil else { return }
                     
-                    let successAlert = UIAlertController(title: NSLocalizedString("alert_success", tableName: "messages", comment: ""), message: NSLocalizedString("alert_product_success_add", tableName: "messages", comment: ""), preferredStyle: .alert)
-                    
-                    successAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
+                    if let data = response {
+                        self.productModel = try! JSONDecoder().decode(ProductModel.self, from: data)
                         
-                        self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                        if self.productModel.errors.count > 0 {
+                            self.alerts.processErrors(self, errors: self.productModel.errors)
+                        }
                         
-                    }))
-                    
-                    self.present(successAlert, animated: true, completion: nil)
+                        if !self.productModel.message.isEmpty {
+                            self.alerts.showSuccessAlert(self, message: self.productModel.message, onComplete: {() -> Void in
+                                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                            })
+                        }
+                    }
                     
                 })
             } catch {

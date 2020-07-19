@@ -39,7 +39,7 @@ class WebApi: NSObject, URLSessionDelegate {
             
             if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                 switch statusCode {
-                case 200:
+                case 200, 400:
                     onCompleteHandler(data, error)
                 case 401:
                     let nError = NSError(domain: "", code: 401, userInfo: nil)
@@ -73,7 +73,7 @@ class WebApi: NSObject, URLSessionDelegate {
             
             if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                 switch statusCode {
-                case 200:
+                case 200, 400:
                     onCompleteHandler(data, error)
                 case 401:
                     let nError = NSError(domain: "", code: 401, userInfo: nil)
