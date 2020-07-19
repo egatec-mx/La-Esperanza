@@ -17,7 +17,7 @@ struct CustomerModel: Encodable, Decodable, Equatable {
     var customerCity: String = ""
     var stateName: String = ""
     var countryName: String = ""
-    var customerZipcode: Int = 0
+    var customerZipcode: String = ""
     var customerActive: Bool = true
     var customerMail: String?
     var customerPhone: String = ""

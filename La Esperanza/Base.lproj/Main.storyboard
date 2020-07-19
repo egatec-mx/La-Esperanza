@@ -439,6 +439,546 @@
             </objects>
             <point key="canvasLocation" x="2292" y="475"/>
         </scene>
+        <!--New Customer View-->
+        <scene sceneID="gzJ-bR-gFa">
+            <objects>
+                <tableViewController title="New Customer View" modalPresentationStyle="fullScreen" id="OhZ-bo-gu3" customClass="NewCustomerTableViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MX3-Co-tCx" customClass="BaseUITableView" customModule="La_Esperanza" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="INFORMATION" id="WB7-IK-lPy">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="emK-nl-sJz">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="emK-nl-sJz" id="0Dg-Em-V79">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Yai-xs-U0a" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="10" width="343" height="35"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" name="CustomersColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="yes" textContentType="name"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="32"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="person.crop.circle" catalog="system"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                            <color key="value" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showBottomBorder" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Yai-xs-U0a" firstAttribute="top" secondItem="0Dg-Em-V79" secondAttribute="top" constant="10" id="BIb-g1-8MR"/>
+                                                <constraint firstAttribute="bottom" secondItem="Yai-xs-U0a" secondAttribute="bottom" constant="10" id="HOA-ny-HLx"/>
+                                                <constraint firstAttribute="trailing" secondItem="Yai-xs-U0a" secondAttribute="trailing" constant="16" id="ael-6V-y8D"/>
+                                                <constraint firstItem="Yai-xs-U0a" firstAttribute="leading" secondItem="0Dg-Em-V79" secondAttribute="leading" constant="16" id="iQv-W8-Po0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="T7c-gj-HoJ">
+                                        <rect key="frame" x="0.0" y="83" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T7c-gj-HoJ" id="Qty-Td-mDn">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Lastname" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="FK3-RG-0aN" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="10" width="343" height="35"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" name="CustomersColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="yes" textContentType="given-name"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="32"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                            <color key="value" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showBottomBorder" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FK3-RG-0aN" firstAttribute="leading" secondItem="Qty-Td-mDn" secondAttribute="leading" constant="16" id="1PJ-LE-GSY"/>
+                                                <constraint firstAttribute="trailing" secondItem="FK3-RG-0aN" secondAttribute="trailing" constant="16" id="8t8-VW-sqX"/>
+                                                <constraint firstItem="FK3-RG-0aN" firstAttribute="top" secondItem="Qty-Td-mDn" secondAttribute="top" constant="10" id="B1n-pN-L51"/>
+                                                <constraint firstAttribute="bottom" secondItem="FK3-RG-0aN" secondAttribute="bottom" constant="10" id="TPy-wH-2Ot"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="ScU-7I-LaS">
+                                        <rect key="frame" x="0.0" y="138" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ScU-7I-LaS" id="FJe-Ev-pTd">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="(55) 5555 - 5555" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qlc-tP-uIY" customClass="PhoneNumberTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="10" width="343" height="35"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" name="CustomersColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartDashesType="yes" smartInsertDeleteType="yes" textContentType="tel"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="32"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="phone.circle" catalog="system"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                            <color key="value" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showBottomBorder" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="textMask" value="(dd) dddd - dddd"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="replaceChar" value="d"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Qlc-tP-uIY" firstAttribute="top" secondItem="FJe-Ev-pTd" secondAttribute="top" constant="10" id="3YV-5J-uad"/>
+                                                <constraint firstItem="Qlc-tP-uIY" firstAttribute="leading" secondItem="FJe-Ev-pTd" secondAttribute="leading" constant="16" id="Zti-lI-ySk"/>
+                                                <constraint firstAttribute="bottom" secondItem="Qlc-tP-uIY" secondAttribute="bottom" constant="10" id="tI8-bu-HyT"/>
+                                                <constraint firstAttribute="trailing" secondItem="Qlc-tP-uIY" secondAttribute="trailing" constant="16" id="yft-gi-tLY"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="5Jv-Td-EPg">
+                                        <rect key="frame" x="0.0" y="193" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Jv-Td-EPg" id="jC0-Ag-Tnp">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="E-Mail" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ofR-2H-VOD" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="10" width="343" height="35"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" name="CustomersColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="yes" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="yes" textContentType="email"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="32"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="envelope.circle" catalog="system"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                            <color key="value" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showBottomBorder" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="OhZ-bo-gu3" id="fdZ-Du-4ZV"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ofR-2H-VOD" secondAttribute="trailing" constant="16" id="7aA-3A-g7R"/>
+                                                <constraint firstItem="ofR-2H-VOD" firstAttribute="leading" secondItem="jC0-Ag-Tnp" secondAttribute="leading" constant="16" id="eui-an-Jjz"/>
+                                                <constraint firstAttribute="bottom" secondItem="ofR-2H-VOD" secondAttribute="bottom" constant="10" id="kio-bi-qSz"/>
+                                                <constraint firstItem="ofR-2H-VOD" firstAttribute="top" secondItem="jC0-Ag-Tnp" secondAttribute="top" constant="10" id="qHm-kZ-7wh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellColor"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="ADDRESS" id="aVC-lo-gs2">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="QaA-aL-LGf">
+                                        <rect key="frame" x="0.0" y="304" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QaA-aL-LGf" id="3Ky-nH-ssC">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Street Address 1" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cOv-pl-wBp" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="10" width="343" height="35"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" name="CustomersColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="yes" textContentType="address-line1"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="32"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="leftImage" value="mappin.and.ellipse" catalog="system"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                            <color key="value" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showBottomBorder" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="OhZ-bo-gu3" id="vj4-pT-UrF"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="cOv-pl-wBp" secondAttribute="trailing" constant="16" id="0Vp-MA-zDX"/>
+                                                <constraint firstAttribute="bottom" secondItem="cOv-pl-wBp" secondAttribute="bottom" constant="10" id="Mh6-gr-v6k"/>
+                                                <constraint firstItem="cOv-pl-wBp" firstAttribute="leading" secondItem="3Ky-nH-ssC" secondAttribute="leading" constant="16" id="S8O-Kv-oTY"/>
+                                                <constraint firstItem="cOv-pl-wBp" firstAttribute="top" secondItem="3Ky-nH-ssC" secondAttribute="top" constant="10" id="eoF-os-zbs"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="Cni-n3-eQw">
+                                        <rect key="frame" x="0.0" y="359" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cni-n3-eQw" id="nnu-1E-DK5">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Street Address 2" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ygD-bY-WxX" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="10" width="343" height="35"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" name="CustomersColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="yes" textContentType="address-line2"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="32"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                            <color key="value" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showBottomBorder" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ygD-bY-WxX" secondAttribute="trailing" constant="16" id="WnG-Js-clt"/>
+                                                <constraint firstItem="ygD-bY-WxX" firstAttribute="leading" secondItem="nnu-1E-DK5" secondAttribute="leading" constant="16" id="ZVv-eJ-g5F"/>
+                                                <constraint firstAttribute="bottom" secondItem="ygD-bY-WxX" secondAttribute="bottom" constant="10" id="euW-4T-VrI"/>
+                                                <constraint firstItem="ygD-bY-WxX" firstAttribute="top" secondItem="nnu-1E-DK5" secondAttribute="top" constant="10" id="zW4-1N-JnO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="ZbY-wk-8wi">
+                                        <rect key="frame" x="0.0" y="414" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZbY-wk-8wi" id="Clj-5k-aup">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="City" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uPb-tM-EiJ" customClass="ImageTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="10" width="343" height="35"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" name="CustomersColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="next" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="yes" textContentType="address-level2"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="32"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                            <color key="value" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showBottomBorder" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="uPb-tM-EiJ" secondAttribute="bottom" constant="10" id="LJH-NU-Yqx"/>
+                                                <constraint firstItem="uPb-tM-EiJ" firstAttribute="top" secondItem="Clj-5k-aup" secondAttribute="top" constant="10" id="UVv-Fp-2SG"/>
+                                                <constraint firstAttribute="trailing" secondItem="uPb-tM-EiJ" secondAttribute="trailing" constant="16" id="gPe-0U-GPg"/>
+                                                <constraint firstItem="uPb-tM-EiJ" firstAttribute="leading" secondItem="Clj-5k-aup" secondAttribute="leading" constant="16" id="pfp-oS-cx7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="85" id="Grm-o4-Gaa">
+                                        <rect key="frame" x="0.0" y="469" width="375" height="85"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Grm-o4-Gaa" id="uTy-3E-jvD">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nD4-an-rmG">
+                                                    <rect key="frame" x="55" y="18" width="34" height="50"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bT-YW-GGR">
+                                                    <rect key="frame" x="16" y="84" width="343" height="1"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZJA-mh-4te">
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="1"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="inO-Of-EB9">
+                                                                <rect key="frame" x="0.0" y="0.0" width="103" height="0.0"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Lxl-hF-ZbT">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="103" height="0.0"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                </view>
+                                                                <vibrancyEffect>
+                                                                    <blurEffect style="regular"/>
+                                                                </vibrancyEffect>
+                                                            </visualEffectView>
+                                                        </subviews>
+                                                    </view>
+                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="EOp-QD-wNN"/>
+                                                    </constraints>
+                                                    <vibrancyEffect>
+                                                        <blurEffect style="regular"/>
+                                                    </vibrancyEffect>
+                                                </visualEffectView>
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5P-pd-TmP">
+                                                    <rect key="frame" x="55" y="0.0" width="304" height="85"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="OhZ-bo-gu3" id="gNm-Md-PtP"/>
+                                                        <outlet property="delegate" destination="OhZ-bo-gu3" id="Fap-pV-sTU"/>
+                                                    </connections>
+                                                </pickerView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="nD4-an-rmG" firstAttribute="top" secondItem="uTy-3E-jvD" secondAttribute="topMargin" constant="7" id="4QB-7E-IcU"/>
+                                                <constraint firstItem="nD4-an-rmG" firstAttribute="leading" secondItem="uTy-3E-jvD" secondAttribute="leadingMargin" constant="39" id="CH1-96-Ob7"/>
+                                                <constraint firstItem="5bT-YW-GGR" firstAttribute="top" secondItem="nD4-an-rmG" secondAttribute="bottom" constant="16" id="FFg-Dt-52G"/>
+                                                <constraint firstItem="g5P-pd-TmP" firstAttribute="leading" secondItem="uTy-3E-jvD" secondAttribute="leading" constant="55" id="JmM-R5-72m"/>
+                                                <constraint firstItem="g5P-pd-TmP" firstAttribute="top" secondItem="uTy-3E-jvD" secondAttribute="top" id="YIJ-IL-LQV"/>
+                                                <constraint firstAttribute="bottom" secondItem="g5P-pd-TmP" secondAttribute="bottom" id="iWo-Ea-gvY"/>
+                                                <constraint firstAttribute="trailing" secondItem="5bT-YW-GGR" secondAttribute="trailing" constant="16" id="jD2-Ld-1AX"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nD4-an-rmG" secondAttribute="trailing" constant="20" symbolic="YES" id="nOb-cD-EWe"/>
+                                                <constraint firstItem="5bT-YW-GGR" firstAttribute="leading" secondItem="uTy-3E-jvD" secondAttribute="leading" constant="16" id="oRk-rT-nOG"/>
+                                                <constraint firstAttribute="bottom" secondItem="5bT-YW-GGR" secondAttribute="bottom" id="owh-Fh-RLt"/>
+                                                <constraint firstAttribute="trailing" secondItem="g5P-pd-TmP" secondAttribute="trailing" constant="16" id="t0K-uy-cvE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="55" id="NeV-Sb-H81">
+                                        <rect key="frame" x="0.0" y="554" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NeV-Sb-H81" id="r5U-cw-lMQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Zip code" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aYA-66-ZYw" customClass="FixedLengthTextField" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="16" y="10" width="343" height="35"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" name="CustomersColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES" smartInsertDeleteType="yes" textContentType="postal-code"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="padding">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="imageWidth">
+                                                            <real key="value" value="32"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                            <color key="value" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showBottomBorder" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="onlyDigits" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="length">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aYA-66-ZYw" firstAttribute="leading" secondItem="r5U-cw-lMQ" secondAttribute="leading" constant="16" id="1Jv-BY-Ucy"/>
+                                                <constraint firstAttribute="trailing" secondItem="aYA-66-ZYw" secondAttribute="trailing" constant="16" id="KcJ-Fp-3FN"/>
+                                                <constraint firstItem="aYA-66-ZYw" firstAttribute="top" secondItem="r5U-cw-lMQ" secondAttribute="top" constant="10" id="YbW-4e-rP5"/>
+                                                <constraint firstAttribute="bottom" secondItem="aYA-66-ZYw" secondAttribute="bottom" constant="10" id="qqX-tu-IkZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="CellColor"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="dDk-mb-IxZ">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="65" id="q4D-4H-Goi">
+                                        <rect key="frame" x="0.0" y="665" width="375" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q4D-4H-Goi" id="Vov-XV-a9e">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqZ-bk-u42" customClass="RoundedUIButton" customModule="La_Esperanza" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="11" width="359" height="43"/>
+                                                    <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <state key="normal" title="Save">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="titleShadowColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                                            <real key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="save:" destination="OhZ-bo-gu3" eventType="touchUpInside" id="wML-F8-YkT"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="uqZ-bk-u42" secondAttribute="bottom" id="5DX-mx-D5f"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="uqZ-bk-u42" secondAttribute="trailing" id="BO5-fq-gGO"/>
+                                                <constraint firstItem="uqZ-bk-u42" firstAttribute="leading" secondItem="Vov-XV-a9e" secondAttribute="leadingMargin" id="N2Y-Ee-Nzx"/>
+                                                <constraint firstItem="uqZ-bk-u42" firstAttribute="top" secondItem="Vov-XV-a9e" secondAttribute="topMargin" id="rVu-eB-Nf6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="BackgroundImage" value="Background"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outlet property="dataSource" destination="OhZ-bo-gu3" id="eEC-qd-cId"/>
+                            <outlet property="delegate" destination="OhZ-bo-gu3" id="tIK-dz-V1W"/>
+                            <outletCollection property="gestureRecognizers" destination="Mou-QE-tIu" appends="YES" id="8TH-kT-qtJ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="New Customer" id="X5q-3r-HL4"/>
+                    <connections>
+                        <outlet property="customerCity" destination="uPb-tM-EiJ" id="WjX-GL-XQs"/>
+                        <outlet property="customerColony" destination="ygD-bY-WxX" id="hv8-xi-hVv"/>
+                        <outlet property="customerLastname" destination="FK3-RG-0aN" id="CAF-vZ-1dQ"/>
+                        <outlet property="customerMail" destination="ofR-2H-VOD" id="xSC-RD-sIo"/>
+                        <outlet property="customerName" destination="Yai-xs-U0a" id="llF-eL-g5A"/>
+                        <outlet property="customerPhone" destination="Qlc-tP-uIY" id="bgi-hl-SwZ"/>
+                        <outlet property="customerStatePickerView" destination="g5P-pd-TmP" id="KKM-k0-AsV"/>
+                        <outlet property="customerStreet" destination="cOv-pl-wBp" id="pnD-3H-fn8"/>
+                        <outlet property="customerZipcode" destination="aYA-66-ZYw" id="eyn-Qq-fkE"/>
+                        <outlet property="saveButton" destination="uqZ-bk-u42" id="PGe-jZ-1ay"/>
+                        <outlet property="statePickerBorder" destination="5bT-YW-GGR" id="Y3c-aA-WdG"/>
+                        <segue destination="S4F-wT-nbb" kind="unwind" identifier="GoBackSegue" unwindAction="reloadCustomersList:" id="H9R-7J-UaG"/>
+                        <segue destination="S4F-wT-nbb" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="4tB-Xw-pdf"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ygT-n7-Piu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Mou-QE-tIu">
+                    <connections>
+                        <action selector="hideKeyboard:" destination="OhZ-bo-gu3" id="AUp-tm-Wdg"/>
+                        <outlet property="delegate" destination="OhZ-bo-gu3" id="Ee8-eY-TRY"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <exit id="S4F-wT-nbb" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1863" y="2246"/>
+        </scene>
         <!--Customers View-->
         <scene sceneID="iWl-l6-dSy">
             <objects>
@@ -547,7 +1087,11 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Mlc-zt-mx2"/>
-                        <barButtonItem image="person.badge.plus" catalog="system" id="6Xj-By-C6O"/>
+                        <barButtonItem image="person.badge.plus" catalog="system" id="6Xj-By-C6O">
+                            <connections>
+                                <segue destination="OhZ-bo-gu3" kind="show" identifier="NewSegue" id="XZE-87-2Wx"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Customers" id="Rrq-sP-wRH"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="fx1-ix-H6x">
@@ -1110,7 +1654,9 @@
                         <outlet property="customerStreet" destination="Aei-sh-4RS" id="SUg-2Y-Nrr"/>
                         <outlet property="customerZipcode" destination="eie-B1-S5s" id="Kdi-y2-LNJ"/>
                         <outlet property="saveButton" destination="UzL-C1-yRf" id="rcg-Bl-PW0"/>
+                        <outlet property="statePickerBorder" destination="nHQ-Nd-T6m" id="X61-Kf-Ee8"/>
                         <segue destination="cfQ-oG-BVG" kind="unwind" identifier="GoBackSegue" unwindAction="reloadCustomersList:" id="APD-sm-Aj1"/>
+                        <segue destination="cfQ-oG-BVG" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="1jv-bq-6so"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EbK-HX-OU0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1122,7 +1668,7 @@
                 </tapGestureRecognizer>
                 <exit id="cfQ-oG-BVG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1340" y="2237.6311844077964"/>
+            <point key="canvasLocation" x="822" y="2246"/>
         </scene>
         <!--New Product View-->
         <scene sceneID="Nig-ED-jqQ">

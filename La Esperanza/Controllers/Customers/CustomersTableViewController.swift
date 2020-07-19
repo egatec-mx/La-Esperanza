@@ -47,8 +47,8 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
         cell.CustomerAddress.text = """
                                     \(customer.customerStreet),
                                     \(customer.customerColony),
-                                    \(customer.customerCity),
-                                    \(customer.stateName), \(customer.countryName), C.P \(customer.customerZipcode)
+                                    \(customer.customerCity), \(customer.stateName),
+                                    \(customer.countryName), C.P \(customer.customerZipcode)
                                     """
         cell.CustomerAddress.frame.size = CGSize(width: cell.CustomerAddress.frame.width, height: cell.CustomerAddress.height(text: cell.CustomerAddress.text!, font: cell.CustomerAddress.font, width: cell.CustomerAddress.frame.width))
         return cell
@@ -186,10 +186,24 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
             }
         })
         
+        let googleMapsAction = UIAlertAction(title: "Google Maps", style: .default, handler: {(action) -> Void in
+            if let row = self.selectedIndexPath?.row {
+                let customer = self.searchList[row]
+                let address = "\(customer.customerStreet.replacingOccurrences(of: " ", with: "+")),\(customer.customerColony.replacingOccurrences(of: " ", with: "+")),\(customer.customerCity.replacingOccurrences(of: " ", with: "+")),\(customer.stateName.replacingOccurrences(of: " ", with: "+")),\(customer.customerZipcode),\(customer.countryName)".folding(options: .diacriticInsensitive, locale: .current)
+                if let googleUrl = URL(string: "comgooglemaps://?q=\(address)") {
+                    UIApplication.shared.open(googleUrl, options: [:], completionHandler: nil)
+                }
+            }
+        })
+        
         let dismissAction = UIAlertAction(title: NSLocalizedString("alert_navigation_dismiss", tableName: "messages", comment: ""), style: .cancel, handler: nil)
         
         if UIApplication.shared.canOpenURL(URL(string: "waze://")!) {
             mapsAlert.addAction(wazeAction)
+        }
+        
+        if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
+            mapsAlert.addAction(googleMapsAction)
         }
         
         mapsAlert.addAction(mapsAction)

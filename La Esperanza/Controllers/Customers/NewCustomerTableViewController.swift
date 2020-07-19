@@ -1,5 +1,5 @@
 //
-//  EditCustomerTableViewController.swift
+//  NewCustomerTableViewController.swift
 //  La Esperanza
 //
 //  Created by Efrain Garcia Rocha on 18/07/20.
@@ -8,7 +8,8 @@
 
 import UIKit
 
-class EditCustomerTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+
     var webApi: WebApi = WebApi()
     var customerModel: CustomerModel = CustomerModel()
     var statesList: [StatesList] = []
@@ -31,7 +32,6 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
         self.navigationController?.setToolbarHidden(true, animated: true)
         
         self.getStatesList()
-        self.getCustomer()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -104,51 +104,7 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
         })
     }
     
-    func getCustomer() {
-        webApi.DoGet("customers/\(customerModel.customerId)", onCompleteHandler: {(response, error) -> Void in
-            do {
-                                
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                    }
-                    return
-                }
-                
-                guard response != nil else { return }
-                
-                if let data = response {
-                    self.customerModel = try JSONDecoder().decode(CustomerModel.self, from: data)
-                }
-                
-                DispatchQueue.main.async {
-                    self.displayInfo()
-                }
-            } catch {
-                return
-            }
-        })
-    }
-        
-    func displayInfo() {
-        
-        customerName.text = customerModel.customerName
-        customerLastname.text = customerModel.customerLastname
-        customerPhone.text = customerModel.customerPhone.formatPhoneNumber()
-        customerMail.text = customerModel.customerMail
-        customerStreet.text = customerModel.customerStreet
-        customerColony.text = customerModel.customerColony
-        customerCity.text = customerModel.customerCity
-        
-        if statesList.count > 0 {
-            let position = statesList.firstIndex(of: statesList.filter{$0.stateId == customerModel.stateId}.first!)!
-            customerStatePickerView.selectRow(position, inComponent: 0, animated: false)
-        }
-        
-        customerZipcode.text = String(customerModel.customerZipcode)
-    }
-    
-    @IBAction func update(_ sender: Any) {
+    @IBAction func save(_ sender: Any) {
         if !validateInputs() {
             
             let valAlert = UIAlertController(title: NSLocalizedString("alert_validation_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), preferredStyle: .alert)
@@ -161,6 +117,8 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
             
         } else {
             
+            customerModel.customerId = 0
+            customerModel.customerActive = true
             customerModel.customerName = customerName.text!
             customerModel.customerLastname = customerLastname.text!
             customerModel.customerPhone = customerPhone.unMaskValue()
@@ -173,7 +131,7 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
             do {
                 let data = try JSONEncoder().encode(customerModel)
             
-                webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                webApi.DoPost("customers/add", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                                         
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
@@ -184,7 +142,7 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
                     
                     guard response != nil else { return }
                     
-                    let successAlert = UIAlertController(title: NSLocalizedString("alert_success", tableName: "messages", comment: ""), message: NSLocalizedString("alert_customer_success_edit", tableName: "messages", comment: ""), preferredStyle: .alert)
+                    let successAlert = UIAlertController(title: NSLocalizedString("alert_success", tableName: "messages", comment: ""), message: NSLocalizedString("alert_customer_success_add", tableName: "messages", comment: ""), preferredStyle: .alert)
                     
                     successAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
                         
@@ -264,5 +222,4 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
             statePickerBorder.backgroundColor = UIColor.lightGray
         }
     }
-    
 }
