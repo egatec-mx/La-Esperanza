@@ -9,7 +9,7 @@
 import Foundation
 
 struct SearchModel: ActionModel {
-    var errors: [String] = []
+    var errors: [String] = []
     var message: String = ""
     var searchTerm: String = ""
 }
