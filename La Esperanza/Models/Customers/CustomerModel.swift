@@ -8,7 +8,10 @@
 
 import UIKit
 
-struct CustomerModel: Encodable, Decodable, Equatable {
+struct CustomerModel: ActionModel {
+    var errors: [String] = []
+    var message: String = ""
+    
     var customerId: Int = -1
     var customerName: String = ""
     var customerLastname: String = ""

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ActionModel: Encodable, Decodable {
+protocol ActionModel: Encodable, Decodable, Equatable {
     var errors: [String] { get set}
     var message: String { get set}
 }

@@ -9,7 +9,8 @@
 import UIKit
 
 class EditCustomerTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-    var webApi: WebApi = WebApi()
+    let webApi: WebApi = WebApi()
+    let alerts: AlertsHelper = AlertsHelper()
     var customerModel: CustomerModel = CustomerModel()
     var statesList: [StatesList] = []
     
@@ -151,16 +152,11 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
     @IBAction func update(_ sender: Any) {
         if !validateInputs() {
             
-            let valAlert = UIAlertController(title: NSLocalizedString("alert_validation_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), preferredStyle: .alert)
-            
-            valAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: nil))
-            
-            self.present(valAlert, animated: true, completion: {() -> Void in
+            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {() -> Void in
                 self.setInvalidInputs()
             })
             
         } else {
-            
             customerModel.customerName = customerName.text!
             customerModel.customerLastname = customerLastname.text!
             customerModel.customerPhone = customerPhone.unMaskValue()
@@ -184,16 +180,24 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
                     
                     guard response != nil else { return }
                     
-                    let successAlert = UIAlertController(title: NSLocalizedString("alert_success", tableName: "messages", comment: ""), message: NSLocalizedString("alert_customer_success_edit", tableName: "messages", comment: ""), preferredStyle: .alert)
-                    
-                    successAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
-                        
-                        self.performSegue(withIdentifier: "GoBackSegue", sender: self)
-                        
-                    }))
-                    
-                    self.present(successAlert, animated: true, completion: nil)
-                    
+                    do {
+                        if let data = response {
+                            self.customerModel = try JSONDecoder().decode(CustomerModel.self, from: data)
+                            
+                            if self.customerModel.errors.count > 0 {
+                                self.alerts.processErrors(self, errors: self.customerModel.errors)
+                            }
+                            
+                            if !self.customerModel.message.isEmpty {
+                                self.alerts.showSuccessAlert(self, message: self.customerModel.message, onComplete: {() -> Void in
+                                    self.performSegue(withIdentifier: "GoBackSegue", sender: nil)
+                                })
+                            }
+                        }
+                    }
+                    catch {
+                        return
+                    }
                 })
             } catch {
                 

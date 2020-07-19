@@ -121,16 +121,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                         self.loginModel = try JSONDecoder().decode(LoginModel.self, from: data)
                         
                         if self.loginModel.errors.count > 0 {
-                            var message: String = ""
-                            var i: Int = 0
-                            
-                            for error in self.loginModel.errors {
-                                if i > 0 { message += "\n\r" }
-                                message += "\(error)"
-                                i += 1
-                            }
-                            
-                            self.alerts.showErrorAlert(self, message: message, onComplete: nil)
+                            self.alerts.processErrors(self, errors: self.loginModel.errors)
                         }
                         
                         if !self.loginModel.token.isEmpty {
