@@ -437,7 +437,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUD-nQ-duF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="2Jz-29-soH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2292" y="475"/>
+            <point key="canvasLocation" x="2794" y="475"/>
         </scene>
         <!--New Customer View-->
         <scene sceneID="gzJ-bR-gFa">
@@ -977,7 +977,7 @@
                 </tapGestureRecognizer>
                 <exit id="S4F-wT-nbb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1863" y="2246"/>
+            <point key="canvasLocation" x="865" y="2253"/>
         </scene>
         <!--Customers View-->
         <scene sceneID="iWl-l6-dSy">
@@ -1668,7 +1668,7 @@
                 </tapGestureRecognizer>
                 <exit id="cfQ-oG-BVG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="822" y="2246"/>
+            <point key="canvasLocation" x="1791" y="2253"/>
         </scene>
         <!--New Product View-->
         <scene sceneID="Nig-ED-jqQ">
@@ -1845,7 +1845,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4mC-FS-r35" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="gSJ-QF-9Y8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2292" y="1353.3733133433284"/>
+            <point key="canvasLocation" x="2361" y="1352"/>
         </scene>
         <!--Edit Product View-->
         <scene sceneID="hwG-ts-69R">
@@ -2015,7 +2015,7 @@
                             <outlet property="delegate" destination="SbK-E0-dQv" id="GtQ-lu-NHM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Product" id="sxJ-q9-b9e"/>
+                    <navigationItem key="navigationItem" title="Edit Product" id="sxJ-q9-b9e"/>
                     <connections>
                         <outlet property="inputProductName" destination="GPc-uz-tO6" id="bBq-V1-1qs"/>
                         <outlet property="inputProductPrice" destination="gnq-1J-dhA" id="UoC-y9-wzh"/>
@@ -2025,7 +2025,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YrX-dC-DeI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="AKP-X1-uwp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3341.5999999999999" y="474.51274362818594"/>
+            <point key="canvasLocation" x="3204" y="1352"/>
         </scene>
         <!--Orders Tab-->
         <scene sceneID="tSw-eI-Vbr">
