@@ -41,4 +41,5 @@ struct OrderDetailsModel: Decodable, Encodable {
     var userLastname: String = ""
     var articles: [ArticlesModel] = []
     var statusId: Int = 0
+    var paymentMethodId: Int = 0
 }

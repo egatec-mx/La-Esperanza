@@ -8,11 +8,14 @@
 
 import UIKit
 
-class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate {
+class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     let webApi: WebApi = WebApi()
     let dateFormatter: DateFormatter = DateFormatter()
     let numberFormatter: NumberFormatter = NumberFormatter()
-    var orderModel: OrderDetailsModel = OrderDetailsModel()    
+    var orderModel: OrderDetailsModel = OrderDetailsModel()
+    var methodOfPaymentList: [MethodOfPaymentList] = []
+    var showMethodOfPaymentPicker: Bool = false
+    var showDatePickerView: Bool = false
     
     @IBOutlet var customerLabel: UILabel!
     @IBOutlet var notesTextView: UITextView!
@@ -39,34 +42,68 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate 
         numberFormatter.allowsFloats = true
         numberFormatter.alwaysShowsDecimalSeparator = true
         
-        tableView.isEditing = true
-        
+        getMethodOfPayment()
         displayInfo()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 3 && (indexPath.row == 1 || indexPath.row == 3) {
+        if indexPath.section == 3 && ((!showMethodOfPaymentPicker && indexPath.row == 1) || (!showDatePickerView && indexPath.row == 3)) {
             return 0
         } else {
             return super.tableView(tableView, heightForRowAt: indexPath)
         }
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section != 1 {
-            return false
-        } else {
-            return true
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 3 && indexPath.row == 0 {
+            showDatePickerView = false
+            toggleMethodOfPayment()
+        } else if indexPath.section == 3 && indexPath.row == 2 {
+            showMethodOfPaymentPicker = false
+            toggleDatePicker()
+        }
         
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.orderModel.paymentMethodId = methodOfPaymentList[row].mopId
+        self.methodOfPaymentLabel.text = methodOfPaymentList[row].mopDescription
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return methodOfPaymentList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return methodOfPaymentList[row].mopDescription
+    }
+    
+    func toggleMethodOfPayment() {
+        let selected = methodOfPaymentList.firstIndex(of: methodOfPaymentList.filter{ $0.mopId == orderModel.paymentMethodId}.first!)!
+        methodOfPaymentPickerView.selectRow(selected, inComponent: 0, animated: false)
+        showMethodOfPaymentPicker = !showMethodOfPaymentPicker
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    
+    func toggleDatePicker() {
+        if let stringDate = orderModel.orderScheduleDate {
+            if let date = dateFormatter.date(from: stringDate) {
+                orderScheduleDatePicker.date = date
+            }
+        }
+        showDatePickerView = !showDatePickerView
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+            
     func displayInfo() {
         customerLabel.text = "\(orderModel.customerName) \(orderModel.customerLastname)"
-        
         notesTextView.text = orderModel.orderNotes
     
         if orderModel.orderScheduleDate != nil {
@@ -82,14 +119,38 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate 
         }
         
         methodOfPaymentLabel.text = orderModel.paymentMethod
-        
         orderTotalTextField.text = numberFormatter.string(for: orderModel.orderTotal)
-        
         orderDeliveryTaxTextField.text = numberFormatter.string(for: orderModel.orderDeliveryTax)
         
     }
     
-    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
-        
+    func getMethodOfPayment() {
+        webApi.DoGet("orders/mop-list", onCompleteHandler: { (response, error) -> Void in
+            guard error == nil else {
+                return
+            }
+            
+            guard response != nil else { return }
+            
+            do {
+                if let data = response {
+                    self.methodOfPaymentList = try JSONDecoder().decode([MethodOfPaymentList].self, from: data)
+                    self.methodOfPaymentPickerView.reloadAllComponents()
+                }
+            } catch {
+                return
+            }
+        })
     }
+    
+    @IBAction func selectedDate(_ sender: UIDatePicker) {
+        let dateFormat = DateFormatter()
+        dateFormat.calendar = Calendar.current
+        dateFormat.dateFormat = "dd/MM/yyy hh:mm a"
+        dateFormat.timeZone = TimeZone.current
+        orderScheduleDateLabel.text = dateFormat.string(from: orderScheduleDatePicker.date)
+        orderModel.orderScheduleDate = dateFormatter.string(from: orderScheduleDatePicker.date)
+    }
+    
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) { }
 }

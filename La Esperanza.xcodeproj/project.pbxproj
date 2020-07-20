@@ -54,6 +54,7 @@
 		7CB0502A245DD0EA00CF8245 /* esperanza.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7CB05028245DD0EA00CF8245 /* esperanza.xcdatamodeld */; };
 		7CB0502C245DD0EB00CF8245 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB0502B245DD0EB00CF8245 /* Assets.xcassets */; };
 		7CB0502F245DD0EB00CF8245 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CB0502D245DD0EB00CF8245 /* LaunchScreen.storyboard */; };
+		7CB2C90D24C5EE8E00E40A2E /* MethodOfPaymentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */; };
 		7CCAC6EB24AE690C00D4D1F9 /* RoundedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCAC6EA24AE690C00D4D1F9 /* RoundedUIButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +113,7 @@
 		7CB05038245DD18C00CF8245 /* esperanza.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = esperanza.entitlements; sourceTree = "<group>"; };
 		7CB1C3EF245F2A3F00876B6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7CB1C3F0245F2A3F00876B6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodOfPaymentList.swift; sourceTree = "<group>"; };
 		7CCAC6EA24AE690C00D4D1F9 /* RoundedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUIButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				7C7992DB24C35F1E0070FEFF /* StatesList.swift */,
+				7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				7C4725BC24B7E8A200181065 /* CancelOrderModel.swift in Sources */,
 				7C2DE87024BF708F00491D85 /* ProductModel.swift in Sources */,
 				7C42B36D24B518B2008C014D /* OrderDetailsModel.swift in Sources */,
+				7CB2C90D24C5EE8E00E40A2E /* MethodOfPaymentList.swift in Sources */,
 				7C2DE86924BF6D7100491D85 /* ProductsTableViewController.swift in Sources */,
 				7C60244B24AD788D00FB6D5A /* LogInViewController.swift in Sources */,
 				7C7D097E24C3A9D7001280C5 /* FixedLengthTextField.swift in Sources */,
