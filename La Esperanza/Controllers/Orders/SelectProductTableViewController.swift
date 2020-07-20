@@ -1,0 +1,153 @@
+//
+//  SelectProductTableViewController.swift
+//  La Esperanza
+//
+//  Created by Efrain Garcia Rocha on 20/07/20.
+//  Copyright © 2020 Efrain Garcia Rocha. All rights reserved.
+//
+
+import UIKit
+
+class SelectProductTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    let webApi: WebApi = WebApi()
+    let numberFormatter: NumberFormatter = NumberFormatter()
+    var selectedIndex: IndexPath = IndexPath()
+    var productModel: ArticlesModel = ArticlesModel()
+    var productsList: [ProductModel] = []
+    var showProductPicker: Bool = false
+    
+    @IBOutlet var quantityTextField: ImageTextField!
+    @IBOutlet var productLabel: UILabel!
+    @IBOutlet var productPickerView: UIPickerView!
+    @IBOutlet var productPriceTextField: ImageTextField!
+    @IBOutlet var productTotalTextField: ImageTextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        numberFormatter.allowsFloats = true
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.alwaysShowsDecimalSeparator = true
+        numberFormatter.generatesDecimalNumbers = true
+        
+        quantityTextField.addTarget(self, action: #selector(textDidChange), for: .allEditingEvents)
+        productPriceTextField.addTarget(self, action: #selector(textDidChange), for: .allEditingEvents)
+        productTotalTextField.addTarget(self, action: #selector(totalChanged), for: .allEditingEvents)
+        
+        getProducts()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(quantityTextField!)
+        NotificationCenter.default.removeObserver(productPriceTextField!)
+        NotificationCenter.default.removeObserver(productTotalTextField!)
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return productsList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        changeProduct(row)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return productsList[row].productName
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 && indexPath.row == 2 && !showProductPicker {
+            return 0
+        } else {
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 1 {
+            toggleProduct()
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    func toggleProduct() {
+        showProductPicker = !showProductPicker
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+    
+    func displayInfo() {
+        quantityTextField.text = numberFormatter.string(for: productModel.orderDetailQuantity)
+        productLabel.text = productModel.productName
+        productPriceTextField.text = numberFormatter.string(for: productModel.orderDetailPrice)
+        productTotalTextField.text = numberFormatter.string(for: productModel.orderDetailTotal)
+        let position = productsList.firstIndex(of: productsList.filter{$0.productId == productModel.productId}.first!)!
+        productPickerView.selectRow(position, inComponent: 0, animated: false)
+    }
+    
+    func getProducts() {
+       webApi.DoGet("products", onCompleteHandler: {(response, error) -> Void in
+            do {
+                                
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                    }
+                    return
+                }
+                
+                guard response != nil else { return }
+                
+                if let data = response {
+                    self.productsList = try JSONDecoder().decode([ProductModel].self, from: data)
+                }
+                
+                DispatchQueue.main.async {
+                    self.productPickerView.reloadAllComponents()
+                    self.displayInfo()
+                }
+            } catch {
+                return
+            }
+        })
+    }
+    
+    @objc func textDidChange() {
+        let quantity = Decimal(string: quantityTextField.text ?? "1") ?? 1
+        let price = Decimal(string: productPriceTextField.text ?? "0") ?? 0
+        let total = quantity * price
+        productTotalTextField.text = numberFormatter.string(for: total)
+    }
+    
+    @objc func totalChanged() {
+        let total = Decimal(string: productTotalTextField.text ?? "0") ?? 0
+        let price = Decimal(string: productPriceTextField.text ?? "0") ?? 1
+        let quantity = total / price
+        quantityTextField.text = numberFormatter.string(for: quantity)
+    }
+       
+    func changeProduct(_ row: Int) {
+        let product = productsList[row]
+        let quantity = Decimal(string: quantityTextField.text ?? "1")
+        let total = (quantity! * product.productPrice)
+        productModel.productId =  product.productId
+        productLabel.text = product.productName
+        productPriceTextField.text = numberFormatter.string(for: product.productPrice)
+        productTotalTextField.text = numberFormatter.string(for: total)
+    }
+    
+    @IBAction func save(_ sender: Any) {
+        productModel.orderDetailQuantity = Double(exactly: numberFormatter.number(from: quantityTextField.text!)!)!
+        productModel.orderDetailPrice = Decimal(string: productPriceTextField.text!)!
+        productModel.orderDetailTotal = Decimal(string: productTotalTextField.text!)!
+        productModel.productName = productLabel.text!
+        performSegue(withIdentifier: "UpdateSegue", sender: nil)
+    }
+}

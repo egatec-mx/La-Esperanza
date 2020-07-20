@@ -11,6 +11,7 @@ import Foundation
 struct ArticlesModel: Encodable, Decodable {
     var orderDetailId: CLongLong = 0
     var orderDetailQuantity: Double = 0
+    var orderDetailPrice: Decimal = 0
     var orderDetailTotal: Decimal = 0
     var productId: Int = 0
     var productName: String = ""

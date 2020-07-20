@@ -25,6 +25,7 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
     @IBOutlet var methodOfPaymentLabel: UILabel!
     @IBOutlet var orderTotalTextField: UILabel!
     @IBOutlet var orderDeliveryTaxTextField: ImageTextField!
+    @IBOutlet var articlesTableView: ArticlesTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +43,21 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         numberFormatter.allowsFloats = true
         numberFormatter.alwaysShowsDecimalSeparator = true
         
+        articlesTableView.isEditing = true
+        articlesTableView.delegate = articlesTableView.self
+        articlesTableView.dataSource = articlesTableView.self
+        
         getMethodOfPayment()
         displayInfo()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 3 && ((!showMethodOfPaymentPicker && indexPath.row == 1) || (!showDatePickerView && indexPath.row == 3)) {
+        if indexPath.section == 3 &&
+            ((!showMethodOfPaymentPicker && indexPath.row == 1) ||
+            (!showDatePickerView && indexPath.row == 3)) {
             return 0
+        } else if indexPath.section == 1 {
+            return CGFloat(orderModel.articles.count * 45)
         } else {
             return super.tableView(tableView, heightForRowAt: indexPath)
         }
@@ -62,7 +71,7 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
             showMethodOfPaymentPicker = false
             toggleDatePicker()
         }
-        
+    
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -122,6 +131,11 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         orderTotalTextField.text = numberFormatter.string(for: orderModel.orderTotal)
         orderDeliveryTaxTextField.text = numberFormatter.string(for: orderModel.orderDeliveryTax)
         
+        articlesTableView.articles = orderModel.articles
+        articlesTableView.reloadData()
+        articlesTableView.beginUpdates()
+        articlesTableView.endUpdates()
+        
     }
     
     func getMethodOfPayment() {
@@ -143,6 +157,14 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         })
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ProductSegue" {
+            let view = segue.destination as! SelectProductTableViewController
+            view.selectedIndex = articlesTableView.selectedIndex
+            view.productModel = articlesTableView.articles[articlesTableView.selectedIndex.row]
+        }
+    }
+    
     @IBAction func selectedDate(_ sender: UIDatePicker) {
         let dateFormat = DateFormatter()
         dateFormat.calendar = Calendar.current
@@ -152,5 +174,14 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         orderModel.orderScheduleDate = dateFormatter.string(from: orderScheduleDatePicker.date)
     }
     
-    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) { }
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
+        if segue.identifier == "UpdateSegue" {
+            let source = segue.source as! SelectProductTableViewController
+            orderModel.articles[source.selectedIndex.row] = source.productModel
+            articlesTableView.articles[source.selectedIndex.row] = source.productModel
+            articlesTableView.reloadData()
+            articlesTableView.beginUpdates()
+            articlesTableView.endUpdates()
+        }
+    }
 }
