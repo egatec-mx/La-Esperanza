@@ -10,6 +10,7 @@ import Foundation
 
 struct OrderDetailsModel: Decodable, Encodable {
     var orderId: CLongLong = 0
+    var customerId: Int = 0
     var customerName: String = ""
     var customerLastname: String = ""
     var customerPhone: String = ""

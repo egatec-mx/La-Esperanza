@@ -13,6 +13,7 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
     let alerts: AlertsHelper = AlertsHelper()
     var customerModel: CustomerModel = CustomerModel()
     var statesList: [StatesList] = []
+    var sourceSegue: String = ""
     
     @IBOutlet var customerName: ImageTextField!
     @IBOutlet var customerLastname: ImageTextField!
@@ -147,7 +148,11 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
                             
                             if !self.customerModel.message.isEmpty {
                                 self.alerts.showSuccessAlert(self, message: self.customerModel.message, onComplete: {() -> Void in
-                                    self.performSegue(withIdentifier: "GoBackSegue", sender: nil)
+                                    if self.sourceSegue == "NewSegue" {
+                                        self.performSegue(withIdentifier: "ReloadSegue", sender: nil)
+                                    } else {
+                                        self.performSegue(withIdentifier: "GoBackSegue", sender: nil)
+                                    }
                                 })
                             }
                         }

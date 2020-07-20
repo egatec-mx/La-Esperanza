@@ -23,7 +23,7 @@ import UIKit
     }
     
     func addNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: NSNotification.Name("UITextFieldTextDidChangeNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange), name: UITextField.textDidChangeNotification, object: nil)
     }
     
     deinit {

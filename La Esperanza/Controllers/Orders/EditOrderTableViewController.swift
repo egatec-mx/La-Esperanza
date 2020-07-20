@@ -8,89 +8,88 @@
 
 import UIKit
 
-class EditOrderTableViewController: UITableViewController {
-    var webApi: WebApi = WebApi()
-    var orderModel: OrderDetailsModel = OrderDetailsModel()
+class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate {
+    let webApi: WebApi = WebApi()
+    let dateFormatter: DateFormatter = DateFormatter()
+    let numberFormatter: NumberFormatter = NumberFormatter()
+    var orderModel: OrderDetailsModel = OrderDetailsModel()    
     
     @IBOutlet var customerLabel: UILabel!
+    @IBOutlet var notesTextView: UITextView!
+    @IBOutlet var orderScheduleDatePicker: UIDatePicker!
+    @IBOutlet var orderScheduleDateLabel: UILabel!
+    @IBOutlet var methodOfPaymentPickerView: UIPickerView!
+    @IBOutlet var methodOfPaymentLabel: UILabel!
+    @IBOutlet var orderTotalTextField: UILabel!
+    @IBOutlet var orderDeliveryTaxTextField: ImageTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        customerLabel.text = "\(orderModel.customerName) \(orderModel.customerLastname)"
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        dateFormatter.locale = Locale.current
+        dateFormatter.calendar = Calendar.current
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
+        numberFormatter.allowsFloats = true
+        numberFormatter.alwaysShowsDecimalSeparator = true
+        
+        tableView.isEditing = true
+        
+        displayInfo()
     }
-
-    // MARK: - Table view data source
-    /*
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 3 && (indexPath.row == 1 || indexPath.row == 3) {
+            return 0
+        } else {
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        }
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }*/
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        if indexPath.section != 1 {
+            return false
+        } else {
+            return true
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    func displayInfo() {
+        customerLabel.text = "\(orderModel.customerName) \(orderModel.customerLastname)"
+        
+        notesTextView.text = orderModel.orderNotes
+    
+        if orderModel.orderScheduleDate != nil {
+            if let dTime: Date = dateFormatter.date(from: orderModel.orderScheduleDate!) {
+               let printTime: DateFormatter = DateFormatter()
+               printTime.timeStyle = .short
+               printTime.dateFormat = "dd/MM/yyy hh:mm a"
+               printTime.timeZone = TimeZone.current
+               orderScheduleDateLabel.text = printTime.string(for: dTime)
+            }
+        } else {
+            orderScheduleDateLabel.text = "N/A"
+        }
+        
+        methodOfPaymentLabel.text = orderModel.paymentMethod
+        
+        orderTotalTextField.text = numberFormatter.string(for: orderModel.orderTotal)
+        
+        orderDeliveryTaxTextField.text = numberFormatter.string(for: orderModel.orderDeliveryTax)
+        
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
+        
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

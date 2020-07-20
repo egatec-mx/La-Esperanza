@@ -104,10 +104,12 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+        view.endEditing(true)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+        view.endEditing(true)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
