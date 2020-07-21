@@ -103,10 +103,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         do {
             let data = try JSONEncoder().encode(loginModel)
             
-            self.showWait()
-            
             webApi.DoPost("account/login", jsonData: data, onCompleteHandler: { (response, error) -> Void in
-                
                 guard error == nil else {
                     if (error as NSError?)?.code != 401 {
                         self.alerts.showErrorAlert(self, message: NSLocalizedString("error_not_connection", tableName: "messages", comment: ""), onComplete: nil)
@@ -117,19 +114,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 guard response != nil else { return }
                 
                 do {
-                    
-                    self.hideWait()
-                    
                     if let data = response {
-                        
                         self.loginModel = try JSONDecoder().decode(LoginModel.self, from: data)
                         
                         if self.loginModel.errors.count > 0 {
                             self.alerts.processErrors(self, errors: self.loginModel.errors)
                         }
                         
-                        if !self.loginModel.token.isEmpty {
-                            
+                        if !self.loginModel.token.isEmpty {                            
                             UserDefaults.standard.set(self.loginModel.token, forKey: "JWTToken")
                             UserDefaults.standard.synchronize()
                             
@@ -160,13 +152,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             self.authenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: NSLocalizedString("auth_reason", tableName: "messages", comment: "")) { (succes, error) in
                 
                 if succes {
-                                        
                     if !self.savedCredentials {
                         UserDefaults.standard.set(self.loginModel.userName, forKey: "UserName")
                         UserDefaults.standard.set(self.loginModel.password, forKey: "UserPassword")
                         UserDefaults.standard.set(true, forKey: "SavedCredentials")
                         UserDefaults.standard.synchronize()
                     }
+                    
                     self.registerDevice()
                     self.navigateToNextView()
                     
@@ -201,7 +193,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     if canContinue {
                         self.alerts.showErrorAlert(self, message: message, onComplete: {() -> Void in
                             self.registerDevice()
-                            self.navigateToNextView() })
+                            self.navigateToNextView()
+                        })
                     } else {
                         self.alerts.showErrorAlert(self, message: message, onComplete: nil)
                     }
@@ -221,9 +214,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 
                 webApi.DoPost("account/register", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                     guard error == nil else { return }
-                    print("Response: \(String(data: response!, encoding: .utf8) as Any)")
                 })
-                
             } catch {
                 return
             }

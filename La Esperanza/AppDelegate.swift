@@ -38,6 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.register(defaults: ["UserPassword" : ""])
         }
         
+        if UserDefaults.standard.value(forKey: "SERVER_URL") == nil {
+            UserDefaults.standard.register(defaults: ["SERVER_URL" : "https://esperanza.egatec.com.mx/mobile/api"])
+        }
+        
         return true
     }
 
