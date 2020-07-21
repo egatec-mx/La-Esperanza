@@ -37,7 +37,7 @@
 "alert_warning_title" = "¡Cudiado!";
 "alert_product_delete" = "Está por borrar este producto.";
 "alert_validation_title" = "¡Alto!";
-"alert_validation_message" = "Hay algunos campos incorrectos, revise porfavor.";
+"alert_validation_message" = "Hay algunos campos incorrectos, revise los marcados en rojo porfavor.";
 "alert_product_success_add" = "Se agregó el producto correctamente.";
 "alert_product_success_edit" = "Se ha actualizado el producto correctamente.";
 "alert_customer_delete" = "Está por borrar este cliente.";

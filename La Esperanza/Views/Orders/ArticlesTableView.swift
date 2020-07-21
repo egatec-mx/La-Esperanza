@@ -54,6 +54,11 @@ class ArticlesTableView: UITableView, UITableViewDelegate, UITableViewDataSource
                 parent.tableView.reloadData()
                 parent.tableView.beginUpdates()
                 parent.tableView.endUpdates()
+            } else if let parent = self.findViewController() as? NewOrderTableViewController {
+                parent.orderModel.articles.append(ArticlesModel())
+                parent.tableView.reloadData()
+                parent.tableView.beginUpdates()
+                parent.tableView.endUpdates()
             }
         default:
             return

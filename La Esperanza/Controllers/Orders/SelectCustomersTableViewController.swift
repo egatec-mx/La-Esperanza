@@ -14,6 +14,7 @@ class SelectCustomersTableViewController: UITableViewController, UISearchBarDele
     var searchList: [CustomerModel] = []
     var selectedCustomer: Int = 0
     var selectedCustomerFullName: String = ""
+    var sourceSegue: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,12 @@ class SelectCustomersTableViewController: UITableViewController, UISearchBarDele
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedCustomer = searchList[indexPath.row].customerId
         selectedCustomerFullName = "\(searchList[indexPath.row].customerName) \(searchList[indexPath.row].customerLastname)"
-        performSegue(withIdentifier: "GoBackSegue", sender: nil)
+        
+        if sourceSegue == "NewSegue" {
+            performSegue(withIdentifier: "ReturnSegue", sender: nil)
+        } else {
+            performSegue(withIdentifier: "GoBackSegue", sender: nil)
+        }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -65,7 +71,11 @@ class SelectCustomersTableViewController: UITableViewController, UISearchBarDele
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "GoBackSegue" {
+        if segue.identifier == "ReturnSegue" {
+            let newView = segue.destination as! NewOrderTableViewController
+            newView.orderModel.customerId = selectedCustomer
+            newView.customerLabel.text = selectedCustomerFullName
+        } else if segue.identifier == "GoBackSegue" {
             let editView = segue.destination as! EditOrderTableViewController
             editView.orderModel.customerId = selectedCustomer
             editView.customerLabel.text = selectedCustomerFullName

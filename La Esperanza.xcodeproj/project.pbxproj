@@ -57,6 +57,7 @@
 		7CB0502F245DD0EB00CF8245 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CB0502D245DD0EB00CF8245 /* LaunchScreen.storyboard */; };
 		7CB2C90D24C5EE8E00E40A2E /* MethodOfPaymentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */; };
 		7CC644EF24C667C8007E5B23 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC644EE24C667C8007E5B23 /* UIViewExtension.swift */; };
+		7CC644F124C678AE007E5B23 /* NewOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC644F024C678AE007E5B23 /* NewOrderTableViewController.swift */; };
 		7CCAC6EB24AE690C00D4D1F9 /* RoundedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCAC6EA24AE690C00D4D1F9 /* RoundedUIButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,7 @@
 		7CB1C3F0245F2A3F00876B6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodOfPaymentList.swift; sourceTree = "<group>"; };
 		7CC644EE24C667C8007E5B23 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		7CC644F024C678AE007E5B23 /* NewOrderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderTableViewController.swift; sourceTree = "<group>"; };
 		7CCAC6EA24AE690C00D4D1F9 /* RoundedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUIButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -279,6 +281,7 @@
 				7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */,
 				7C0CC26D24C544B700D015F5 /* SelectCustomersTableViewController.swift */,
 				7C15F9DD24C616790012EE8C /* SelectProductTableViewController.swift */,
+				7CC644F024C678AE007E5B23 /* NewOrderTableViewController.swift */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				7C65C20624C1273800158112 /* NewProductTableViewController.swift in Sources */,
 				7C60245324AE4A6D00FB6D5A /* ActionModel.swift in Sources */,
 				7C60244E24AE2B4100FB6D5A /* WebApi.swift in Sources */,
+				7CC644F124C678AE007E5B23 /* NewOrderTableViewController.swift in Sources */,
 				7C6A3B1524AFB8FF00EA296A /* OrdersReport.swift in Sources */,
 				7C2AA5D724C0090F00F5CE94 /* EditProductViewController.swift in Sources */,
 				7C70394F24AEFC5D0031E123 /* OrdersModel.swift in Sources */,

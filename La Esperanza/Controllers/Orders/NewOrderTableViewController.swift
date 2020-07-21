@@ -1,14 +1,14 @@
 //
-//  EditOrderTableViewController.swift
+//  NewOrderTableViewController.swift
 //  La Esperanza
 //
-//  Created by Efrain Garcia Rocha on 18/07/20.
+//  Created by Efrain Garcia Rocha on 20/07/20.
 //  Copyright © 2020 Efrain Garcia Rocha. All rights reserved.
 //
 
 import UIKit
 
-class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     let webApi: WebApi = WebApi()
     let alerts: AlertsHelper = AlertsHelper()
     let dateFormatter: DateFormatter = DateFormatter()
@@ -49,9 +49,8 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         articlesTableView.dataSource = articlesTableView.self
         
         orderDeliveryTaxTextField.addTarget(self, action: #selector(textDidChange), for: .allEditingEvents)
-        
+
         getMethodOfPayment()
-        displayInfo()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -113,35 +112,33 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         tableView.beginUpdates()
         tableView.endUpdates()
     }
-            
-    func displayInfo() {
-        customerLabel.text = "\(orderModel.customerName) \(orderModel.customerLastname)"
-        notesTextView.text = orderModel.orderNotes
     
-        if orderModel.orderScheduleDate != nil {
-            if let dTime: Date = dateFormatter.date(from: orderModel.orderScheduleDate!) {
-               let printTime: DateFormatter = DateFormatter()
-               printTime.timeStyle = .short
-               printTime.dateFormat = "dd/MM/yyy hh:mm a"
-               printTime.timeZone = TimeZone.current
-               orderScheduleDateLabel.text = printTime.string(for: dTime)
-            }
-        } else {
-            orderScheduleDateLabel.text = "N/A"
-        }
+    func displayInfo() {
+        orderModel.orderDeliveryTax = 0
         
-        methodOfPaymentLabel.text = orderModel.paymentMethod
+        let printTime: DateFormatter = DateFormatter()
+        printTime.timeStyle = .short
+        printTime.dateFormat = "dd/MM/yyy hh:mm a"
+        printTime.timeZone = TimeZone.current
+        orderScheduleDateLabel.text = printTime.string(for: Date())
+        
+        methodOfPaymentLabel.text = methodOfPaymentList[0].mopDescription
         orderTotalTextField.text = numberFormatter.string(for: orderModel.orderTotal)
         orderDeliveryTaxTextField.text = numberFormatter.string(for: orderModel.orderDeliveryTax)
         
         orderModel.articles.append(ArticlesModel())
         articlesTableView.articles = orderModel.articles
+        
         articlesTableView.reloadData()
         articlesTableView.beginUpdates()
         articlesTableView.endUpdates()
         
+        tableView.reloadData()
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
     }
-    
+        
     func getMethodOfPayment() {
         webApi.DoGet("orders/mop-list", onCompleteHandler: { (response, error) -> Void in
             guard error == nil else {
@@ -154,6 +151,7 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
                 if let data = response {
                     self.methodOfPaymentList = try JSONDecoder().decode([MethodOfPaymentList].self, from: data)
                     self.methodOfPaymentPickerView.reloadAllComponents()
+                    self.displayInfo()
                 }
             } catch {
                 return
@@ -181,11 +179,49 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ProductSegue" {
+        if segue.identifier == "SelectProduct" {
             let view = segue.destination as! SelectProductTableViewController
             view.selectedIndex = articlesTableView.selectedIndex
             view.productModel = articlesTableView.articles[articlesTableView.selectedIndex.row]
+            view.sourceSegue = segue.identifier!
+        } else if segue.identifier == "NewSegue" {
+            let selectView = segue.destination as! SelectCustomersTableViewController
+            selectView.sourceSegue = segue.identifier!
         }
+    }
+    
+    func validateOrder() -> Bool {
+        var isValid: Bool = true
+        
+        if orderModel.customerId <= 0 {
+            customerLabel.textColor = UIColor.red
+            isValid = false
+        } else {
+            customerLabel.textColor = UIColor.label
+        }
+        
+        if orderModel.paymentMethodId <= 0 {
+            methodOfPaymentLabel.textColor = UIColor.red
+            isValid = false
+        } else {
+            methodOfPaymentLabel.textColor = UIColor.label
+        }
+        
+        if orderModel.orderScheduleDate == nil {
+            orderScheduleDateLabel.textColor = UIColor.red
+            isValid = false
+        } else {
+            orderScheduleDateLabel.textColor = UIColor.label
+        }
+        
+        if orderModel.articles.filter({ $0.productId == 0 }).count > 0 {
+            articlesTableView.backgroundColor = UIColor.red
+            isValid = false
+        } else {
+            articlesTableView.backgroundColor = UIColor.clear
+        }
+        
+        return isValid
     }
     
     @IBAction func selectedDate(_ sender: UIDatePicker) {
@@ -197,44 +233,52 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         orderModel.orderScheduleDate = dateFormatter.string(from: orderScheduleDatePicker.date)
     }
     
-    @IBAction func updateOrder(_ sender: Any) {
+    @IBAction func saveOrder(_ sender: Any) {
         do {
+            orderModel.orderDate = dateFormatter.string(from: Date())
             orderModel.orderNotes = notesTextView.text
             
-            let data = try JSONEncoder().encode(orderModel)
+            if validateOrder() {
             
-            webApi.DoPost("orders/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                let data = try JSONEncoder().encode(orderModel)
                 
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                    }
-                    return
-                }
-                
-                guard response != nil else { return }
-                
-                if let data = response {
-                    self.orderModel = try! JSONDecoder().decode(OrderDetailsModel.self, from: data)
+                webApi.DoPost("orders/add", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                     
-                    if self.orderModel.errors.count > 0 {
-                        self.alerts.processErrors(self, errors: self.orderModel.errors)
+                    guard error == nil else {
+                        if (error as NSError?)?.code == 401 {
+                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        }
+                        return
                     }
                     
-                    if !self.orderModel.message.isEmpty {
-                        self.alerts.showSuccessAlert(self, message: self.orderModel.message, onComplete: {() -> Void in
-                            self.performSegue(withIdentifier: "GoBackSegue", sender: self)
-                        })
+                    guard response != nil else { return }
+                    
+                    if let data = response {
+                        self.orderModel = try! JSONDecoder().decode(OrderDetailsModel.self, from: data)
+                        
+                        if self.orderModel.errors.count > 0 {
+                            self.alerts.processErrors(self, errors: self.orderModel.errors)
+                        }
+                        
+                        if !self.orderModel.message.isEmpty {
+                            self.alerts.showSuccessAlert(self, message: self.orderModel.message, onComplete: {() -> Void in
+                                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                            })
+                        }
                     }
-                }
-            })
+                })
+                
+            }
+            else {
+                alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: nil)
+            }
         } catch {
             return
         }
     }
     
-    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
-        if segue.identifier == "UpdateSegue" {
+    @IBAction func updateOrder(_ segue: UIStoryboardSegue) {
+        if segue.identifier == "OrderSegue" {
             let source = segue.source as! SelectProductTableViewController
             orderModel.articles[source.selectedIndex.row] = source.productModel
             articlesTableView.articles[source.selectedIndex.row] = source.productModel
@@ -246,4 +290,5 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
             calculateTotals()
         }
     }
+
 }

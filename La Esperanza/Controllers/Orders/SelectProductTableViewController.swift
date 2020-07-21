@@ -16,6 +16,7 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
     var productModel: ArticlesModel = ArticlesModel()
     var productsList: [ProductModel] = []
     var showProductPicker: Bool = false
+    var sourceSegue: String = ""
     
     @IBOutlet var quantityTextField: ImageTextField!
     @IBOutlet var productLabel: UILabel!
@@ -188,7 +189,13 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
             productModel.orderDetailPrice = Decimal(string: productPriceTextField.text!)!
             productModel.orderDetailTotal = Decimal(string: productTotalTextField.text!)!
             productModel.productName = productLabel.text!
-            performSegue(withIdentifier: "UpdateSegue", sender: nil)
+            
+            if sourceSegue == "SelectProduct" {
+                performSegue(withIdentifier: "OrderSegue", sender: nil)
+            } else {
+                performSegue(withIdentifier: "UpdateSegue", sender: nil)
+            }
+            
         } else {
             alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {() -> Void in
                 self.markInvalidInputs()
