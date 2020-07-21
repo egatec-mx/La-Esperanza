@@ -242,7 +242,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         }
                 
         let whatsAppAction = UIAction(title: NSLocalizedString("menu_message", tableName: "messages", comment: ""), image: UIImage(systemName: "message")) { _ in
-            let url:URL = URL(string: "whatsapp://+521\(self.orderDetails.customerPhone)")!
+            let url:URL = URL(string: "whatsapp://send?phone=+521\(self.orderDetails.customerPhone)&abid=+521\(self.orderDetails.customerPhone)")!
             UIApplication.shared.open(url as URL)
         }
         

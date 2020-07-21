@@ -200,14 +200,9 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
         
         let dismissAction = UIAlertAction(title: NSLocalizedString("alert_navigation_dismiss", tableName: "messages", comment: ""), style: .cancel, handler: nil)
         
-        if UIApplication.shared.canOpenURL(URL(string: "waze://")!) {
-            mapsAlert.addAction(wazeAction)
-        }
         
-        if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
-            mapsAlert.addAction(googleMapsAction)
-        }
-        
+        mapsAlert.addAction(wazeAction)
+        mapsAlert.addAction(googleMapsAction)
         mapsAlert.addAction(mapsAction)
         mapsAlert.addAction(dismissAction)
         
