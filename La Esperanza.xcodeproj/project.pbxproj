@@ -58,6 +58,7 @@
 		7CB2C90D24C5EE8E00E40A2E /* MethodOfPaymentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */; };
 		7CC644EF24C667C8007E5B23 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC644EE24C667C8007E5B23 /* UIViewExtension.swift */; };
 		7CC644F124C678AE007E5B23 /* NewOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC644F024C678AE007E5B23 /* NewOrderTableViewController.swift */; };
+		7CC644F324C697FE007E5B23 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7CC644F224C697FE007E5B23 /* Settings.bundle */; };
 		7CCAC6EB24AE690C00D4D1F9 /* RoundedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCAC6EA24AE690C00D4D1F9 /* RoundedUIButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +121,7 @@
 		7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodOfPaymentList.swift; sourceTree = "<group>"; };
 		7CC644EE24C667C8007E5B23 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		7CC644F024C678AE007E5B23 /* NewOrderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderTableViewController.swift; sourceTree = "<group>"; };
+		7CC644F224C697FE007E5B23 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		7CCAC6EA24AE690C00D4D1F9 /* RoundedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUIButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -375,6 +377,7 @@
 				7C70394A24AEBCA90031E123 /* InfoPlist.strings */,
 				7CB0502D245DD0EB00CF8245 /* LaunchScreen.storyboard */,
 				7CB05025245DD0EA00CF8245 /* Main.storyboard */,
+				7CC644F224C697FE007E5B23 /* Settings.bundle */,
 				7C1C461724C1FF2400591641 /* Base */,
 				7CCAC6E824AE664E00D4D1F9 /* Controllers */,
 				7CCAC6E924AE68EF00D4D1F9 /* Controls */,
@@ -475,6 +478,7 @@
 				7CB0502F245DD0EB00CF8245 /* LaunchScreen.storyboard in Resources */,
 				7CB0502C245DD0EB00CF8245 /* Assets.xcassets in Resources */,
 				7CB05027245DD0EA00CF8245 /* Main.storyboard in Resources */,
+				7CC644F324C697FE007E5B23 /* Settings.bundle in Resources */,
 				7C70394C24AEBCA90031E123 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

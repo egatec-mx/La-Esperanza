@@ -9,7 +9,7 @@
 import UIKit
 
 class WebApi: NSObject, URLSessionDelegate {
-    let baseURL: String = "https://localhost:5001/api"
+    let baseURL: String = UserDefaults.standard.string(forKey: "SERVER_URL") ?? ""
     
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         
