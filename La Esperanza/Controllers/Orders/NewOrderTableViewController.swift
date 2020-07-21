@@ -31,8 +31,8 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateFormatter.locale = Locale(identifier: "es-MX")
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.locale = Locale.current
+        dateFormatter.calendar = Calendar.current
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
@@ -226,10 +226,11 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     
     @IBAction func selectedDate(_ sender: UIDatePicker) {
         let dateFormat = DateFormatter()
-        dateFormat.locale = Locale(identifier: "es-MX")
-        dateFormat.calendar = Calendar(identifier: .gregorian)
-        dateFormat.dateFormat = "dd/MM/yyy hh:mm a"
+        dateFormat.locale = Locale.current
+        dateFormat.calendar = Calendar.current
         dateFormat.timeZone = TimeZone.current
+        dateFormat.dateFormat = "dd/MM/yyy hh:mm a"
+       
         orderScheduleDateLabel.text = dateFormat.string(from: orderScheduleDatePicker.date)
         orderModel.orderScheduleDate = dateFormatter.string(from: orderScheduleDatePicker.date)
     }

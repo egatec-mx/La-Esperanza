@@ -43,7 +43,7 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
         let product = searchList[indexPath.row]
         let moneyFormat = NumberFormatter()
         moneyFormat.numberStyle = .currency
-        moneyFormat.locale = Locale(identifier: "es-MX")
+        moneyFormat.locale = Locale.current
         cell.textLabel?.text = product.productName
         cell.detailTextLabel?.text = moneyFormat.string(for: product.productPrice)
         return cell

@@ -47,8 +47,8 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         
         clearDataFromUI()
         
-        dateFormatter.locale = Locale(identifier: "es-MX")
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
+        dateFormatter.locale = Locale.current
+        dateFormatter.calendar = Calendar.current
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
