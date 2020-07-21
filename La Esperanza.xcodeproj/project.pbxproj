@@ -48,6 +48,7 @@
 		7C7D098224C3DC78001280C5 /* NewCustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D098124C3DC78001280C5 /* NewCustomerTableViewController.swift */; };
 		7C7D098424C3EFBD001280C5 /* EditOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */; };
 		7C88E38F24BB9242002D449E /* RejectOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C88E38E24BB9242002D449E /* RejectOrderModel.swift */; };
+		7C8EC1A424C73B740014C974 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8EC1A324C73B740014C974 /* DeviceModel.swift */; };
 		7CB05020245DD0EA00CF8245 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB0501F245DD0EA00CF8245 /* AppDelegate.swift */; };
 		7CB05022245DD0EA00CF8245 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB05021245DD0EA00CF8245 /* SceneDelegate.swift */; };
 		7CB05024245DD0EA00CF8245 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB05023245DD0EA00CF8245 /* ViewController.swift */; };
@@ -108,6 +109,7 @@
 		7C7D098124C3DC78001280C5 /* NewCustomerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCustomerTableViewController.swift; sourceTree = "<group>"; };
 		7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrderTableViewController.swift; sourceTree = "<group>"; };
 		7C88E38E24BB9242002D449E /* RejectOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectOrderModel.swift; sourceTree = "<group>"; };
+		7C8EC1A324C73B740014C974 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		7CB0501C245DD0EA00CF8245 /* La Esperanza.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "La Esperanza.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CB0501F245DD0EA00CF8245 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CB05021245DD0EA00CF8245 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				7C60245024AE4A1B00FB6D5A /* LoginModel.swift */,
+				7C8EC1A324C73B740014C974 /* DeviceModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				7C74D09824BD31770042F3A8 /* ProfileModel.swift in Sources */,
 				7C7D098224C3DC78001280C5 /* NewCustomerTableViewController.swift in Sources */,
 				7CB05022245DD0EA00CF8245 /* SceneDelegate.swift in Sources */,
+				7C8EC1A424C73B740014C974 /* DeviceModel.swift in Sources */,
 				7C0CC26C24C4DA1600D015F5 /* AlertsHelper.swift in Sources */,
 				7CB0502A245DD0EA00CF8245 /* esperanza.xcdatamodeld in Sources */,
 				7C42B37724B588BF008C014D /* ArticlesTableView.swift in Sources */,

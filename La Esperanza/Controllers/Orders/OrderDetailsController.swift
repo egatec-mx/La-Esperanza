@@ -46,8 +46,8 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         
         clearDataFromUI()
         
-        dateFormatter.locale = Locale.current
-        dateFormatter.calendar = Calendar.current
+        dateFormatter.locale = Locale(identifier: "es-MX")
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
@@ -75,7 +75,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                 return 0
             }
         } else if indexPath.section == 2 {
-            return CGFloat(orderDetails.articles.count * 45)
+            return CGFloat(CGFloat(orderDetails.articles.count) * 55)
         } else if indexPath.section == 4 {
             return (LabelNotes.frame.height * 0.85 < 150 ? 150 : LabelNotes.frame.height * 0.85)
         }

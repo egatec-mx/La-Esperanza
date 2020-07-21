@@ -51,6 +51,8 @@ import UIKit
             bottomLine.frame = CGRect(x: 0.0, y: frame.height - 1, width: frame.width, height: 1.0)
             bottomLine.backgroundColor = borderColor.cgColor
             layer.addSublayer(bottomLine)
+            layer.setNeedsLayout()
+            layer.setNeedsDisplay()
         }
     }
         

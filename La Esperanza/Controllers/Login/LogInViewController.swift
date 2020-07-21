@@ -163,7 +163,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                         UserDefaults.standard.set(true, forKey: "SavedCredentials")
                         UserDefaults.standard.synchronize()
                     }
-                    
+                    self.registerDevice()
                     self.navigateToNextView()
                     
                 } else {
@@ -195,11 +195,33 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     if canContinue {
-                        self.alerts.showErrorAlert(self, message: message, onComplete: {() -> Void in self.navigateToNextView() })
+                        self.alerts.showErrorAlert(self, message: message, onComplete: {() -> Void in
+                            self.registerDevice()
+                            self.navigateToNextView() })
                     } else {
                         self.alerts.showErrorAlert(self, message: message, onComplete: nil)
                     }
                 }
+            }
+        }
+    }
+    
+    func registerDevice() {
+        var device: DeviceModel = DeviceModel()
+        
+        if let token = UserDefaults.standard.string(forKey: "PushToken") {
+            device.devicePushP256dh = token
+            
+            do{
+                let data = try JSONEncoder().encode(device)
+                
+                webApi.DoPost("account/register", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                    guard error == nil else { return }
+                    print("Response: \(String(data: response!, encoding: .utf8) as Any)")
+                })
+                
+            } catch {
+                return
             }
         }
     }

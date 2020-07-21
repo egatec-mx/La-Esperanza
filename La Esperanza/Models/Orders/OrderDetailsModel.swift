@@ -44,7 +44,7 @@ struct OrderDetailsModel: ActionModel {
     var userLastname: String = ""
     var articles: [ArticlesModel] = []
     var statusId: Int = 0
-    var paymentMethodId: Int = 0
+    var paymentMethodId: Int? = 0
     
     static func == (lhs: OrderDetailsModel, rhs: OrderDetailsModel) -> Bool {
         return lhs.orderId == rhs.orderId

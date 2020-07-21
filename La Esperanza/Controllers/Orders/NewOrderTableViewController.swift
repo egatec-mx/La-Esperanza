@@ -31,8 +31,8 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateFormatter.locale = Locale.current
-        dateFormatter.calendar = Calendar.current
+        dateFormatter.locale = Locale(identifier: "es-MX")
+        dateFormatter.calendar = Calendar(identifier: .gregorian)
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
@@ -200,7 +200,7 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
             customerLabel.textColor = UIColor.label
         }
         
-        if orderModel.paymentMethodId <= 0 {
+        if orderModel.paymentMethodId! <= 0 {
             methodOfPaymentLabel.textColor = UIColor.red
             isValid = false
         } else {
@@ -226,7 +226,8 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     
     @IBAction func selectedDate(_ sender: UIDatePicker) {
         let dateFormat = DateFormatter()
-        dateFormat.calendar = Calendar.current
+        dateFormat.locale = Locale(identifier: "es-MX")
+        dateFormat.calendar = Calendar(identifier: .gregorian)
         dateFormat.dateFormat = "dd/MM/yyy hh:mm a"
         dateFormat.timeZone = TimeZone.current
         orderScheduleDateLabel.text = dateFormat.string(from: orderScheduleDatePicker.date)
