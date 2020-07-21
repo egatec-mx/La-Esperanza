@@ -8,6 +8,42 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Wait View-->
+        <scene sceneID="SnL-6e-K4Z">
+            <objects>
+                <viewController storyboardIdentifier="WaitView" title="Wait View" id="j7H-2r-Ehi" customClass="WaitViewController" customModule="La_Esperanza" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eac-mh-xdi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="l5X-XV-jhw">
+                                <rect key="frame" x="157" y="414.33333333333331" width="100" height="67.333333333333314"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="w0f-Ju-8P6">
+                                        <rect key="frame" x="32" y="0.0" width="37" height="37"/>
+                                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frm-yP-59d">
+                                        <rect key="frame" x="0.0" y="47" width="100" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="l5X-XV-jhw" firstAttribute="centerX" secondItem="eac-mh-xdi" secondAttribute="centerX" id="GuE-SJ-oJQ"/>
+                            <constraint firstItem="l5X-XV-jhw" firstAttribute="centerY" secondItem="eac-mh-xdi" secondAttribute="centerY" id="fFy-g0-Mrr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="G54-1h-RPq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3z5-5H-Lhb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1436" y="-727"/>
+        </scene>
         <!--LogIn View-->
         <scene sceneID="NcM-rx-tiv">
             <objects>

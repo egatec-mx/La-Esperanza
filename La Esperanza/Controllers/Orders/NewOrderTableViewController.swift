@@ -236,6 +236,8 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     
     @IBAction func saveOrder(_ sender: Any) {
         do {
+            self.showWait()
+            
             orderModel.orderDate = dateFormatter.string(from: Date())
             orderModel.orderNotes = notesTextView.text
             
@@ -255,6 +257,7 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
                     guard response != nil else { return }
                     
                     if let data = response {
+                        self.hideWait()
                         self.orderModel = try! JSONDecoder().decode(OrderDetailsModel.self, from: data)
                         
                         if self.orderModel.errors.count > 0 {
@@ -281,13 +284,17 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     @IBAction func updateOrder(_ segue: UIStoryboardSegue) {
         if segue.identifier == "OrderSegue" {
             let source = segue.source as! SelectProductTableViewController
-            orderModel.articles[source.selectedIndex.row] = source.productModel
+            
+            articlesTableView.beginUpdates()
             articlesTableView.articles[source.selectedIndex.row] = source.productModel
             articlesTableView.reloadData()
-            articlesTableView.beginUpdates()
             articlesTableView.endUpdates()
+            
             tableView.beginUpdates()
+            orderModel.articles = articlesTableView.articles
+            tableView.reloadData()
             tableView.endUpdates()
+            
             calculateTotals()
         }
     }

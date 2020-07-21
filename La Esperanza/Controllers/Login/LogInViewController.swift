@@ -103,6 +103,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         do {
             let data = try JSONEncoder().encode(loginModel)
             
+            self.showWait()
+            
             webApi.DoPost("account/login", jsonData: data, onCompleteHandler: { (response, error) -> Void in
                 
                 guard error == nil else {
@@ -115,6 +117,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 guard response != nil else { return }
                 
                 do {
+                    
+                    self.hideWait()
                     
                     if let data = response {
                         

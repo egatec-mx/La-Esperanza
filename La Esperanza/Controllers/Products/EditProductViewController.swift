@@ -57,6 +57,8 @@ class EditProductViewController: UITableViewController, UITextFieldDelegate {
             })
             
         } else {
+            self.showWait()
+            
             productModel.productName = inputProductName.text!
             productModel.productPrice = numberFormat.number(from: inputProductPrice.text!) as! Decimal
             productModel.productActive = true
@@ -65,7 +67,6 @@ class EditProductViewController: UITableViewController, UITextFieldDelegate {
                 let data = try JSONEncoder().encode(productModel)
             
                 webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                                        
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
                             self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
@@ -76,6 +77,7 @@ class EditProductViewController: UITableViewController, UITextFieldDelegate {
                     guard response != nil else { return }
                     
                     if let data = response {
+                        self.hideWait()
                         self.productModel = try! JSONDecoder().decode(ProductModel.self, from: data)
                         
                         if self.productModel.errors.count > 0 {
@@ -97,7 +99,7 @@ class EditProductViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    @objc func getProduct(){
+    @objc func getProduct() {
         webApi.DoGet("products/\(productModel.productId)", onCompleteHandler: { (response, error) -> Void in
             do {
                 guard error == nil else {

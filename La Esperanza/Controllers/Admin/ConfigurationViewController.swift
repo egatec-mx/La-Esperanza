@@ -52,11 +52,13 @@ class ConfigurationViewController: UITableViewController {
     }
     
     func getProfile() {
+        self.showWait()
         webApi.DoGet("account/profile", onCompleteHandler: { (response, error) -> Void in
             do {
                 
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
+                        self.hideWait()
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                     }
                     return
@@ -65,6 +67,7 @@ class ConfigurationViewController: UITableViewController {
                 guard response != nil else { return }
                 
                 if let data = response {
+                    self.hideWait()
                     self.profile = try JSONDecoder().decode(ProfileModel.self, from: data)
                     self.tableView.reloadData()
                 }

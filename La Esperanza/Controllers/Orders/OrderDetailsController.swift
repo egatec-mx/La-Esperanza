@@ -10,6 +10,7 @@ import UIKit
 
 class OrderDetailsController: UITableViewController, UIContextMenuInteractionDelegate {
     let webApi: WebApi = WebApi()
+    let alerts: AlertsHelper = AlertsHelper()
     let numberFormatter: NumberFormatter = NumberFormatter()
     let dateFormatter: DateFormatter = DateFormatter()
     var phoneInteraction: UIContextMenuInteraction? = nil
@@ -196,7 +197,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             ScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: (LabelNotes.frame.height * 1.15), right: 0)
         }
         
-        if orderDetails.statusId == 1 || orderDetails.statusId == 2 {
+        if (orderDetails.statusId == 1 || orderDetails.statusId == 2) && toolbarItems!.count > 5 {
             toolbarItems?.remove(at: 1)
             toolbarItems?.remove(at: 1)
         } else if orderDetails.statusId >= 4 {
@@ -291,22 +292,6 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         IconStatus.tintColor = UIColor.systemTeal
     }
     
-    func showErrorAlert(_ message: String, onCompleteHandler: (() -> Void)?) {
-        let alert = UIAlertController(title: NSLocalizedString("error_title", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
-            onCompleteHandler?()
-        }))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func showSuccessAlert(_ message: String, onCompleteHandler: (() -> Void)?) {
-        let alert = UIAlertController(title: NSLocalizedString("alert_success", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
-            onCompleteHandler?()
-        }))
-        present(alert, animated: true, completion: nil)
-    }
-    
     func configurationTextField(_ textField: UITextField) {
         self.reasonTextField = textField
         if orderDetails.statusId == 3 {
@@ -318,6 +303,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     
     @IBAction func moveOrder(_ sender: Any) {
         do {
+            self.showWait()
             moveOrderModel.orderId = orderId
                         
             let data = try JSONEncoder().encode(moveOrderModel)
@@ -335,22 +321,23 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                     guard response != nil else { return }
                     
                     if let data = response {
+                        self.hideWait()
                         self.moveOrderModel = try JSONDecoder().decode(MoveOrderModel.self, from: data)
                     }
                     
-                    DispatchQueue.main.async {
-                        if !self.moveOrderModel.message.isEmpty {
-                            self.showSuccessAlert(self.moveOrderModel.message, onCompleteHandler: {() -> Void in
-                                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
-                            })
-                        }
+                    if self.moveOrderModel.errors.count > 0 {
+                        self.alerts.processErrors(self, errors: self.moveOrderModel.errors)
+                    }
+                    
+                    if !self.moveOrderModel.message.isEmpty {
+                        self.alerts.showSuccessAlert(self, message: self.moveOrderModel.message, onComplete: {() -> Void in
+                            self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                        })
                     }
                     
                 } catch {
-                    
                     print(error)
                     return
-                    
                 }
             })
             
@@ -371,7 +358,8 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             
             self.cancelOrderModel.orderId = self.orderId
             self.cancelOrderModel.cancelReason = self.reasonTextField.text!
-                            
+            self.showWait()
+            
             do {
                 let data = try JSONEncoder().encode(self.cancelOrderModel)
                 
@@ -388,21 +376,22 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                         guard response != nil else { return }
                         
                         if let data = response {
+                            self.hideWait()
                             self.cancelOrderModel = try JSONDecoder().decode(CancelOrderModel.self, from: data)
                         }
                         
-                        DispatchQueue.main.async {
-                            if !self.cancelOrderModel.message.isEmpty {
-                                self.showSuccessAlert(self.cancelOrderModel.message, onCompleteHandler: {() -> Void in
-                                    self.performSegue(withIdentifier: "GoBackSegue", sender: self)
-                                })
-                            }
+                        if self.cancelOrderModel.errors.count > 0 {
+                            self.alerts.processErrors(self, errors: self.cancelOrderModel.errors)
+                        }
+                        
+                        if !self.cancelOrderModel.message.isEmpty {
+                            self.alerts.showSuccessAlert(self, message: self.cancelOrderModel.message, onComplete: {() -> Void in
+                                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                            })
                         }
                         
                     } catch {
-                        
                         print(error)
-                        
                         return
                     }
                 })
@@ -428,7 +417,8 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             
             self.rejectOrderModel.orderId = self.orderId
             self.rejectOrderModel.rejectReason = self.reasonTextField.text!
-                            
+            self.showWait()
+            
             do {
                 let data = try JSONEncoder().encode(self.rejectOrderModel)
                 
@@ -445,27 +435,28 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                         guard response != nil else { return }
                         
                         if let data = response {
+                            self.hideWait()
                             self.rejectOrderModel = try JSONDecoder().decode(RejectOrderModel.self, from: data)
                         }
                         
-                        DispatchQueue.main.async {
-                            if !self.rejectOrderModel.message.isEmpty {
-                                self.showSuccessAlert(self.rejectOrderModel.message, onCompleteHandler: {() -> Void in
-                                    self.performSegue(withIdentifier: "GoBackSegue", sender: self)
-                                })
-                            }
+                        if self.rejectOrderModel.errors.count > 0 {
+                            self.alerts.processErrors(self, errors: self.rejectOrderModel.errors)
+                        }
+                        
+                        if !self.rejectOrderModel.message.isEmpty {
+                            self.alerts.showSuccessAlert(self, message: self.rejectOrderModel.message, onComplete: {() -> Void in
+                                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                            })
                         }
                         
                     } catch {
-                        
                         print(error)
-                        
                         return
                     }
                 })
                                         
             } catch {
-                
+                return
             }
         }))
         
@@ -490,8 +481,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
                     
                     DispatchQueue.main.async {
                         self.displayInfo()
-                    }
-                    
+                    }                    
                 }
                 
             } catch {

@@ -10,6 +10,7 @@ import UIKit
 
 class OrdersViewController: UITableViewController, UISearchBarDelegate {
     let webApi: WebApi = WebApi()
+    let alerts: AlertsHelper = AlertsHelper()
     var ordersReport: [OrdersReport] = []
     var searchModel: SearchModel = SearchModel()
     var moveOrderModel: MoveOrderModel = MoveOrderModel()
@@ -137,8 +138,8 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
             deleteAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
                 
                 self.cancelOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
-            
                 self.cancelOrderModel.cancelReason = self.cancelReasonTextField.text!
+                self.showWait()
                                 
                 do {
                     let data = try JSONEncoder().encode(self.cancelOrderModel)
@@ -148,6 +149,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                                                         
                             guard error == nil else {
                                 if (error as NSError?)?.code == 401 {
+                                    self.hideWait()
                                     self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                                 }
                                 return
@@ -156,22 +158,23 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                             guard response != nil else { return }
                             
                             if let data = response {
+                                self.hideWait()
                                 self.cancelOrderModel = try JSONDecoder().decode(CancelOrderModel.self, from: data)
                             }
                             
-                            DispatchQueue.main.async {
-                                if !self.cancelOrderModel.message.isEmpty {
-                                    self.showSuccessAlert(self.cancelOrderModel.message, onCompleteHandler: {() -> Void in
-                                        self.getOrdersReport()
-                                        self.tableView.reloadData()
-                                    })
-                                }
+                            if self.cancelOrderModel.errors.count > 0 {
+                                self.alerts.processErrors(self, errors: self.cancelOrderModel.errors)
+                            }
+                            
+                            if !self.cancelOrderModel.message.isEmpty {
+                                self.alerts.showSuccessAlert(self, message: self.cancelOrderModel.message, onComplete: {() -> Void in
+                                    self.getOrdersReport()
+                                    self.tableView.reloadData()
+                                })
                             }
                             
                         } catch {
-                            
                             print(error)
-                            
                             return
                         }
                     })
@@ -198,8 +201,8 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
             rejectAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
                                
                 self.rejectOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
-            
                 self.rejectOrderModel.rejectReason = self.cancelReasonTextField.text!
+                self.showWait()
                                 
                 do {
                     let data = try JSONEncoder().encode(self.rejectOrderModel)
@@ -217,28 +220,29 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                             guard response != nil else { return }
                             
                             if let data = response {
+                                self.hideWait()
                                 self.rejectOrderModel = try JSONDecoder().decode(RejectOrderModel.self, from: data)
                             }
                             
-                            DispatchQueue.main.async {
-                                if !self.rejectOrderModel.message.isEmpty {
-                                    self.showSuccessAlert(self.cancelOrderModel.message, onCompleteHandler: {() -> Void in
-                                        self.getOrdersReport()
-                                        self.tableView.reloadData()
-                                    })
-                                }
+                            if self.rejectOrderModel.errors.count > 0 {
+                                self.alerts.processErrors(self, errors: self.rejectOrderModel.errors)
+                            }
+                            
+                            if !self.rejectOrderModel.message.isEmpty {
+                                self.alerts.showSuccessAlert(self, message: self.cancelOrderModel.message, onComplete: {() -> Void in
+                                    self.getOrdersReport()
+                                    self.tableView.reloadData()
+                                })
                             }
                             
                         } catch {
-                            
                             print(error)
-                            
                             return
                         }
                     })
                                             
                 } catch {
-                    
+                    return
                 }
             }))
             
@@ -272,6 +276,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
             let moveAction = UIContextualAction(style: .normal, title: NSLocalizedString("swipe_left", tableName: "messages", comment: ""), handler: { (_, _, performed: (Bool) -> Void) in
                 
                 self.moveOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
+                self.showWait()
                 
                 do {
                     let data = try JSONEncoder().encode(self.moveOrderModel)
@@ -289,16 +294,19 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                             guard response != nil else { return }
                             
                             if let data = response {
+                                self.hideWait()
                                 self.moveOrderModel = try JSONDecoder().decode(MoveOrderModel.self, from: data)
                             }
                             
-                            DispatchQueue.main.async {
-                                if !self.moveOrderModel.message.isEmpty {
-                                    self.showSuccessAlert(self.moveOrderModel.message, onCompleteHandler: {() -> Void in
-                                        self.getOrdersReport()
-                                        self.tableView.reloadData()
-                                    })
-                                }
+                            if self.moveOrderModel.errors.count > 0 {
+                                self.alerts.processErrors(self, errors: self.moveOrderModel.errors)
+                            }
+                            
+                            if !self.moveOrderModel.message.isEmpty {
+                                self.alerts.showSuccessAlert(self, message: self.moveOrderModel.message, onComplete: {() -> Void in
+                                    self.getOrdersReport()
+                                    self.tableView.reloadData()
+                                })
                             }
                             
                         } catch {
@@ -310,9 +318,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                     performed(true)
                     
                 } catch {
-                    
-                    performed(false)
-                    
+                    performed(false)                    
                 }
             })
                         
@@ -344,23 +350,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
            getSearchResults(searchText)
         }
     }
-    
-    func showErrorAlert(_ message: String, onCompleteHandler: (() -> Void)?) {
-        let alert = UIAlertController(title: NSLocalizedString("error_title", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
-            onCompleteHandler?()
-        }))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func showSuccessAlert(_ message: String, onCompleteHandler: (() -> Void)?) {
-        let alert = UIAlertController(title: NSLocalizedString("alert_success", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
-            onCompleteHandler?()
-        }))
-        present(alert, animated: true, completion: nil)
-    }
-        
+            
     @objc func getOrdersReport() {
         webApi.DoGet("orders", onCompleteHandler: { (response, error) -> Void in
             do {

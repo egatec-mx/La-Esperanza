@@ -32,7 +32,6 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
         self.navigationController?.setToolbarHidden(true, animated: true)
         
         self.getStatesList()
-        self.getCustomer()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -82,7 +81,6 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
     func getStatesList() {
         webApi.DoGet("customers/states-list", onCompleteHandler: {(response, error) -> Void in
             do {
-                                
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
@@ -98,6 +96,7 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
                 
                 DispatchQueue.main.async {
                     self.customerStatePickerView.reloadAllComponents()
+                    self.getCustomer()
                 }
             } catch {
                 return
@@ -106,9 +105,9 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
     }
     
     func getCustomer() {
+        self.showWait()
         webApi.DoGet("customers/\(customerModel.customerId)", onCompleteHandler: {(response, error) -> Void in
             do {
-                                
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
@@ -119,6 +118,7 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
                 guard response != nil else { return }
                 
                 if let data = response {
+                    self.hideWait()
                     self.customerModel = try JSONDecoder().decode(CustomerModel.self, from: data)
                 }
                 
@@ -132,7 +132,6 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
     }
         
     func displayInfo() {
-        
         customerName.text = customerModel.customerName
         customerLastname.text = customerModel.customerLastname
         customerPhone.text = customerModel.customerPhone.formatPhoneNumber()
@@ -151,12 +150,12 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
     
     @IBAction func update(_ sender: Any) {
         if !validateInputs() {
-            
             self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {() -> Void in
                 self.setInvalidInputs()
             })
-            
         } else {
+            self.showWait()
+            
             customerModel.customerName = customerName.text!
             customerModel.customerLastname = customerLastname.text!
             customerModel.customerPhone = customerPhone.unMaskValue()
@@ -168,11 +167,11 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
             
             do {
                 let data = try JSONEncoder().encode(customerModel)
-            
+                
                 webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                                        
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
+                            self.hideWait()
                             self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                         }
                         return
@@ -182,6 +181,7 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
                     
                     do {
                         if let data = response {
+                            self.hideWait()
                             self.customerModel = try JSONDecoder().decode(CustomerModel.self, from: data)
                             
                             if self.customerModel.errors.count > 0 {

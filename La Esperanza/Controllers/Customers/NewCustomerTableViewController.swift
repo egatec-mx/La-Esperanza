@@ -82,9 +82,9 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
     func getStatesList() {
         webApi.DoGet("customers/states-list", onCompleteHandler: {(response, error) -> Void in
             do {
-                                
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
+                        self.hideWait()
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                     }
                     return
@@ -107,12 +107,13 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
     
     @IBAction func save(_ sender: Any) {
         if !validateInputs() {
-            
             self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {() -> Void in
                 self.setInvalidInputs()
-            })
-            
+            })            
         } else {
+            
+            self.showWait()
+            
             customerModel.customerId = 0
             customerModel.customerActive = true
             customerModel.customerName = customerName.text!
@@ -131,6 +132,7 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
                                         
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
+                            self.hideWait()
                             self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                         }
                         return
@@ -140,6 +142,8 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
                     
                     do {
                         if let data = response {
+                            self.hideWait()
+                            
                             self.customerModel = try JSONDecoder().decode(CustomerModel.self, from: data)
                             
                             if self.customerModel.errors.count > 0 {

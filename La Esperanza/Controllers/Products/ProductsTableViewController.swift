@@ -9,7 +9,8 @@
 import UIKit
 
 class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
-    var webApi: WebApi = WebApi()
+    let webApi: WebApi = WebApi()
+    let alerts: AlertsHelper = AlertsHelper()
     var productsList: [ProductModel] = []
     var searchList: [ProductModel] = []
     var productModel: ProductModel = ProductModel()
@@ -59,12 +60,14 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
                 
                 self.productModel = self.searchList[indexPath.row]
                 self.productModel.productActive = false
+                self.showWait()
                 
                 let data = try! JSONEncoder().encode(self.productModel)
                 
                 self.webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
+                            self.hideWait()
                             self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                         }
                         return
@@ -72,7 +75,18 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
                     
                     guard response != nil else { return }
                     
+                    self.hideWait()
+                    
+                    if self.productModel.errors.count > 0 {
+                        self.alerts.processErrors(self, errors: self.productModel.errors)
+                    }
+                    
+                    if !self.productModel.message.isEmpty {
+                        self.alerts.showSuccessAlert(self, message: self.productModel.message, onComplete: nil)
+                    }
+                    
                     self.getProducts()
+                    
                 })
             }))
             

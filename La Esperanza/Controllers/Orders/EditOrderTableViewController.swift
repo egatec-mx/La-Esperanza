@@ -199,6 +199,8 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
     
     @IBAction func updateOrder(_ sender: Any) {
         do {
+            self.showWait()
+            
             orderModel.orderNotes = notesTextView.text
             
             let data = try JSONEncoder().encode(orderModel)
@@ -207,6 +209,7 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
                 
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
+                        self.hideWait()
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                     }
                     return
@@ -215,6 +218,8 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
                 guard response != nil else { return }
                 
                 if let data = response {
+                    self.hideWait()
+                    
                     self.orderModel = try! JSONDecoder().decode(OrderDetailsModel.self, from: data)
                     
                     if self.orderModel.errors.count > 0 {
@@ -236,13 +241,17 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
         if segue.identifier == "UpdateSegue" {
             let source = segue.source as! SelectProductTableViewController
-            orderModel.articles[source.selectedIndex.row] = source.productModel
+            
+            articlesTableView.beginUpdates()
             articlesTableView.articles[source.selectedIndex.row] = source.productModel
             articlesTableView.reloadData()
-            articlesTableView.beginUpdates()
             articlesTableView.endUpdates()
+            
             tableView.beginUpdates()
+            orderModel.articles = articlesTableView.articles
+            tableView.reloadData()
             tableView.endUpdates()
+            
             calculateTotals()
         }
     }

@@ -17,9 +17,9 @@ class AlertsHelper {
             onComplete?()
         }))
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: { () -> Void in
             controller.present(successAlert, animated: true, completion: nil)
-        }
+        })
     }
     
     func showErrorAlert(_ controller: UIViewController, message: String, onComplete: (() -> Void)?) {
@@ -30,9 +30,9 @@ class AlertsHelper {
             onComplete?()
         }))
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: { () -> Void in
             controller.present(errorAlert, animated: true, completion: nil)
-        }
+        })
     }
     
     func processErrors(_ controller: UIViewController, errors: [String]) {

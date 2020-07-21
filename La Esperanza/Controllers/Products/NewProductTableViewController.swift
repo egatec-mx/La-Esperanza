@@ -55,6 +55,9 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
             })
             
         } else {
+            
+            self.showWait()
+            
             productModel.productName = inputProductName.text!
             productModel.productPrice = numberFormat.number(from: inputProductPrice.text!) as! Decimal
             productModel.productActive = true
@@ -66,6 +69,7 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
                                         
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
+                            self.hideWait()
                             self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                         }
                         return
@@ -73,7 +77,9 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
                     
                     guard response != nil else { return }
                     
-                    if let data = response {
+                    if let data = response {                        
+                        self.hideWait()
+                        
                         self.productModel = try! JSONDecoder().decode(ProductModel.self, from: data)
                         
                         if self.productModel.errors.count > 0 {

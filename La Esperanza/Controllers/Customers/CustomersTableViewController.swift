@@ -9,7 +9,8 @@
 import UIKit
 
 class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
-    var webApi: WebApi = WebApi()
+    let webApi: WebApi = WebApi()
+    let alerts: AlertsHelper = AlertsHelper()
     var customersList: [CustomerModel] = []
     var searchList: [CustomerModel] = []
     var customerModel: CustomerModel = CustomerModel()
@@ -57,29 +58,42 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
           case .delete:
-              let warningAlert = UIAlertController(title: NSLocalizedString("alert_warning_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_customer_delete", tableName: "messages", comment: ""), preferredStyle: .alert)
               
-              warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .cancel, handler: nil))
+            let warningAlert = UIAlertController(title: NSLocalizedString("alert_warning_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_customer_delete", tableName: "messages", comment: ""), preferredStyle: .alert)
               
-              warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .destructive, handler: { (action) -> Void in
+            warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .cancel, handler: nil))
+              
+            warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .destructive, handler: { (action) -> Void in
                   
-                  self.customerModel = self.searchList[indexPath.row]
-                  self.customerModel.customerActive = false
+                self.customerModel = self.searchList[indexPath.row]
+                self.customerModel.customerActive = false
+                self.showWait()
                   
-                  let data = try! JSONEncoder().encode(self.customerModel)
+                let data = try! JSONEncoder().encode(self.customerModel)
                   
-                  self.webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                      guard error == nil else {
-                          if (error as NSError?)?.code == 401 {
-                              self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                          }
-                          return
-                      }
-                      
-                      guard response != nil else { return }
-                      
-                      self.getCustomers()
-                
+                self.webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                    guard error == nil else {
+                        if (error as NSError?)?.code == 401 {
+                            self.hideWait()
+                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        }
+                        return
+                    }
+                    
+                    guard response != nil else { return }
+                    
+                    self.hideWait()
+                    
+                    if self.customerModel.errors.count > 0 {
+                        self.alerts.processErrors(self, errors: self.customerModel.errors)
+                    }
+                    
+                    if !self.customerModel.message.isEmpty {
+                        self.alerts.showSuccessAlert(self, message: self.customerModel.message, onComplete: nil)
+                     }
+                    
+                    self.getCustomers()
+          
                   })
               }))
               
