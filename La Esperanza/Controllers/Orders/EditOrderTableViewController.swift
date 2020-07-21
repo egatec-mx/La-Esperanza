@@ -10,6 +10,7 @@ import UIKit
 
 class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     let webApi: WebApi = WebApi()
+    let alerts: AlertsHelper = AlertsHelper()
     let dateFormatter: DateFormatter = DateFormatter()
     let numberFormatter: NumberFormatter = NumberFormatter()
     var orderModel: OrderDetailsModel = OrderDetailsModel()
@@ -46,6 +47,8 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         articlesTableView.isEditing = true
         articlesTableView.delegate = articlesTableView.self
         articlesTableView.dataSource = articlesTableView.self
+        
+        orderDeliveryTaxTextField.addTarget(self, action: #selector(textDidChange), for: .allEditingEvents)
         
         getMethodOfPayment()
         displayInfo()
@@ -131,6 +134,7 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         orderTotalTextField.text = numberFormatter.string(for: orderModel.orderTotal)
         orderDeliveryTaxTextField.text = numberFormatter.string(for: orderModel.orderDeliveryTax)
         
+        orderModel.articles.append(ArticlesModel())
         articlesTableView.articles = orderModel.articles
         articlesTableView.reloadData()
         articlesTableView.beginUpdates()
@@ -157,6 +161,25 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         })
     }
     
+    func calculateTotals() {
+        var sum: Decimal = 0
+        for article in orderModel.articles {
+            sum += article.orderDetailTotal
+        }
+        sum += orderModel.orderDeliveryTax!
+        let tax = sum * 0.16
+        let sub = sum - tax
+        orderModel.orderSubtotal = sub
+        orderModel.orderTax = tax
+        orderModel.orderTotal = sum
+        orderTotalTextField.text = numberFormatter.string(for: sum)
+    }
+    
+    @objc func textDidChange() {
+        orderModel.orderDeliveryTax = Decimal(string: orderDeliveryTaxTextField.text ?? "0") ?? 0
+        calculateTotals()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ProductSegue" {
             let view = segue.destination as! SelectProductTableViewController
@@ -174,6 +197,40 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
         orderModel.orderScheduleDate = dateFormatter.string(from: orderScheduleDatePicker.date)
     }
     
+    @IBAction func updateOrder(_ sender: Any) {
+        do {
+            let data = try JSONEncoder().encode(orderModel)
+            
+            webApi.DoPost("orders/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                    }
+                    return
+                }
+                
+                guard response != nil else { return }
+                
+                if let data = response {
+                    self.orderModel = try! JSONDecoder().decode(OrderDetailsModel.self, from: data)
+                    
+                    if self.orderModel.errors.count > 0 {
+                        self.alerts.processErrors(self, errors: self.orderModel.errors)
+                    }
+                    
+                    if !self.orderModel.message.isEmpty {
+                        self.alerts.showSuccessAlert(self, message: self.orderModel.message, onComplete: {() -> Void in
+                            self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                        })
+                    }
+                }
+            })
+        } catch {
+            return
+        }
+    }
+    
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
         if segue.identifier == "UpdateSegue" {
             let source = segue.source as! SelectProductTableViewController
@@ -182,6 +239,9 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
             articlesTableView.reloadData()
             articlesTableView.beginUpdates()
             articlesTableView.endUpdates()
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            calculateTotals()
         }
     }
 }

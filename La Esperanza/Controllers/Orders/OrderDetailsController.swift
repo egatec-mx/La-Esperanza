@@ -506,4 +506,9 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
             editView.orderModel = orderDetails
         }
     }
+    
+    @IBAction func reloadDetails(_ segue: UIStoryboardSegue) {
+        let view = segue.destination as! OrderDetailsController
+        view.getDetails()
+    }
 }

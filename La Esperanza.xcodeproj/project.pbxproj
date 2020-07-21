@@ -56,6 +56,7 @@
 		7CB0502C245DD0EB00CF8245 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB0502B245DD0EB00CF8245 /* Assets.xcassets */; };
 		7CB0502F245DD0EB00CF8245 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CB0502D245DD0EB00CF8245 /* LaunchScreen.storyboard */; };
 		7CB2C90D24C5EE8E00E40A2E /* MethodOfPaymentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */; };
+		7CC644EF24C667C8007E5B23 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC644EE24C667C8007E5B23 /* UIViewExtension.swift */; };
 		7CCAC6EB24AE690C00D4D1F9 /* RoundedUIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCAC6EA24AE690C00D4D1F9 /* RoundedUIButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +117,7 @@
 		7CB1C3EF245F2A3F00876B6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7CB1C3F0245F2A3F00876B6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodOfPaymentList.swift; sourceTree = "<group>"; };
+		7CC644EE24C667C8007E5B23 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		7CCAC6EA24AE690C00D4D1F9 /* RoundedUIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedUIButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,6 +153,7 @@
 			children = (
 				7C24776E24C27BA8009433AA /* StringExtension.swift */,
 				7C1C997724C28DA700DE9A2B /* UILabelExtension.swift */,
+				7CC644EE24C667C8007E5B23 /* UIViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				7C6EE78924C0D345006632A2 /* ImageTextField.swift in Sources */,
 				7C88E38F24BB9242002D449E /* RejectOrderModel.swift in Sources */,
 				7C7992D924C347980070FEFF /* EditCustomerTableViewController.swift in Sources */,
+				7CC644EF24C667C8007E5B23 /* UIViewExtension.swift in Sources */,
 				7C0CC26E24C544B700D015F5 /* SelectCustomersTableViewController.swift in Sources */,
 				7C7D098424C3EFBD001280C5 /* EditOrderTableViewController.swift in Sources */,
 				7C15F9DE24C616790012EE8C /* SelectProductTableViewController.swift in Sources */,

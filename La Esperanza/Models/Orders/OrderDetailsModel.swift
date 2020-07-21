@@ -8,7 +8,10 @@
 
 import Foundation
 
-struct OrderDetailsModel: Decodable, Encodable {
+struct OrderDetailsModel: ActionModel {
+    var errors: [String] = []
+    var message: String = ""
+    
     var orderId: CLongLong = 0
     var customerId: Int = 0
     var customerName: String = ""
@@ -42,4 +45,8 @@ struct OrderDetailsModel: Decodable, Encodable {
     var articles: [ArticlesModel] = []
     var statusId: Int = 0
     var paymentMethodId: Int = 0
+    
+    static func == (lhs: OrderDetailsModel, rhs: OrderDetailsModel) -> Bool {
+        return lhs.orderId == rhs.orderId
+    }
 }

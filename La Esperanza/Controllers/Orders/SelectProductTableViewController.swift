@@ -11,6 +11,7 @@ import UIKit
 class SelectProductTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     let webApi: WebApi = WebApi()
     let numberFormatter: NumberFormatter = NumberFormatter()
+    let alerts: AlertsHelper = AlertsHelper()
     var selectedIndex: IndexPath = IndexPath()
     var productModel: ArticlesModel = ArticlesModel()
     var productsList: [ProductModel] = []
@@ -21,6 +22,7 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
     @IBOutlet var productPickerView: UIPickerView!
     @IBOutlet var productPriceTextField: ImageTextField!
     @IBOutlet var productTotalTextField: ImageTextField!
+    @IBOutlet var productBottomBorder: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,12 +90,15 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
         productLabel.text = productModel.productName
         productPriceTextField.text = numberFormatter.string(for: productModel.orderDetailPrice)
         productTotalTextField.text = numberFormatter.string(for: productModel.orderDetailTotal)
-        let position = productsList.firstIndex(of: productsList.filter{$0.productId == productModel.productId}.first!)!
-        productPickerView.selectRow(position, inComponent: 0, animated: false)
+        
+        if productModel.productId > 0 {
+            let position = productsList.firstIndex(of: productsList.filter{$0.productId == productModel.productId}.first!)!
+            productPickerView.selectRow(position, inComponent: 0, animated: false)
+        }
     }
     
     func getProducts() {
-       webApi.DoGet("products", onCompleteHandler: {(response, error) -> Void in
+       webApi.DoGet("orders/products", onCompleteHandler: {(response, error) -> Void in
             do {
                                 
                 guard error == nil else {
@@ -143,11 +148,51 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
         productTotalTextField.text = numberFormatter.string(for: total)
     }
     
+    func validateInputs() -> Bool {
+        guard quantityTextField.text != nil else { return false }
+        guard productModel.productId > 0 else { return false }
+        guard productPriceTextField.text != nil else { return false }
+        guard productTotalTextField.text != nil else { return false }
+        return true
+    }
+    
+    func markInvalidInputs() {
+        if quantityTextField.text!.isEmpty {
+            quantityTextField.setValidationError()
+        } else {
+            quantityTextField.clearValidationError()
+        }
+        
+        if productTotalTextField.text!.isEmpty {
+            productTotalTextField.setValidationError()
+        } else {
+            productTotalTextField.clearValidationError()
+        }
+        
+        if productPriceTextField.text!.isEmpty {
+            productPriceTextField.setValidationError()
+        } else {
+            productPriceTextField.clearValidationError()
+        }
+        
+        if productModel.productId <= 0 {
+            productBottomBorder.backgroundColor = UIColor.red
+        } else{
+            productBottomBorder.backgroundColor = UIColor.lightGray
+        }
+    }
+    
     @IBAction func save(_ sender: Any) {
-        productModel.orderDetailQuantity = Double(exactly: numberFormatter.number(from: quantityTextField.text!)!)!
-        productModel.orderDetailPrice = Decimal(string: productPriceTextField.text!)!
-        productModel.orderDetailTotal = Decimal(string: productTotalTextField.text!)!
-        productModel.productName = productLabel.text!
-        performSegue(withIdentifier: "UpdateSegue", sender: nil)
+        if validateInputs() {
+            productModel.orderDetailQuantity = Double(exactly: numberFormatter.number(from: quantityTextField.text!)!)!
+            productModel.orderDetailPrice = Decimal(string: productPriceTextField.text!)!
+            productModel.orderDetailTotal = Decimal(string: productTotalTextField.text!)!
+            productModel.productName = productLabel.text!
+            performSegue(withIdentifier: "UpdateSegue", sender: nil)
+        } else {
+            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {() -> Void in
+                self.markInvalidInputs()
+            })
+        }
     }
 }

@@ -2669,19 +2669,19 @@
                                                                         <rect key="frame" x="16" y="0.0" width="317" height="45"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Kg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7JM-c4-kcG">
-                                                                                <rect key="frame" x="0.0" y="13" width="106" height="18"/>
+                                                                                <rect key="frame" x="0.0" y="13.5" width="105.5" height="18"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOLIDA DE RES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jp3-dh-aTy">
-                                                                                <rect key="frame" x="106" y="4" width="106" height="36"/>
+                                                                                <rect key="frame" x="105.5" y="4.5" width="106" height="36"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$148.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4T-ea-sAd">
-                                                                                <rect key="frame" x="212" y="13" width="105" height="18"/>
+                                                                                <rect key="frame" x="211.5" y="13.5" width="105.5" height="18"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -2959,7 +2959,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Edit Order" id="Jp2-9h-8H9">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="4bi-QH-bCb"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="4bi-QH-bCb">
+                            <connections>
+                                <action selector="updateOrder:" destination="YPe-hi-KOZ" id="Gr0-GO-Dd7"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="articlesTableView" destination="JYQ-Gc-cVm" id="p9K-hL-RcB"/>
@@ -2971,9 +2975,11 @@
                         <outlet property="orderScheduleDateLabel" destination="TRK-JX-a0i" id="O8O-g1-Kwa"/>
                         <outlet property="orderScheduleDatePicker" destination="fED-3z-fZl" id="QVN-gG-yMH"/>
                         <outlet property="orderTotalTextField" destination="eTG-9e-WYi" id="lF5-pg-CGf"/>
+                        <segue destination="1yN-ab-Pkg" kind="unwind" identifier="GoBackSegue" unwindAction="reloadDetails:" id="iGl-ce-hDK"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="87O-A4-qzd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="1yN-ab-Pkg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3336.8000000000002" y="-367.46626686656674"/>
         </scene>
@@ -3319,6 +3325,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Product Details" id="gRK-m8-tBo"/>
                     <connections>
+                        <outlet property="productBottomBorder" destination="UcF-15-WPG" id="KpF-TN-edI"/>
                         <outlet property="productLabel" destination="zCd-Zt-gRV" id="4Br-wa-gzB"/>
                         <outlet property="productPickerView" destination="rFF-wJ-ErN" id="TgM-Ty-PCh"/>
                         <outlet property="productPriceTextField" destination="pxU-hu-2Kd" id="nmo-RL-o97"/>

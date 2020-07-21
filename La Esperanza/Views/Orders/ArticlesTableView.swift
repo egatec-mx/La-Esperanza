@@ -49,6 +49,12 @@ class ArticlesTableView: UITableView, UITableViewDelegate, UITableViewDataSource
         case .insert:
             articles.append(ArticlesModel())
             tableView.insertRows(at: [IndexPath(row: (articles.count - 1), section: 0)], with: .automatic)
+            if let parent = self.findViewController() as? EditOrderTableViewController {
+                parent.orderModel.articles.append(ArticlesModel())
+                parent.tableView.reloadData()
+                parent.tableView.beginUpdates()
+                parent.tableView.endUpdates()
+            }
         default:
             return
         }

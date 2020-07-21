@@ -20,6 +20,8 @@ class WebApi: NSObject, URLSessionDelegate {
     func DoPost(_ action: String, jsonData: Data, onCompleteHandler: @escaping (_ result: Data?, _ error: Error?) -> Void) {
         let composedURL: String = "\(baseURL)/\(action)"
         let configuration: URLSessionConfiguration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 600
+        configuration.timeoutIntervalForResource = 600
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
                 
         guard let postUrl: URL = URL(string: composedURL) else { return }
@@ -56,6 +58,8 @@ class WebApi: NSObject, URLSessionDelegate {
     func DoGet(_ action: String, onCompleteHandler: @escaping (_ result: Data?, _ error: Error?) -> Void) {
         let composedURL: String = "\(baseURL)/\(action)"
         let configuration: URLSessionConfiguration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForResource = 600
+        configuration.timeoutIntervalForRequest = 600
         let session = URLSession(configuration: configuration, delegate: self, delegateQueue: .main)
                 
         guard let postUrl: URL = URL(string: composedURL) else { return }
