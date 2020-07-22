@@ -46,14 +46,14 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         super.viewDidLoad()
         
         clearDataFromUI()
-        
-        dateFormatter.locale = Locale.current
+               
+        dateFormatter.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
         dateFormatter.calendar = Calendar.current
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        
+               
         phoneInteraction = UIContextMenuInteraction(delegate: self)
         LabelPhoneNumber.addInteraction(phoneInteraction!)
         LabelPhoneNumber.isUserInteractionEnabled = true
@@ -117,7 +117,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         //Label Create Date
         if let cDate: Date = dateFormatter.date(from: orderDetails.orderDate) {
             let printDate: DateFormatter = DateFormatter()
-            printDate.dateFormat = "dd/MM/YYYY"
+            printDate.setLocalizedDateFormatFromTemplate("dd/MM/YYYY")
             LabelCreationDate.text = printDate.string(for: cDate)
         }
         
@@ -125,8 +125,9 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         if let cTime: Date = dateFormatter.date(from: orderDetails.orderDate) {
             let printTime: DateFormatter = DateFormatter()
             printTime.timeStyle = .short
-            printTime.dateFormat = "hh:mm a"
             printTime.timeZone = TimeZone.current
+            printTime.setLocalizedDateFormatFromTemplate("hh:mm a")
+            
             LabelCreationTime.text = printTime.string(for: cTime)
         }
         
@@ -134,7 +135,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         if orderDetails.orderScheduleDate != nil {
             if let dDate: Date = dateFormatter.date(from: orderDetails.orderScheduleDate!) {
                let printDate: DateFormatter = DateFormatter()
-               printDate.dateFormat = "dd/MM/YYYY"
+               printDate.setLocalizedDateFormatFromTemplate("dd/MM/YYYY")
                LabelDeliverDate.text = printDate.string(for: dDate)
             }
         } else {
@@ -144,11 +145,12 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         //Label Delivery Time
         if orderDetails.orderScheduleDate != nil {
             if let dTime: Date = dateFormatter.date(from: orderDetails.orderScheduleDate!) {
-               let printTime: DateFormatter = DateFormatter()
-               printTime.timeStyle = .short
-               printTime.dateFormat = "hh:mm a"
-               printTime.timeZone = TimeZone.current
-               LabelDeliverTime.text = printTime.string(for: dTime)
+                let printTime: DateFormatter = DateFormatter()
+                printTime.timeStyle = .short
+                printTime.timeZone = TimeZone.current
+                printTime.setLocalizedDateFormatFromTemplate("hh:mm a")
+               
+                LabelDeliverTime.text = printTime.string(for: dTime)
             }
         } else {
             LabelDeliverTime.text = "N/A"
@@ -178,7 +180,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         
         //Label Totals
         numberFormatter.numberStyle = .currency
-        numberFormatter.locale = Locale(identifier: "es_MX")
+        numberFormatter.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
         
         if orderDetails.orderDeliveryTax != nil {
             LabelDeliveryTax.text = numberFormatter.string(for: orderDetails.orderDeliveryTax)

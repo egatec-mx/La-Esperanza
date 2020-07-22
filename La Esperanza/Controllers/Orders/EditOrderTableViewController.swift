@@ -31,7 +31,7 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateFormatter.locale = Locale.current
+        dateFormatter.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
         dateFormatter.calendar = Calendar.current
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateStyle = .short
@@ -122,8 +122,9 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
             if let dTime: Date = dateFormatter.date(from: orderModel.orderScheduleDate!) {
                let printTime: DateFormatter = DateFormatter()
                printTime.timeStyle = .short
-               printTime.dateFormat = "dd/MM/yyy hh:mm a"
                printTime.timeZone = TimeZone.current
+               printTime.setLocalizedDateFormatFromTemplate("dd/MM/yyy hh:mm a")
+              
                orderScheduleDateLabel.text = printTime.string(for: dTime)
             }
         } else {
@@ -191,8 +192,9 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
     @IBAction func selectedDate(_ sender: UIDatePicker) {
         let dateFormat = DateFormatter()
         dateFormat.calendar = Calendar.current
-        dateFormat.dateFormat = "dd/MM/yyy hh:mm a"
         dateFormat.timeZone = TimeZone.current
+        dateFormat.setLocalizedDateFormatFromTemplate("dd/MM/yyy hh:mm a")
+        
         orderScheduleDateLabel.text = dateFormat.string(from: orderScheduleDatePicker.date)
         orderModel.orderScheduleDate = dateFormatter.string(from: orderScheduleDatePicker.date)
     }

@@ -42,6 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.register(defaults: ["SERVER_URL" : "https://esperanza.egatec.com.mx/mobile/api"])
         }
         
+        if UserDefaults.standard.value(forKey: "DEFAULT_LOCALE") == nil {
+            UserDefaults.standard.register(defaults: ["DEFAULT_LOCALE": "es_MX"])
+        }
+        
+        print("Current: \(Locale.current.languageCode!)")
+        print("Auto: \(Locale.autoupdatingCurrent.languageCode!)")
+        print("Preferred: \(Locale.preferredLanguages[0])")
+                
         return true
     }
 

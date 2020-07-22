@@ -92,7 +92,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                 
         let format = NumberFormatter()
         format.numberStyle = .currency
-        format.locale = Locale(identifier: "es_MX")
+        format.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
         cell.LabelTotal.text = format.string(for: order.orderTotal)
         
         return cell

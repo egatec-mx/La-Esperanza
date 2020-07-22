@@ -31,7 +31,7 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateFormatter.locale = Locale.current
+        dateFormatter.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
         dateFormatter.calendar = Calendar.current
         dateFormatter.timeZone = TimeZone.current
         dateFormatter.dateStyle = .short
@@ -118,8 +118,9 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
         
         let printTime: DateFormatter = DateFormatter()
         printTime.timeStyle = .short
-        printTime.dateFormat = "dd/MM/yyy hh:mm a"
         printTime.timeZone = TimeZone.current
+        printTime.setLocalizedDateFormatFromTemplate("dd/MM/yyy hh:mm a")
+       
         orderScheduleDateLabel.text = printTime.string(for: Date())
         
         methodOfPaymentLabel.text = methodOfPaymentList[0].mopDescription
@@ -226,10 +227,10 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     
     @IBAction func selectedDate(_ sender: UIDatePicker) {
         let dateFormat = DateFormatter()
-        dateFormat.locale = Locale.current
+        dateFormat.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
         dateFormat.calendar = Calendar.current
         dateFormat.timeZone = TimeZone.current
-        dateFormat.dateFormat = "dd/MM/yyy hh:mm a"
+        dateFormat.setLocalizedDateFormatFromTemplate("dd/MM/yyy hh:mm a")
        
         orderScheduleDateLabel.text = dateFormat.string(from: orderScheduleDatePicker.date)
         orderModel.orderScheduleDate = dateFormatter.string(from: orderScheduleDatePicker.date)

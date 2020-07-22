@@ -85,14 +85,16 @@
 		7C4725B924B7B6CF00181065 /* MoveOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveOrderModel.swift; sourceTree = "<group>"; };
 		7C4725BB24B7E8A200181065 /* CancelOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelOrderModel.swift; sourceTree = "<group>"; };
 		7C4725BE24B7F8CB00181065 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
+		7C47890E24C7B91400C931C9 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		7C47890F24C7B91400C931C9 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Main.strings"; sourceTree = "<group>"; };
+		7C47891024C7B91400C931C9 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		7C47891124C7B91400C931C9 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/messages.strings"; sourceTree = "<group>"; };
 		7C60244A24AD788D00FB6D5A /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		7C60244D24AE2B4100FB6D5A /* WebApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebApi.swift; sourceTree = "<group>"; };
 		7C60245024AE4A1B00FB6D5A /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		7C60245224AE4A6D00FB6D5A /* ActionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionModel.swift; sourceTree = "<group>"; };
 		7C65120324AE8CF000E1CEFB /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
-		7C65120924AE9F4D00E1CEFB /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C65120E24AEB64B00E1CEFB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/messages.strings; sourceTree = "<group>"; };
-		7C65121024AEB64D00E1CEFB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/messages.strings; sourceTree = "<group>"; };
 		7C65C20524C1273800158112 /* NewProductTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductTableViewController.swift; sourceTree = "<group>"; };
 		7C65C20824C1337A00158112 /* CustomersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomersTableViewController.swift; sourceTree = "<group>"; };
 		7C65C20B24C133F200158112 /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
@@ -100,7 +102,6 @@
 		7C6A3B1624AFD86100EA296A /* OrderDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsController.swift; sourceTree = "<group>"; };
 		7C6A3B1824B0191700EA296A /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		7C6EE78824C0D345006632A2 /* ImageTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextField.swift; sourceTree = "<group>"; };
-		7C70394B24AEBCA90031E123 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7C70394D24AEBCF30031E123 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7C70394E24AEFC5D0031E123 /* OrdersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersModel.swift; sourceTree = "<group>"; };
 		7C70395124AF1B2E0031E123 /* OrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -474,7 +475,7 @@
 			knownRegions = (
 				en,
 				Base,
-				es,
+				"es-MX",
 			);
 			mainGroup = 7CB05013245DD0EA00CF8245;
 			productRefGroup = 7CB0501D245DD0EA00CF8245 /* Products */;
@@ -567,7 +568,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				7C65120E24AEB64B00E1CEFB /* en */,
-				7C65121024AEB64D00E1CEFB /* es */,
+				7C47891124C7B91400C931C9 /* es-MX */,
 			);
 			name = messages.strings;
 			sourceTree = "<group>";
@@ -575,8 +576,8 @@
 		7C70394A24AEBCA90031E123 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7C70394B24AEBCA90031E123 /* es */,
 				7C70394D24AEBCF30031E123 /* en */,
+				7C47891024C7B91400C931C9 /* es-MX */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -585,6 +586,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				7CB1C3EF245F2A3F00876B6C /* Base */,
+				7C47890F24C7B91400C931C9 /* es-MX */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -593,7 +595,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				7CB1C3F0245F2A3F00876B6C /* Base */,
-				7C65120924AE9F4D00E1CEFB /* es */,
+				7C47890E24C7B91400C931C9 /* es-MX */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -723,7 +725,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "La Esperanza/esperanza.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 600;
+				CURRENT_PROJECT_VERSION = 800;
 				DEVELOPMENT_TEAM = F9F38B26L3;
 				INFOPLIST_FILE = "La Esperanza/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -744,7 +746,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "La Esperanza/esperanza.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 600;
+				CURRENT_PROJECT_VERSION = 800;
 				DEVELOPMENT_TEAM = F9F38B26L3;
 				INFOPLIST_FILE = "La Esperanza/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

@@ -33,7 +33,7 @@ class ArticlesTableView: UITableView, UITableViewDelegate, UITableViewDataSource
         
         let format = NumberFormatter()
         format.numberStyle = .currency
-        format.locale = Locale(identifier: "es_MX")
+        format.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
         cell.LabelPrice.text = format.string(for: article.orderDetailTotal)
         
         return cell
