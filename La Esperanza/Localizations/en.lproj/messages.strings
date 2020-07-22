@@ -72,3 +72,6 @@
 //Tabs Titles
 "tab_orders" = "Orders";
 "tab_admin" = "Configuration";
+
+//List
+"select_empty" = "- Select -";

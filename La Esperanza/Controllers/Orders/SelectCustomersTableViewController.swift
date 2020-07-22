@@ -25,9 +25,8 @@ class SelectCustomersTableViewController: UITableViewController, UISearchBarDele
     }
     
     override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      
-      self.navigationController?.setToolbarHidden(false, animated: true)
+        super.viewWillAppear(animated)
+        self.navigationController?.setToolbarHidden(true, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

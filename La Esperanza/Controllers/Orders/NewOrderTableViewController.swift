@@ -238,13 +238,12 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     
     @IBAction func saveOrder(_ sender: Any) {
         do {
-            self.showWait()
-            
             orderModel.orderDate = dateFormatter.string(from: Date())
             orderModel.orderNotes = notesTextView.text
             
             if validateOrder() {
-            
+                self.showWait()
+                
                 let data = try JSONEncoder().encode(orderModel)
                 
                 webApi.DoPost("orders/add", jsonData: data, onCompleteHandler: {(response, error) -> Void in

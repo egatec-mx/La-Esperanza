@@ -14,5 +14,5 @@ struct ArticlesModel: Encodable, Decodable {
     var orderDetailPrice: Decimal = 0
     var orderDetailTotal: Decimal = 0
     var productId: Int = 0
-    var productName: String = "--- Seleccione ---"
+    var productName: String = NSLocalizedString("select_empty", tableName: "messages", comment: "")
 }

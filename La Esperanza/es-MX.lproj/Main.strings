@@ -1,102 +1,102 @@
 
 /* Class = "UINavigationItem"; title = "Select Customer"; ObjectID = "06V-fG-rto"; */
-"06V-fG-rto.title" = "Select Customer";
+"06V-fG-rto.title" = "Seleccionar cliente";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "0BJ-rI-Zbf"; */
-"0BJ-rI-Zbf.text" = "Detail";
+"0BJ-rI-Zbf.text" = "Detalles";
 
 /* Class = "UITableViewController"; title = "Products View"; ObjectID = "0n4-3B-f9Q"; */
-"0n4-3B-f9Q.title" = "Products View";
+"0n4-3B-f9Q.title" = "Vista Productos";
 
 /* Class = "UILabel"; text = "Number:"; ObjectID = "21c-q7-Mdn"; */
-"21c-q7-Mdn.text" = "Number:";
+"21c-q7-Mdn.text" = "Número:";
 
 /* Class = "UILabel"; text = "0.00"; ObjectID = "27r-Hn-MQB"; */
 "27r-Hn-MQB.text" = "0.00";
 
 /* Class = "UITableViewSection"; headerTitle = "ADDRESS"; ObjectID = "2HT-yR-0eS"; */
-"2HT-yR-0eS.headerTitle" = "ADDRESS";
+"2HT-yR-0eS.headerTitle" = "Dirección:";
 
 /* Class = "UILabel"; text = "Efraín García Rocha"; ObjectID = "2V8-GK-po1"; */
 "2V8-GK-po1.text" = "Efraín García Rocha";
 
 /* Class = "UITableViewSection"; headerTitle = "Customer"; ObjectID = "2rk-1b-ZtC"; */
-"2rk-1b-ZtC.headerTitle" = "Customer";
+"2rk-1b-ZtC.headerTitle" = "Cliente";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "3GT-y7-PjB"; */
-"3GT-y7-PjB.text" = "Title";
+"3GT-y7-PjB.text" = "Título";
 
 /* Class = "UILabel"; text = "Method of Payment"; ObjectID = "3hv-kV-N7Q"; */
-"3hv-kV-N7Q.text" = "Method of Payment";
+"3hv-kV-N7Q.text" = "Método de pago";
 
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "4oA-Oe-pRY"; */
-"4oA-Oe-pRY.normalTitle" = "Save";
+"4oA-Oe-pRY.normalTitle" = "Guardar";
 
 /* Class = "UIButton"; normalTitle = "Update"; ObjectID = "58K-LR-XVZ"; */
-"58K-LR-XVZ.normalTitle" = "Update";
+"58K-LR-XVZ.normalTitle" = "Actualizar";
 
 /* Class = "UILabel"; text = "Products"; ObjectID = "5Mx-3J-mWZ"; */
-"5Mx-3J-mWZ.text" = "Products";
+"5Mx-3J-mWZ.text" = "Productos";
 
 /* Class = "UITableViewSection"; headerTitle = "EXTRAS"; ObjectID = "5qn-dE-RG4"; */
 "5qn-dE-RG4.headerTitle" = "EXTRAS";
 
 /* Class = "UITableViewSection"; headerTitle = "TOTALS"; ObjectID = "6QI-Ve-Ge8"; */
-"6QI-Ve-Ge8.headerTitle" = "TOTALS";
+"6QI-Ve-Ge8.headerTitle" = "TOTALES";
 
 /* Class = "UILabel"; text = "1 Kg"; ObjectID = "7JM-c4-kcG"; */
 "7JM-c4-kcG.text" = "1 Kg";
 
 /* Class = "UILabel"; text = "Payment:"; ObjectID = "7a2-wb-564"; */
-"7a2-wb-564.text" = "Payment:";
+"7a2-wb-564.text" = "Pago:";
 
 /* Class = "UITableViewSection"; headerTitle = "CATALOGS"; ObjectID = "7qc-6X-2Qv"; */
-"7qc-6X-2Qv.headerTitle" = "CATALOGS";
+"7qc-6X-2Qv.headerTitle" = "CATÁLOGOS";
 
 /* Class = "UILabel"; text = "1 Kg"; ObjectID = "8cm-5Q-wWW"; */
 "8cm-5Q-wWW.text" = "1 Kg";
 
 /* Class = "UITableViewSection"; headerTitle = "CUSTOMER"; ObjectID = "9Zh-VX-0K2"; */
-"9Zh-VX-0K2.headerTitle" = "CUSTOMER";
+"9Zh-VX-0K2.headerTitle" = "CLIENTE";
 
 /* Class = "UILabel"; text = "Efraín García Rocha"; ObjectID = "A9I-aq-oqm"; */
 "A9I-aq-oqm.text" = "Efraín García Rocha";
 
 /* Class = "UITableViewController"; title = "Orders Tab"; ObjectID = "AWH-RW-dIu"; */
-"AWH-RW-dIu.title" = "Orders Tab";
+"AWH-RW-dIu.title" = "Ficha Pedidos";
 
 /* Class = "UITextField"; placeholder = "(55) 5555 - 5555"; ObjectID = "Ach-Ku-0SA"; */
 "Ach-Ku-0SA.placeholder" = "(55) 5555 - 5555";
 
 /* Class = "UITextField"; placeholder = "Street Address 1"; ObjectID = "Aei-sh-4RS"; */
-"Aei-sh-4RS.placeholder" = "Street Address 1";
+"Aei-sh-4RS.placeholder" = "Calle y no.";
 
 /* Class = "UILabel"; text = "Total:"; ObjectID = "Agq-rZ-cvE"; */
 "Agq-rZ-cvE.text" = "Total:";
 
 /* Class = "UILabel"; text = "Delivery:"; ObjectID = "AmG-fT-Ddi"; */
-"AmG-fT-Ddi.text" = "Delivery:";
+"AmG-fT-Ddi.text" = "Envío:";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "Apg-fV-5G9"; */
-"Apg-fV-5G9.text" = "Title";
+"Apg-fV-5G9.text" = "Título";
 
 /* Class = "UISearchBar"; placeholder = "Search Products"; ObjectID = "Bbr-vC-cop"; */
-"Bbr-vC-cop.placeholder" = "Search Products";
+"Bbr-vC-cop.placeholder" = "Buscar productos";
 
 /* Class = "UISearchBar"; Bbr-vC-cop.scopeButtonTitles[0] = "Products"; ObjectID = "Bbr-vC-cop"; */
-"Bbr-vC-cop.scopeButtonTitles[0]" = "Products";
+"Bbr-vC-cop.scopeButtonTitles[0]" = "Productos";
 
 /* Class = "UILabel"; text = "Customers"; ObjectID = "Bee-SL-wct"; */
-"Bee-SL-wct.text" = "Customers";
+"Bee-SL-wct.text" = "Clientes";
 
 /* Class = "UITextField"; placeholder = "Street Address 2"; ObjectID = "BgT-At-UPW"; */
-"BgT-At-UPW.placeholder" = "Street Address 2";
+"BgT-At-UPW.placeholder" = "Colonia / Barrio / Condominio";
 
 /* Class = "UILabel"; text = "Efraín García Rocha"; ObjectID = "Crk-5v-ttO"; */
 "Crk-5v-ttO.text" = "Efraín García Rocha";
 
 /* Class = "UITabBarItem"; title = "Configuration"; ObjectID = "D6t-b1-x9O"; */
-"D6t-b1-x9O.title" = "Configuration";
+"D6t-b1-x9O.title" = "Configuración";
 
 /* Class = "UILabel"; text = "Súper Administrador"; ObjectID = "DMO-Hc-Vff"; */
 "DMO-Hc-Vff.text" = "Súper Administrador";
@@ -105,22 +105,22 @@
 "ERa-Q3-z2x.text" = "Efectivo";
 
 /* Class = "UILabel"; text = "Time:"; ObjectID = "Edz-o4-uSr"; */
-"Edz-o4-uSr.text" = "Time:";
+"Edz-o4-uSr.text" = "Hora:";
 
 /* Class = "UILabel"; text = "--- Select a customer ---"; ObjectID = "EqU-LV-1Rp"; */
-"EqU-LV-1Rp.text" = "--- Select a customer ---";
+"EqU-LV-1Rp.text" = "--- Seleccione cliente ---";
 
 /* Class = "UITextField"; placeholder = "Delivery Tax"; ObjectID = "ExW-qh-x7a"; */
-"ExW-qh-x7a.placeholder" = "Delivery Tax";
+"ExW-qh-x7a.placeholder" = "Envío:";
 
 /* Class = "UITextField"; text = "0.00"; ObjectID = "ExW-qh-x7a"; */
 "ExW-qh-x7a.text" = "0.00";
 
 /* Class = "UILabel"; text = "Deliver Date"; ObjectID = "F61-h2-YjN"; */
-"F61-h2-YjN.text" = "Deliver Date";
+"F61-h2-YjN.text" = "Fecha de entrega";
 
 /* Class = "UITextField"; placeholder = "Lastname"; ObjectID = "FK3-RG-0aN"; */
-"FK3-RG-0aN.placeholder" = "Lastname";
+"FK3-RG-0aN.placeholder" = "Apellido(s)";
 
 /* Class = "UILabel"; text = "06/07/2020"; ObjectID = "FOU-ZI-ko9"; */
 "FOU-ZI-ko9.text" = "06/07/2020";
@@ -129,28 +129,28 @@
 "G4T-ea-sAd.text" = "$148.00";
 
 /* Class = "UITableViewSection"; headerTitle = "ARTICLES"; ObjectID = "G7J-aO-473"; */
-"G7J-aO-473.headerTitle" = "ARTICLES";
+"G7J-aO-473.headerTitle" = "ARTÍCULOS";
 
 /* Class = "UITextField"; placeholder = "Product Name"; ObjectID = "GPc-uz-tO6"; */
-"GPc-uz-tO6.placeholder" = "Product Name";
+"GPc-uz-tO6.placeholder" = "Nombre del producto";
 
 /* Class = "UINavigationItem"; title = "Details"; ObjectID = "Gr9-Fb-elc"; */
-"Gr9-Fb-elc.title" = "Details";
+"Gr9-Fb-elc.title" = "Detalles";
 
 /* Class = "UITableViewController"; title = "Select Product View"; ObjectID = "HS3-ib-ZMA"; */
-"HS3-ib-ZMA.title" = "Select Product View";
+"HS3-ib-ZMA.title" = "Vista Elegir Producto";
 
 /* Class = "UITabBarItem"; title = "Orders"; ObjectID = "HWK-kS-KMK"; */
-"HWK-kS-KMK.title" = "Orders";
+"HWK-kS-KMK.title" = "Pedidos";
 
 /* Class = "UITableViewSection"; headerTitle = "TOTALS"; ObjectID = "JKV-3H-h5I"; */
-"JKV-3H-h5I.headerTitle" = "TOTALS";
+"JKV-3H-h5I.headerTitle" = "TOTALES";
 
 /* Class = "UITableViewSection"; headerTitle = "CUSTOMER"; ObjectID = "JMn-sX-Nty"; */
-"JMn-sX-Nty.headerTitle" = "CUSTOMER";
+"JMn-sX-Nty.headerTitle" = "CLIENTE";
 
 /* Class = "UINavigationItem"; title = "Edit Order"; ObjectID = "Jp2-9h-8H9"; */
-"Jp2-9h-8H9.title" = "Edit Order";
+"Jp2-9h-8H9.title" = "Modificar pedido";
 
 /* Class = "UILabel"; text = "MOLIDA DE RES"; ObjectID = "Jp3-dh-aTy"; */
 "Jp3-dh-aTy.text" = "MOLIDA DE RES";
@@ -159,10 +159,10 @@
 "KG5-yE-gji.text" = "MOLIDA DE RES";
 
 /* Class = "UITableViewSection"; headerTitle = "Totals"; ObjectID = "KKw-LX-x4k"; */
-"KKw-LX-x4k.headerTitle" = "Totals";
+"KKw-LX-x4k.headerTitle" = "Totales";
 
 /* Class = "UISearchBar"; placeholder = "Search Customers"; ObjectID = "Kdo-gR-LJG"; */
-"Kdo-gR-LJG.placeholder" = "Search Customers";
+"Kdo-gR-LJG.placeholder" = "Buscar clientes";
 
 /* Class = "UILabel"; text = "Efraín García Rocha"; ObjectID = "KlT-8e-7qJ"; */
 "KlT-8e-7qJ.text" = "Efraín García Rocha";
@@ -171,70 +171,70 @@
 "LTG-A6-CfZ.text" = "(55) 4342 - 0120";
 
 /* Class = "UINavigationItem"; title = "New Order"; ObjectID = "MwX-lb-iL6"; */
-"MwX-lb-iL6.title" = "New Order";
+"MwX-lb-iL6.title" = "Nuevo pedido";
 
 /* Class = "UILabel"; text = "Customer"; ObjectID = "Njl-JW-sW9"; */
-"Njl-JW-sW9.text" = "Customer";
+"Njl-JW-sW9.text" = "Cliente";
 
 /* Class = "UITextField"; placeholder = "Lastname"; ObjectID = "O7M-zc-EdO"; */
-"O7M-zc-EdO.placeholder" = "Lastname";
+"O7M-zc-EdO.placeholder" = "Apellido(s)";
 
 /* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "OdN-dI-gfB"; */
-"OdN-dI-gfB.normalTitle" = "Continue";
+"OdN-dI-gfB.normalTitle" = "Continuar";
 
 /* Class = "UITableViewController"; title = "New Customer View"; ObjectID = "OhZ-bo-gu3"; */
-"OhZ-bo-gu3.title" = "New Customer View";
+"OhZ-bo-gu3.title" = "Vista Nuevo Cliente";
 
 /* Class = "UINavigationItem"; title = "New Product"; ObjectID = "Ole-w1-jJe"; */
-"Ole-w1-jJe.title" = "New Product";
+"Ole-w1-jJe.title" = "Nuevo producto";
 
 /* Class = "UITableViewSection"; headerTitle = "EXTRAS"; ObjectID = "Oxo-kg-UNt"; */
 "Oxo-kg-UNt.headerTitle" = "EXTRAS";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "Pbq-QN-nfa"; */
-"Pbq-QN-nfa.placeholder" = "Password";
+"Pbq-QN-nfa.placeholder" = "Contraseña";
 
 /* Class = "UILabel"; text = "Method of Payment"; ObjectID = "Pzd-tU-TtE"; */
-"Pzd-tU-TtE.text" = "Method of Payment";
+"Pzd-tU-TtE.text" = "Método de pago";
 
 /* Class = "UITextField"; placeholder = "Product Name"; ObjectID = "Q5Q-Ab-6DR"; */
-"Q5Q-Ab-6DR.placeholder" = "Product Name";
+"Q5Q-Ab-6DR.placeholder" = "Nombre del producto";
 
 /* Class = "UILabel"; text = "© EGATEC 2020. All rights reserved."; ObjectID = "QfT-5F-TPY"; */
-"QfT-5F-TPY.text" = "© EGATEC 2020. All rights reserved.";
+"QfT-5F-TPY.text" = "© EGATEC 2020. Todos los derechos reservados.";
 
 /* Class = "UITextField"; placeholder = "(55) 5555 - 5555"; ObjectID = "Qlc-tP-uIY"; */
 "Qlc-tP-uIY.placeholder" = "(55) 5555 - 5555";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "RAh-JC-u9M"; */
-"RAh-JC-u9M.text" = "Detail";
+"RAh-JC-u9M.text" = "Detalles";
 
 /* Class = "UITableViewSection"; headerTitle = "Articles"; ObjectID = "RNH-k7-z7U"; */
-"RNH-k7-z7U.headerTitle" = "Articles";
+"RNH-k7-z7U.headerTitle" = "Artículos";
 
 /* Class = "UINavigationItem"; title = "Customers"; ObjectID = "Rrq-sP-wRH"; */
-"Rrq-sP-wRH.title" = "Customers";
+"Rrq-sP-wRH.title" = "Clientes";
 
 /* Class = "UINavigationController"; title = "Main View"; ObjectID = "Ryb-S1-9WX"; */
-"Ryb-S1-9WX.title" = "Main View";
+"Ryb-S1-9WX.title" = "Vista Principal";
 
 /* Class = "UILabel"; text = "Deliver Date"; ObjectID = "RzW-Gc-Jjr"; */
-"RzW-Gc-Jjr.text" = "Deliver Date";
+"RzW-Gc-Jjr.text" = "Fecha de entrega";
 
 /* Class = "UITableViewController"; title = "Edit Product View"; ObjectID = "SbK-E0-dQv"; */
-"SbK-E0-dQv.title" = "Edit Product View";
+"SbK-E0-dQv.title" = "Vista Modificar Pedido";
 
 /* Class = "UITableViewSection"; headerTitle = "Notes"; ObjectID = "SdS-SO-kGz"; */
-"SdS-SO-kGz.headerTitle" = "Notes";
+"SdS-SO-kGz.headerTitle" = "Notas";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "TRK-JX-a0i"; */
-"TRK-JX-a0i.text" = "Detail";
+"TRK-JX-a0i.text" = "Detalle";
 
 /* Class = "UITextField"; placeholder = "Name"; ObjectID = "UBl-lA-IPh"; */
-"UBl-lA-IPh.placeholder" = "Name";
+"UBl-lA-IPh.placeholder" = "Nombre(s)";
 
 /* Class = "UINavigationItem"; title = "Products"; ObjectID = "UcF-Qt-HnL"; */
-"UcF-Qt-HnL.title" = "Products";
+"UcF-Qt-HnL.title" = "Productos";
 
 /* Class = "UILabel"; text = "$148.00"; ObjectID = "UgR-Qx-CPx"; */
 "UgR-Qx-CPx.text" = "$148.00";
@@ -243,52 +243,52 @@
 "UtP-9F-tMh.text" = "05:00 p.m";
 
 /* Class = "UIButton"; normalTitle = "Update"; ObjectID = "UzL-C1-yRf"; */
-"UzL-C1-yRf.normalTitle" = "Update";
+"UzL-C1-yRf.normalTitle" = "Actualizar";
 
 /* Class = "UILabel"; text = "Time:"; ObjectID = "V8n-I3-AmK"; */
-"V8n-I3-AmK.text" = "Time:";
+"V8n-I3-AmK.text" = "Hora:";
 
 /* Class = "UITableViewSection"; headerTitle = "INFORMATION"; ObjectID = "WB7-IK-lPy"; */
-"WB7-IK-lPy.headerTitle" = "INFORMATION";
+"WB7-IK-lPy.headerTitle" = "INFORMACIÓN";
 
 /* Class = "UITextField"; placeholder = "City"; ObjectID = "WGa-Wa-cgB"; */
-"WGa-Wa-cgB.placeholder" = "City";
+"WGa-Wa-cgB.placeholder" = "Ciudad / Delegación / Alcaldía";
 
 /* Class = "UINavigationItem"; title = "New Customer"; ObjectID = "X5q-3r-HL4"; */
-"X5q-3r-HL4.title" = "New Customer";
+"X5q-3r-HL4.title" = "Nuevo cliente";
 
 /* Class = "UILabel"; text = "egatec@hotmail.com"; ObjectID = "XAN-EY-fEN"; */
 "XAN-EY-fEN.text" = "egatec@hotmail.com";
 
 /* Class = "UITableViewController"; title = "New Order View"; ObjectID = "XLQ-Tf-3us"; */
-"XLQ-Tf-3us.title" = "New Order View";
+"XLQ-Tf-3us.title" = "Vista Nuevo Pedido";
 
 /* Class = "UINavigationItem"; title = "Edit Customer"; ObjectID = "Xcq-R2-lj5"; */
-"Xcq-R2-lj5.title" = "Edit Customer";
+"Xcq-R2-lj5.title" = "Modificar cliente";
 
 /* Class = "UITextField"; placeholder = "Name"; ObjectID = "Yai-xs-U0a"; */
-"Yai-xs-U0a.placeholder" = "Name";
+"Yai-xs-U0a.placeholder" = "Nombre(s)";
 
 /* Class = "UITableViewController"; title = "Edit Customer View"; ObjectID = "Yst-zV-5H4"; */
-"Yst-zV-5H4.title" = "Edit Customer View";
+"Yst-zV-5H4.title" = "Vista Modificar Cliente";
 
 /* Class = "UITableViewSection"; headerTitle = "ARTICLES"; ObjectID = "ZQG-1u-1L0"; */
-"ZQG-1u-1L0.headerTitle" = "ARTICLES";
+"ZQG-1u-1L0.headerTitle" = "ARTÍCULOS";
 
 /* Class = "UILabel"; text = "06/07/2020"; ObjectID = "aJl-4N-zsR"; */
 "aJl-4N-zsR.text" = "06/07/2020";
 
 /* Class = "UILabel"; text = "Manage your products"; ObjectID = "aLF-sz-JGL"; */
-"aLF-sz-JGL.text" = "Manage your products";
+"aLF-sz-JGL.text" = "Administrar sus productos";
 
 /* Class = "UITableViewSection"; headerTitle = "ADDRESS"; ObjectID = "aVC-lo-gs2"; */
-"aVC-lo-gs2.headerTitle" = "ADDRESS";
+"aVC-lo-gs2.headerTitle" = "DIRECCIÓN";
 
 /* Class = "UITableViewController"; title = "Select Customer View"; ObjectID = "aWL-1w-0y3"; */
-"aWL-1w-0y3.title" = "Select Customer View";
+"aWL-1w-0y3.title" = "Vista Seleccionar Cliente";
 
 /* Class = "UITextField"; placeholder = "Zip code"; ObjectID = "aYA-66-ZYw"; */
-"aYA-66-ZYw.placeholder" = "Zip code";
+"aYA-66-ZYw.placeholder" = "Código postal";
 
 /* Class = "UILabel"; text = "$5,000.00"; ObjectID = "abb-fu-02A"; */
 "abb-fu-02A.text" = "$5,000.00";
@@ -297,142 +297,142 @@
 "acd-ZN-FZE.text" = "$0.0";
 
 /* Class = "UIViewController"; title = "LogIn View"; ObjectID = "bCs-zI-U3f"; */
-"bCs-zI-U3f.title" = "LogIn View";
+"bCs-zI-U3f.title" = "Vista de Acceso";
 
 /* Class = "UITextField"; placeholder = "Street Address 1"; ObjectID = "cOv-pl-wBp"; */
-"cOv-pl-wBp.placeholder" = "Street Address 1";
+"cOv-pl-wBp.placeholder" = "Calle y no.";
 
 /* Class = "UILabel"; text = "1 Kg"; ObjectID = "cYI-UV-adi"; */
 "cYI-UV-adi.text" = "1 Kg";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "d0G-9r-HvB"; */
-"d0G-9r-HvB.text" = "Detail";
+"d0G-9r-HvB.text" = "Detalle";
 
 /* Class = "UITableViewSection"; headerTitle = "Information"; ObjectID = "dIb-EE-b0z"; */
-"dIb-EE-b0z.headerTitle" = "Information";
+"dIb-EE-b0z.headerTitle" = "Información";
 
 /* Class = "UILabel"; text = "$10,000.00"; ObjectID = "dhz-KW-g0g"; */
 "dhz-KW-g0g.text" = "$10,000.00";
 
 /* Class = "UILabel"; text = "Date:"; ObjectID = "e1f-T6-HAk"; */
-"e1f-T6-HAk.text" = "Date:";
+"e1f-T6-HAk.text" = "Fecha:";
 
 /* Class = "UILabel"; text = "0.00"; ObjectID = "eTG-9e-WYi"; */
 "eTG-9e-WYi.text" = "0.00";
 
 /* Class = "UITextField"; placeholder = "Zip code"; ObjectID = "eie-B1-S5s"; */
-"eie-B1-S5s.placeholder" = "Zip code";
+"eie-B1-S5s.placeholder" = "Código postal";
 
 /* Class = "UILabel"; text = "Please wait..."; ObjectID = "frm-yP-59d"; */
-"frm-yP-59d.text" = "Please wait...";
+"frm-yP-59d.text" = "Porfavor espere...";
 
 /* Class = "UINavigationItem"; title = "Product Details"; ObjectID = "gRK-m8-tBo"; */
-"gRK-m8-tBo.title" = "Product Details";
+"gRK-m8-tBo.title" = "Detalles del producto";
 
 /* Class = "UITextField"; placeholder = "0.00"; ObjectID = "gnq-1J-dhA"; */
 "gnq-1J-dhA.placeholder" = "0.00";
 
 /* Class = "UISearchBar"; placeholder = "Search Customers"; ObjectID = "gqe-Ue-6bR"; */
-"gqe-Ue-6bR.placeholder" = "Search Customers";
+"gqe-Ue-6bR.placeholder" = "Buscar clientes";
 
 /* Class = "UITableViewController"; title = "New Product View"; ObjectID = "hKU-T4-Bch"; */
-"hKU-T4-Bch.title" = "New Product View";
+"hKU-T4-Bch.title" = "Vista Nuevo Producto";
 
 /* Class = "UILabel"; text = "Address:"; ObjectID = "hcI-Xb-6jo"; */
-"hcI-Xb-6jo.text" = "Address:";
+"hcI-Xb-6jo.text" = "Dirección:";
 
 /* Class = "UITableViewSection"; headerTitle = "NOTES"; ObjectID = "hfR-tx-26i"; */
-"hfR-tx-26i.headerTitle" = "NOTES";
+"hfR-tx-26i.headerTitle" = "NOTAS";
 
 /* Class = "UILabel"; text = "State"; ObjectID = "hlV-JK-WCl"; */
-"hlV-JK-WCl.text" = "State";
+"hlV-JK-WCl.text" = "Estado";
 
 /* Class = "UITableViewController"; title = "Customers View"; ObjectID = "i0C-Io-DBQ"; */
-"i0C-Io-DBQ.title" = "Customers View";
+"i0C-Io-DBQ.title" = "Vista Clientes";
 
 /* Class = "UILabel"; text = "000001"; ObjectID = "iOn-s5-pvb"; */
 "iOn-s5-pvb.text" = "000001";
 
 /* Class = "UILabel"; text = "Address"; ObjectID = "id8-d2-JtU"; */
-"id8-d2-JtU.text" = "Address";
+"id8-d2-JtU.text" = "Dirección";
 
 /* Class = "UIViewController"; title = "Wait View"; ObjectID = "j7H-2r-Ehi"; */
-"j7H-2r-Ehi.title" = "Wait View";
+"j7H-2r-Ehi.title" = "Vista Esperar";
 
 /* Class = "UILabel"; text = "#000180"; ObjectID = "kQb-zA-Wyp"; */
 "kQb-zA-Wyp.text" = "#000180";
 
 /* Class = "UITableViewController"; title = "Configuration Tab"; ObjectID = "koD-3J-Pev"; */
-"koD-3J-Pev.title" = "Configuration Tab";
+"koD-3J-Pev.title" = "Ficha Configuración";
 
 /* Class = "UITableViewController"; title = "Order Details View"; ObjectID = "lc6-TE-WTj"; */
-"lc6-TE-WTj.title" = "Order Details View";
+"lc6-TE-WTj.title" = "Vista detalles del pedido";
 
 /* Class = "UILabel"; text = "State"; ObjectID = "nD4-an-rmG"; */
-"nD4-an-rmG.text" = "State";
+"nD4-an-rmG.text" = "Estado";
 
 /* Class = "UILabel"; text = "--- Select one ---"; ObjectID = "nka-LN-UDQ"; */
-"nka-LN-UDQ.text" = "--- Select one ---";
+"nka-LN-UDQ.text" = "- Seleccione -";
 
 /* Class = "UITextField"; placeholder = "E-Mail"; ObjectID = "ofR-2H-VOD"; */
 "ofR-2H-VOD.placeholder" = "E-Mail";
 
 /* Class = "UITextField"; placeholder = "Delivery Tax"; ObjectID = "pDV-jA-pdt"; */
-"pDV-jA-pdt.placeholder" = "Delivery Tax";
+"pDV-jA-pdt.placeholder" = "Envío";
 
 /* Class = "UITextField"; placeholder = "E-Mail"; ObjectID = "pF9-tb-J5g"; */
 "pF9-tb-J5g.placeholder" = "E-Mail";
 
 /* Class = "UITextField"; placeholder = "Total price"; ObjectID = "pZQ-th-9cC"; */
-"pZQ-th-9cC.placeholder" = "Total price";
+"pZQ-th-9cC.placeholder" = "Total";
 
 /* Class = "UITableViewSection"; headerTitle = "PROFILE"; ObjectID = "psN-T4-pxE"; */
-"psN-T4-pxE.headerTitle" = "PROFILE";
+"psN-T4-pxE.headerTitle" = "PERFIL";
 
 /* Class = "UITextField"; placeholder = "Product price"; ObjectID = "pxU-hu-2Kd"; */
-"pxU-hu-2Kd.placeholder" = "Product price";
+"pxU-hu-2Kd.placeholder" = "Precio del producto";
 
 /* Class = "UILabel"; text = "MOLIDA DE RES"; ObjectID = "q2z-dz-Trg"; */
 "q2z-dz-Trg.text" = "MOLIDA DE RES";
 
 /* Class = "UITextField"; placeholder = "Username"; ObjectID = "qCV-aZ-7jQ"; */
-"qCV-aZ-7jQ.placeholder" = "Username";
+"qCV-aZ-7jQ.placeholder" = "Usuario";
 
 /* Class = "UITableViewSection"; headerTitle = "NOTES"; ObjectID = "qJz-eM-52n"; */
-"qJz-eM-52n.headerTitle" = "NOTES";
+"qJz-eM-52n.headerTitle" = "NOTAS";
 
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "s7a-s1-cTk"; */
-"s7a-s1-cTk.normalTitle" = "Save";
+"s7a-s1-cTk.normalTitle" = "Guardar";
 
 /* Class = "UILabel"; text = "(55) 4342 - 0120"; ObjectID = "sLX-f5-E17"; */
 "sLX-f5-E17.text" = "(55) 4342 - 0120";
 
 /* Class = "UITextField"; placeholder = "Quantity"; ObjectID = "sor-qn-Sni"; */
-"sor-qn-Sni.placeholder" = "Quantity";
+"sor-qn-Sni.placeholder" = "Cantidad";
 
 /* Class = "UINavigationItem"; title = "Edit Product"; ObjectID = "sxJ-q9-b9e"; */
-"sxJ-q9-b9e.title" = "Edit Product";
+"sxJ-q9-b9e.title" = "Modificar producto";
 
 /* Class = "UINavigationItem"; title = "La Esperanza"; ObjectID = "tLD-Zr-XCl"; */
 "tLD-Zr-XCl.title" = "La Esperanza";
 
 /* Class = "UITableViewSection"; headerTitle = "INFORMATION"; ObjectID = "teY-Rx-BXg"; */
-"teY-Rx-BXg.headerTitle" = "INFORMATION";
+"teY-Rx-BXg.headerTitle" = "INFORMACIÓN";
 
 /* Class = "UITextField"; placeholder = "City"; ObjectID = "uPb-tM-EiJ"; */
-"uPb-tM-EiJ.placeholder" = "City";
+"uPb-tM-EiJ.placeholder" = "Ciudad / Delegación / Alcaldía";
 
 /* Class = "UIButton"; normalTitle = "Save"; ObjectID = "uqZ-bk-u42"; */
-"uqZ-bk-u42.normalTitle" = "Save";
+"uqZ-bk-u42.normalTitle" = "Guardar";
 
 /* Class = "UILabel"; text = "Street"; ObjectID = "vrb-oC-4bz"; */
-"vrb-oC-4bz.text" = "Street";
+"vrb-oC-4bz.text" = "Calle y no.";
 
 /* Class = "UITextField"; placeholder = "0.00"; ObjectID = "wvE-oT-xxT"; */
 "wvE-oT-xxT.placeholder" = "0.00";
 
 /* Class = "UITabBarController"; title = "MainTab"; ObjectID = "x9m-HO-QgT"; */
-"x9m-HO-QgT.title" = "MainTab";
+"x9m-HO-QgT.title" = "Ficha Principal";
 
 /* Class = "UILabel"; text = "Notas:"; ObjectID = "xlz-0h-t2m"; */
 "xlz-0h-t2m.text" = "Notas:";
@@ -441,19 +441,19 @@
 "yPL-6k-bie.text" = "$148.00";
 
 /* Class = "UITextField"; placeholder = "Street Address 2"; ObjectID = "ygD-bY-WxX"; */
-"ygD-bY-WxX.placeholder" = "Street Address 2";
+"ygD-bY-WxX.placeholder" = "Colonia / Barrio / Condominio";
 
 /* Class = "UILabel"; text = "Product"; ObjectID = "zCd-Zt-gRV"; */
-"zCd-Zt-gRV.text" = "Product";
+"zCd-Zt-gRV.text" = "Producto";
 
 /* Class = "UILabel"; text = "Deliver:"; ObjectID = "zKr-Vf-khm"; */
-"zKr-Vf-khm.text" = "Deliver:";
+"zKr-Vf-khm.text" = "Entrega:";
 
 /* Class = "UILabel"; text = "03:30 PM"; ObjectID = "zY8-WY-2wS"; */
 "zY8-WY-2wS.text" = "03:30 PM";
 
 /* Class = "UISearchBar"; placeholder = "Search Orders"; ObjectID = "zbV-ga-MEa"; */
-"zbV-ga-MEa.placeholder" = "Search Orders";
+"zbV-ga-MEa.placeholder" = "Buscar pedidos";
 
 /* Class = "UILabel"; text = "Manage your customers"; ObjectID = "zpq-Ez-9LP"; */
-"zpq-Ez-9LP.text" = "Manage your customers";
+"zpq-Ez-9LP.text" = "Administre sus clientes";

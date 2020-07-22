@@ -72,3 +72,6 @@
 //Tabs Titles
 "tab_orders" = "Pedidos";
 "tab_admin" = "Configuración";
+
+//List
+"select_empty" = "- Seleccione -";
