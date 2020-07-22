@@ -147,8 +147,8 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
        
     func changeProduct(_ row: Int) {
         let product = productsList[row]
-        let quantity = Decimal(string: quantityTextField.text ?? "1")
-        let total = (quantity! * product.productPrice)
+        let quantity = Decimal(string: quantityTextField.text ?? "1") ?? 0
+        let total = (quantity * product.productPrice)
         productModel.productId =  product.productId
         productLabel.text = product.productName
         productPriceTextField.text = numberFormatter.string(for: product.productPrice)
@@ -189,6 +189,10 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
         }
     }
     
+    @IBAction func hideKeyboard(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     @IBAction func save(_ sender: Any) {
         if validateInputs() {
             productModel.orderDetailQuantity = Double(exactly: numberFormatter.number(from: quantityTextField.text!)!)!
@@ -203,7 +207,7 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
             }
             
         } else {
-            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {() -> Void in
+            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), delay: false, onComplete: {() -> Void in
                 self.markInvalidInputs()
             })
         }

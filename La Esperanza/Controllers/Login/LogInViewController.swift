@@ -19,8 +19,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     var useFaceID: Bool = true
     
     @IBOutlet var VerticalStackLogIn: UIStackView!
-    @IBOutlet var TextFieldUsername: UITextField!
-    @IBOutlet var TextFieldPassword: UITextField!
+    @IBOutlet var TextFieldUsername: ImageTextField!
+    @IBOutlet var TextFieldPassword: ImageTextField!
     @IBOutlet var ButtonContinue: RoundedUIButton!
     
     override func viewDidLoad() {
@@ -89,7 +89,20 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         loginModel.userName = TextFieldUsername.text ?? ""
         loginModel.password = TextFieldPassword.text ?? ""
         
-        doLogIn()
+        if loginModel.userName.isEmpty || loginModel.password.isEmpty {
+            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), delay: false, onComplete: {() -> Void in
+                
+                if self.loginModel.userName.isEmpty {
+                    self.TextFieldUsername.setValidationError()
+                }
+                
+                if self.loginModel.password.isEmpty {
+                    self.TextFieldPassword.setValidationError()
+                }
+            })
+        } else {
+            doLogIn()
+        }
     }
     
     func logInWithCredentials() {

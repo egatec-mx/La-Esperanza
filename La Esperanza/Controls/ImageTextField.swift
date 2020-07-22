@@ -9,6 +9,7 @@
 import UIKit
 
 @IBDesignable class ImageTextField: UITextField {
+    var bottomLine: CALayer = CALayer()
     
     @IBInspectable var padding: CGFloat = 0
     @IBInspectable var imageWidth: CGFloat = 0
@@ -36,6 +37,8 @@ import UIKit
     @IBInspectable var borderRadius: CGFloat = 5 {
         didSet {
             layer.cornerRadius = borderRadius
+            layer.cornerCurve = .continuous
+            layer.masksToBounds = true
         }
     }
     
@@ -47,12 +50,11 @@ import UIKit
     
     @IBInspectable var showBottomBorder: Bool = false {
         didSet {
-            let bottomLine = CALayer()
             bottomLine.frame = CGRect(x: 0.0, y: frame.height - 1, width: frame.width, height: 1.0)
             bottomLine.backgroundColor = borderColor.cgColor
-            layer.addSublayer(bottomLine)
-            layer.setNeedsLayout()
-            layer.setNeedsDisplay()
+            if showBottomBorder {
+                layer.addSublayer(bottomLine)
+            }
         }
     }
         
@@ -73,11 +75,7 @@ import UIKit
             layer.borderColor = UIColor.red.cgColor
             layer.setNeedsDisplay()
         } else {
-            let bottomLine = CALayer()
-            bottomLine.frame = CGRect(x: 0.0, y: frame.height - 1, width: frame.width, height: 1.0)
             bottomLine.backgroundColor = UIColor.red.cgColor
-            layer.addSublayer(bottomLine)
-            layer.setNeedsLayout()
             layer.setNeedsDisplay()
         }
     }
@@ -87,12 +85,16 @@ import UIKit
             layer.borderColor = borderColor.cgColor
             layer.setNeedsDisplay()
         } else {
-            let bottomLine = CALayer()
-            bottomLine.frame = CGRect(x: 0.0, y: frame.height - 1, width: frame.width, height: 1.0)
             bottomLine.backgroundColor = borderColor.cgColor
-            layer.addSublayer(bottomLine)
-            layer.setNeedsLayout()
             layer.setNeedsDisplay()
+        }
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        if showBottomBorder {
+            bottomLine.frame = CGRect(x: 0.0, y: frame.height - 1, width: frame.width, height: 1.0)
         }
     }
 }

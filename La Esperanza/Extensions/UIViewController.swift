@@ -14,8 +14,6 @@ extension UIViewController {
     func showWait() {
         let waitModal = storyboard?.instantiateViewController(withIdentifier: "WaitView") as! WaitViewController
         waitModal.modalPresentationStyle = .overFullScreen
-        waitModal.preferredContentSize = CGSize(width: view.bounds.width, height: view.bounds.height)
-        waitModal.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         waitViewController = waitModal
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { () -> Void in

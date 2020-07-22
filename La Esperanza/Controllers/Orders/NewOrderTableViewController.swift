@@ -275,7 +275,7 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
                 
             }
             else {
-                alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: nil)
+                alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), delay: false, onComplete: nil)
             }
         } catch {
             return

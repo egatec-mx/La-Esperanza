@@ -45,7 +45,7 @@ class EditProductViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func update(_ sender: Any) {
         if inputProductName.text!.isEmpty || inputProductPrice.text!.isEmpty {
             
-            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages" , comment: ""), onComplete: {() -> Void in
+            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages" , comment: ""), delay: false, onComplete: {() -> Void in
                 
                 if self.inputProductName.text!.isEmpty {
                     self.inputProductName.setValidationError()

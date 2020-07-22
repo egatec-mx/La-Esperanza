@@ -107,7 +107,7 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
     
     @IBAction func save(_ sender: Any) {
         if !validateInputs() {
-            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {() -> Void in
+            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), delay: false, onComplete: {() -> Void in
                 self.setInvalidInputs()
             })            
         } else {
