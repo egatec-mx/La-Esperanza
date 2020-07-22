@@ -73,34 +73,35 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         case 1:
             cell.ImageStatus.image = UIImage(systemName: "bell")
             cell.ImageStatus.tintColor = UIColor.systemTeal
-            bottomBorder.backgroundColor = UIColor.systemTeal.withAlphaComponent(0.5).cgColor
+            bottomBorder.backgroundColor = UIColor.systemTeal.cgColor
         case 2:
             cell.ImageStatus.image = UIImage(systemName: "clock")
             cell.ImageStatus.tintColor = UIColor.systemOrange
-            bottomBorder.backgroundColor = UIColor.systemOrange.withAlphaComponent(0.5).cgColor
+            bottomBorder.backgroundColor = UIColor.systemOrange.cgColor
         case 3:
             cell.ImageStatus.image = UIImage(systemName: "car")
             cell.ImageStatus.tintColor = UIColor.systemPurple
-            bottomBorder.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5).cgColor
+            bottomBorder.backgroundColor = UIColor.systemPurple.cgColor
         case 4:
             cell.ImageStatus.image = UIImage(systemName: "hand.thumbsup")
             cell.ImageStatus.tintColor = UIColor.systemGreen
-            bottomBorder.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.5).cgColor
+            bottomBorder.backgroundColor = UIColor.systemGreen.cgColor
         case 5:
             cell.ImageStatus.image = UIImage(systemName: "trash.slash")
             cell.ImageStatus.tintColor = UIColor.systemRed
-            bottomBorder.backgroundColor = UIColor.systemRed.withAlphaComponent(0.5).cgColor
+            bottomBorder.backgroundColor = UIColor.systemRed.cgColor
         case 6:
            cell.ImageStatus.image = UIImage(systemName: "hand.thumbsdown")
            cell.ImageStatus.tintColor = UIColor.systemPink
-           bottomBorder.backgroundColor = UIColor.systemPink.withAlphaComponent(0.5).cgColor
+           bottomBorder.backgroundColor = UIColor.systemPink.cgColor
         default:
             cell.ImageStatus.image = UIImage(systemName: "bell")
             cell.ImageStatus.tintColor = UIColor.systemGray
-            bottomBorder.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5).cgColor
+            bottomBorder.backgroundColor = UIColor.systemGray.cgColor
         }
         
         cell.layer.addSublayer(bottomBorder)
+
         cell.LabelOrderId.text = "#\(String(order.orderId).leftPadding(toLength: 6, withPad: "0"))"
         cell.LabelCustomer.text = order.customer
                 
@@ -108,6 +109,8 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         format.numberStyle = .currency
         format.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
         cell.LabelTotal.text = format.string(for: order.orderTotal)
+        
+        cell.setNeedsDisplay()
         
         return cell
     }
@@ -120,22 +123,22 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         
         switch order.status {
         case 1:
-            headerView.backgroundColor = UIColor.systemTeal.withAlphaComponent(0.5)
+            headerView.backgroundColor = UIColor.systemTeal
             headerLabel.text = NSLocalizedString("status_new", tableName: "messages", comment: "")
         case 2:
-            headerView.backgroundColor = UIColor.systemOrange.withAlphaComponent(0.5)
+            headerView.backgroundColor = UIColor.systemOrange
             headerLabel.text = NSLocalizedString("status_processing", tableName: "messages", comment: "")
         case 3:
-            headerView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5)
+            headerView.backgroundColor = UIColor.systemPurple
             headerLabel.text = NSLocalizedString("status_delivering", tableName: "messages", comment: "")
         case 4:
-            headerView.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.5)
+            headerView.backgroundColor = UIColor.systemGreen
             headerLabel.text = NSLocalizedString("status_completed", tableName: "messages", comment: "")
         case 5:
-            headerView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.5)
+            headerView.backgroundColor = UIColor.systemRed
             headerLabel.text = NSLocalizedString("status_canceled", tableName: "messages", comment: "")
         case 6:
-            headerView.backgroundColor = UIColor.systemPink.withAlphaComponent(0.5)
+            headerView.backgroundColor = UIColor.systemPink
             headerLabel.text = NSLocalizedString("status_rejected", tableName: "messages", comment: "")
         default:
             headerView.backgroundColor = .clear
@@ -145,7 +148,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         headerLabel.center.y = rect.height / 2
         headerLabel.center.x = 16
         headerLabel.layer.masksToBounds = true
-        headerLabel.textColor = .label
+        headerLabel.textColor = .white
         headerLabel.sizeToFit()
         headerView.addSubview(headerLabel)
                         
