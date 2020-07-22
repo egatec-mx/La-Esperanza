@@ -180,48 +180,10 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     @IBAction func openMaps(_ sender: Any) {
-        let mapsAlert = UIAlertController(title: NSLocalizedString("alert_navigation_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_navigation_message", tableName: "messages", comment: ""), preferredStyle: .actionSheet)
-        
-        let mapsAction = UIAlertAction(title: "Apple Maps", style: .default, handler: {(action) -> Void in
-            if let row = self.selectedIndexPath?.row {
-                let customer = self.searchList[row]
-                let address = "\(customer.customerStreet.replacingOccurrences(of: " ", with: "+")),\(customer.customerColony.replacingOccurrences(of: " ", with: "+")),\(customer.customerCity.replacingOccurrences(of: " ", with: "+")),\(customer.stateName.replacingOccurrences(of: " ", with: "+")),\(customer.customerZipcode),\(customer.countryName)".folding(options: .diacriticInsensitive, locale: .current)
-                if let mapsURL = URL(string: "https://maps.apple.com/?address=\(address)") {
-                    UIApplication.shared.open(mapsURL, options: [:], completionHandler: nil)
-                }
-            }
-        })
-        
-        let wazeAction = UIAlertAction(title: "Waze", style: .default, handler: {(action) -> Void in
-            if let row = self.selectedIndexPath?.row {
-                let customer = self.searchList[row]
-                let address = "\(customer.customerStreet.replacingOccurrences(of: " ", with: "%20")),\(customer.customerColony.replacingOccurrences(of: " ", with: "%20")),\(customer.customerCity.replacingOccurrences(of: " ", with: "%20")),\(customer.stateName.replacingOccurrences(of: " ", with: "%20")),\(customer.customerZipcode),\(customer.countryName)".folding(options: .diacriticInsensitive, locale: .current)
-                if let mapsURL = URL(string: "https://waze.com/ul?q=\(address)&navigate=yes") {
-                    UIApplication.shared.open(mapsURL, options: [:], completionHandler: nil)
-                }
-            }
-        })
-        
-        let googleMapsAction = UIAlertAction(title: "Google Maps", style: .default, handler: {(action) -> Void in
-            if let row = self.selectedIndexPath?.row {
-                let customer = self.searchList[row]
-                let address = "\(customer.customerStreet.replacingOccurrences(of: " ", with: "+")),\(customer.customerColony.replacingOccurrences(of: " ", with: "+")),\(customer.customerCity.replacingOccurrences(of: " ", with: "+")),\(customer.stateName.replacingOccurrences(of: " ", with: "+")),\(customer.customerZipcode),\(customer.countryName)".folding(options: .diacriticInsensitive, locale: .current)
-                if let googleUrl = URL(string: "comgooglemaps://?q=\(address)") {
-                    UIApplication.shared.open(googleUrl, options: [:], completionHandler: nil)
-                }
-            }
-        })
-        
-        let dismissAction = UIAlertAction(title: NSLocalizedString("alert_navigation_dismiss", tableName: "messages", comment: ""), style: .cancel, handler: nil)
-        
-        
-        mapsAlert.addAction(wazeAction)
-        mapsAlert.addAction(googleMapsAction)
-        mapsAlert.addAction(mapsAction)
-        mapsAlert.addAction(dismissAction)
-        
-        self.present(mapsAlert, animated: true, completion: nil)
-        
+        if let row = self.selectedIndexPath?.row {
+            let customer = self.searchList[row]
+            self.alerts.showMapsOptions(self, customer: customer)
+        }
     }
     
 }

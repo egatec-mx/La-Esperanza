@@ -8,12 +8,11 @@
 
 import UIKit
 
-class OrderDetailsController: UITableViewController, UIContextMenuInteractionDelegate {
+class OrderDetailsController: UITableViewController {
     let webApi: WebApi = WebApi()
     let alerts: AlertsHelper = AlertsHelper()
     let numberFormatter: NumberFormatter = NumberFormatter()
     let dateFormatter: DateFormatter = DateFormatter()
-    var phoneInteraction: UIContextMenuInteraction? = nil
     var orderId: CLongLong = 0
     var orderDetails: OrderDetailsModel = OrderDetailsModel()
     var moveOrderModel: MoveOrderModel = MoveOrderModel()
@@ -29,7 +28,6 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     @IBOutlet var LabelDeliverDate: UILabel!
     @IBOutlet var LabelDeliverTime: UILabel!
     @IBOutlet var LabelCustomerName: UILabel!
-    @IBOutlet var LabelPhoneNumber: UILabel!
     @IBOutlet var LabelAddress: UILabel!
     @IBOutlet var ArticlesTable: ArticlesTableView!
     @IBOutlet var LabelNotes: UILabel!
@@ -41,6 +39,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
     @IBOutlet var EditButton: UIBarButtonItem!
     @IBOutlet var IconStatus: UIImageView!
     @IBOutlet var RejectButton: UIBarButtonItem!
+    @IBOutlet var CustomerPhoneButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,11 +52,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         dateFormatter.dateStyle = .short
         dateFormatter.timeStyle = .short
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-               
-        phoneInteraction = UIContextMenuInteraction(delegate: self)
-        LabelPhoneNumber.addInteraction(phoneInteraction!)
-        LabelPhoneNumber.isUserInteractionEnabled = true
-        
+                    
         ArticlesTable.delegate = ArticlesTable.self
         ArticlesTable.dataSource = ArticlesTable.self
         
@@ -84,15 +79,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         return super.tableView(tableView, heightForRowAt: indexPath)
     }
     
-    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
-            return self.createContextMenu()
-        }
-    }
-        
     func displayInfo() {
-        
         tableView.beginUpdates()
         
         //Qr Code
@@ -163,7 +150,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         LabelCustomerName.text = "\(orderDetails.customerName) \(orderDetails.customerLastname)"
         
         //Label Customer Phone
-        LabelPhoneNumber.text = orderDetails.customerPhone.formatPhoneNumber()
+        CustomerPhoneButton.setTitle(orderDetails.customerPhone.formatPhoneNumber(), for: .normal)
         
         //Label Address
         LabelAddress.text = """
@@ -237,21 +224,6 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         
     }
        
-    func createContextMenu() -> UIMenu {
-        
-        let callAction = UIAction(title: NSLocalizedString("menu_call", tableName: "messages", comment: ""), image: UIImage(systemName: "phone.arrow.up.right")) { _ in
-            let url:URL = URL(string: "tel://\(self.orderDetails.customerPhone)")!
-            UIApplication.shared.open(url as URL)
-        }
-                
-        let whatsAppAction = UIAction(title: NSLocalizedString("menu_message", tableName: "messages", comment: ""), image: UIImage(systemName: "message")) { _ in
-            let url:URL = URL(string: "whatsapp://send?phone=+521\(self.orderDetails.customerPhone)&abid=+521\(self.orderDetails.customerPhone)")!
-            UIApplication.shared.open(url as URL)
-        }
-        
-        return UIMenu(title: NSLocalizedString("menu_actions", tableName: "messages", comment: ""), children: [callAction, whatsAppAction])
-    }
-    
     func clearDataFromUI() {
          ImageQrCode.image = nil
                  
@@ -275,10 +247,7 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
          
          //Label Customer Name
          LabelCustomerName.text = ""
-         
-         //Label Customer Phone
-         LabelPhoneNumber.text = ""
-         
+                  
          //Label Address
          LabelAddress.text = ""
          
@@ -503,4 +472,22 @@ class OrderDetailsController: UITableViewController, UIContextMenuInteractionDel
         let view = segue.destination as! OrderDetailsController
         view.getDetails()
     }
+    
+    @IBAction func showMapsOptions(_ sender: Any) {
+        var customer = CustomerModel()
+        customer.customerCity = orderDetails.customerCity
+        customer.customerColony = orderDetails.customerColony
+        customer.customerStreet = orderDetails.customerStreet
+        customer.customerZipcode = orderDetails.customerZipcode
+        customer.stateName = orderDetails.stateName
+        customer.countryName = orderDetails.countryName
+        alerts.showMapsOptions(self, customer: customer)
+    }
+    
+    @IBAction func showPhoneOptions(_ sender: Any) {
+        var customer = CustomerModel()
+        customer.customerPhone = orderDetails.customerPhone
+        alerts.showPhoneOptions(self, customer: customer)
+    }
+    
 }

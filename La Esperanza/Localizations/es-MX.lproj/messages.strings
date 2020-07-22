@@ -46,6 +46,9 @@
 "alert_navigation_dismiss" = "Cancelar";
 "alert_customer_success_add" = "Se agregó el cliente correctamente.";
 "alert_customer_success_edit" = "Se ha actualizado el cliente correctamente.";
+"alert_phone_message" = "¿Qué quiere hacer?";
+"alert_phone_title" = "Teléfono";
+"alert_phone_dismiss" = "Cancelar";
 
 //FaceID
 "auth_reason" = "Se requirede de autenticarse para continuar.";

@@ -46,6 +46,9 @@
 "alert_navigation_dismiss" = "Cancel";
 "alert_customer_success_add" = "The customer has been added.";
 "alert_customer_success_edit" = "The customer has been updated.";
+"alert_phone_message" = "Select your option";
+"alert_phone_title" = "Phone";
+"alert_phone_dismiss" = "Cancel";
 
 //FaceID
 "auth_reason" = "Authentication is required.";
