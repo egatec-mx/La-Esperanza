@@ -68,8 +68,7 @@
 
 //3D Context Menu
 "menu_call" = "Make a call";
-"menu_whatsapp" = "Send whatsApp";
-"menu_message" = "Send message";
+"menu_message" = "WhatsApp";
 "menu_actions" = "Actions";
 
 //Tabs Titles

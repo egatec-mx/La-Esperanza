@@ -32,7 +32,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="CellColor"/>
+                        <color key="backgroundColor" name="WaitBackground"/>
                         <constraints>
                             <constraint firstItem="l5X-XV-jhw" firstAttribute="centerX" secondItem="eac-mh-xdi" secondAttribute="centerX" id="GuE-SJ-oJQ"/>
                             <constraint firstItem="l5X-XV-jhw" firstAttribute="centerY" secondItem="eac-mh-xdi" secondAttribute="centerY" id="fFy-g0-Mrr"/>
@@ -3875,6 +3875,9 @@
         </namedColor>
         <namedColor name="ProfileColor">
             <color red="0.54117649793624878" green="0.090196080505847931" blue="0.59215688705444336" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="WaitBackground">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

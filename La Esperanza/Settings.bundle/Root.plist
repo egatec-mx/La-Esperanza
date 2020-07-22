@@ -4,16 +4,7 @@
 <dict>
 	<key>StringsTable</key>
 	<string>Root</string>
-	<key>PreferenceSpecifiers</key>
-	<array>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>SERVER URL</string>
-			<key>Key</key>
-			<string>SERVER_URL</string>
-		</dict>
-	</array>
+	<key>Title</key>
+	<string>Configuration</string>
 </dict>
 </plist>
