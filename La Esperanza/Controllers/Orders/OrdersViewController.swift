@@ -62,31 +62,45 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         let order = section.orders[indexPath.row]
         
         let cell: OrderTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "OrdersCell", for: indexPath) as! OrderTableViewCell
+        cell.layer.masksToBounds = true
+        cell.layer.cornerRadius = 0
+        cell.layer.borderWidth = 0
+        
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x: 0.0, y: cell.bounds.height - 2, width: cell.bounds.width, height: 2)
         
         switch section.status {
         case 1:
             cell.ImageStatus.image = UIImage(systemName: "bell")
             cell.ImageStatus.tintColor = UIColor.systemTeal
+            bottomBorder.backgroundColor = UIColor.systemTeal.withAlphaComponent(0.5).cgColor
         case 2:
             cell.ImageStatus.image = UIImage(systemName: "clock")
             cell.ImageStatus.tintColor = UIColor.systemOrange
+            bottomBorder.backgroundColor = UIColor.systemOrange.withAlphaComponent(0.5).cgColor
         case 3:
             cell.ImageStatus.image = UIImage(systemName: "car")
             cell.ImageStatus.tintColor = UIColor.systemPurple
+            bottomBorder.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5).cgColor
         case 4:
             cell.ImageStatus.image = UIImage(systemName: "hand.thumbsup")
             cell.ImageStatus.tintColor = UIColor.systemGreen
+            bottomBorder.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.5).cgColor
         case 5:
             cell.ImageStatus.image = UIImage(systemName: "trash.slash")
             cell.ImageStatus.tintColor = UIColor.systemRed
+            bottomBorder.backgroundColor = UIColor.systemRed.withAlphaComponent(0.5).cgColor
         case 6:
            cell.ImageStatus.image = UIImage(systemName: "hand.thumbsdown")
            cell.ImageStatus.tintColor = UIColor.systemPink
+           bottomBorder.backgroundColor = UIColor.systemPink.withAlphaComponent(0.5).cgColor
         default:
             cell.ImageStatus.image = UIImage(systemName: "bell")
             cell.ImageStatus.tintColor = UIColor.systemGray
+            bottomBorder.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5).cgColor
         }
         
+        cell.layer.addSublayer(bottomBorder)
         cell.LabelOrderId.text = "#\(String(order.orderId).leftPadding(toLength: 6, withPad: "0"))"
         cell.LabelCustomer.text = order.customer
                 
@@ -98,26 +112,50 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let section = self.ordersReport[section]
-        switch section.status {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let rect = CGRect(x: 0, y: 0, width: view.bounds.width, height: tableView.sectionHeaderHeight)
+        let order = ordersReport[section]
+        let headerView = UIView(frame: rect)
+        let headerLabel = UILabel()
+        
+        switch order.status {
         case 1:
-            return NSLocalizedString("status_new", tableName: "messages", comment: "")
+            headerView.backgroundColor = UIColor.systemTeal.withAlphaComponent(0.5)
+            headerLabel.text = NSLocalizedString("status_new", tableName: "messages", comment: "")
         case 2:
-            return NSLocalizedString("status_processing", tableName: "messages", comment: "")
+            headerView.backgroundColor = UIColor.systemOrange.withAlphaComponent(0.5)
+            headerLabel.text = NSLocalizedString("status_processing", tableName: "messages", comment: "")
         case 3:
-            return NSLocalizedString("status_delivering", tableName: "messages", comment: "")
+            headerView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5)
+            headerLabel.text = NSLocalizedString("status_delivering", tableName: "messages", comment: "")
         case 4:
-            return NSLocalizedString("status_completed", tableName: "messages", comment: "")
+            headerView.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.5)
+            headerLabel.text = NSLocalizedString("status_completed", tableName: "messages", comment: "")
         case 5:
-            return NSLocalizedString("status_canceled", tableName: "messages", comment: "")
+            headerView.backgroundColor = UIColor.systemRed.withAlphaComponent(0.5)
+            headerLabel.text = NSLocalizedString("status_canceled", tableName: "messages", comment: "")
         case 6:
-            return NSLocalizedString("status_rejected", tableName: "messages", comment: "")
+            headerView.backgroundColor = UIColor.systemPink.withAlphaComponent(0.5)
+            headerLabel.text = NSLocalizedString("status_rejected", tableName: "messages", comment: "")
         default:
-            return ""
+            headerView.backgroundColor = .clear
+            headerLabel.text = ""
         }
+        
+        headerLabel.center.y = rect.height / 2
+        headerLabel.center.x = 16
+        headerLabel.layer.masksToBounds = true
+        headerLabel.textColor = .label
+        headerLabel.sizeToFit()
+        headerView.addSubview(headerLabel)
+                        
+        return headerView
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+        
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = ordersReport[indexPath.section]
         let order = section.orders[indexPath.row]

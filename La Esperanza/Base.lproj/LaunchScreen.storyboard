@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,25 +12,25 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="8HA-Mj-fDs">
-                                <rect key="frame" x="55" y="320" width="304" height="256"/>
+                                <rect key="frame" x="35.5" y="205.5" width="304" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="8HA-Mj-fDs" secondAttribute="height" multiplier="198:167" id="2VW-0q-2up"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="icZ-kV-F0m"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="Company" translatesAutoresizingMaskIntoConstraints="NO" id="wYh-dK-Yhv">
-                                <rect key="frame" x="143" y="791" width="128" height="31"/>
+                                <rect key="frame" x="123.5" y="596" width="128" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wYh-dK-Yhv" secondAttribute="height" multiplier="128:31" id="V8p-C0-zI4"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="CLo-6n-WdL"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="© EGATEC 2020. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxd-WG-B2l">
-                                <rect key="frame" x="88" y="830" width="238" height="12"/>
+                                <rect key="frame" x="68.5" y="635" width="238" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="hxd-WG-B2l" secondAttribute="height" multiplier="119:6" id="owa-Po-c9O"/>
                                 </constraints>
