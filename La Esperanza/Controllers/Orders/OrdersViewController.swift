@@ -61,46 +61,38 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         let section = self.ordersReport[indexPath.section]
         let order = section.orders[indexPath.row]
         
-        let cell: OrderTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "OrdersCell", for: indexPath) as! OrderTableViewCell
-        cell.layer.masksToBounds = true
-        cell.layer.cornerRadius = 0
-        cell.layer.borderWidth = 0
-        
-        let bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x: 0.0, y: cell.bounds.height - 2, width: cell.bounds.width, height: 2)
-        
+        let cell: OrderTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "OrdersCell", for: indexPath) as! OrderTableViewCell       
+                
         switch section.status {
         case 1:
             cell.ImageStatus.image = UIImage(systemName: "bell")
             cell.ImageStatus.tintColor = UIColor.systemTeal
-            bottomBorder.backgroundColor = UIColor.systemTeal.cgColor
+            cell.bottomBorder.backgroundColor = UIColor.systemTeal.cgColor
         case 2:
             cell.ImageStatus.image = UIImage(systemName: "clock")
             cell.ImageStatus.tintColor = UIColor.systemOrange
-            bottomBorder.backgroundColor = UIColor.systemOrange.cgColor
+            cell.bottomBorder.backgroundColor = UIColor.systemOrange.cgColor
         case 3:
             cell.ImageStatus.image = UIImage(systemName: "car")
             cell.ImageStatus.tintColor = UIColor.systemPurple
-            bottomBorder.backgroundColor = UIColor.systemPurple.cgColor
+            cell.bottomBorder.backgroundColor = UIColor.systemPurple.cgColor
         case 4:
             cell.ImageStatus.image = UIImage(systemName: "hand.thumbsup")
             cell.ImageStatus.tintColor = UIColor.systemGreen
-            bottomBorder.backgroundColor = UIColor.systemGreen.cgColor
+            cell.bottomBorder.backgroundColor = UIColor.systemGreen.cgColor
         case 5:
             cell.ImageStatus.image = UIImage(systemName: "trash.slash")
             cell.ImageStatus.tintColor = UIColor.systemRed
-            bottomBorder.backgroundColor = UIColor.systemRed.cgColor
+            cell.bottomBorder.backgroundColor = UIColor.systemRed.cgColor
         case 6:
            cell.ImageStatus.image = UIImage(systemName: "hand.thumbsdown")
            cell.ImageStatus.tintColor = UIColor.systemPink
-           bottomBorder.backgroundColor = UIColor.systemPink.cgColor
+           cell.bottomBorder.backgroundColor = UIColor.systemPink.cgColor
         default:
             cell.ImageStatus.image = UIImage(systemName: "bell")
             cell.ImageStatus.tintColor = UIColor.systemGray
-            bottomBorder.backgroundColor = UIColor.systemGray.cgColor
+            cell.bottomBorder.backgroundColor = UIColor.systemGray.cgColor
         }
-        
-        cell.layer.addSublayer(bottomBorder)
 
         cell.LabelOrderId.text = "#\(String(order.orderId).leftPadding(toLength: 6, withPad: "0"))"
         cell.LabelCustomer.text = order.customer
@@ -109,8 +101,6 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         format.numberStyle = .currency
         format.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
         cell.LabelTotal.text = format.string(for: order.orderTotal)
-        
-        cell.setNeedsDisplay()
         
         return cell
     }
