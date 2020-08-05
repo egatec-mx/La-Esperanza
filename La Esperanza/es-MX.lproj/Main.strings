@@ -457,3 +457,6 @@
 
 /* Class = "UILabel"; text = "Manage your customers"; ObjectID = "zpq-Ez-9LP"; */
 "zpq-Ez-9LP.text" = "Administre sus clientes";
+
+/* Class = "UIButton"; text = "Cancel"; ObjectID = "JXJ-4n-JA4"; */
+"JXJ-4n-JA4.normalTitle" = "Cancelar";

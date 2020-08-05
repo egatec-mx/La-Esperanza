@@ -49,6 +49,7 @@
 "alert_phone_message" = "Select your option";
 "alert_phone_title" = "Phone";
 "alert_phone_dismiss" = "Cancel";
+"alert_document_empty" = "You are not authorized to view documents";
 
 //FaceID
 "auth_reason" = "Authentication is required.";

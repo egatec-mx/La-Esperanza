@@ -114,9 +114,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     func doLogIn() {
         do {
+            self.showWait()
             let data = try JSONEncoder().encode(loginModel)
             
             webApi.DoPost("account/login", jsonData: data, onCompleteHandler: { (response, error) -> Void in
+                
+                self.hideWait()
+                
                 guard error == nil else {
                     if (error as NSError?)?.code != 401 {
                         self.alerts.showErrorAlert(self, message: NSLocalizedString("error_not_connection", tableName: "messages", comment: ""), onComplete: nil)
@@ -145,7 +149,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                             if self.useFaceID {
                                 self.useBiometrics()
                             } else {
-                                self.navigateToNextView()
+                                self.registerDevice()
                             }
                         }
                     }
@@ -173,7 +177,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     self.registerDevice()
-                    self.navigateToNextView()
                     
                 } else {
                     var message: String = ""
@@ -206,7 +209,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     if canContinue {
                         self.alerts.showErrorAlert(self, message: message, onComplete: {() -> Void in
                             self.registerDevice()
-                            self.navigateToNextView()
                         })
                     } else {
                         self.alerts.showErrorAlert(self, message: message, onComplete: nil)
@@ -226,7 +228,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 let data = try JSONEncoder().encode(device)
                 
                 webApi.DoPost("account/register", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                    guard error == nil else { return }
+                    self.navigateToNextView()
                 })
             } catch {
                 return
@@ -235,10 +237,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func navigateToNextView() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { () -> Void in
             if self.view.frame.origin.y != 0 { self.view.frame.origin.y = 0 }
             self.performSegue(withIdentifier: "MainViewSegue", sender: self)
-        }
+        })
     }
     
     @IBAction func sessionExpired(_ segue: UIStoryboardSegue) {

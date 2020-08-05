@@ -49,6 +49,7 @@
 "alert_phone_message" = "¿Qué quiere hacer?";
 "alert_phone_title" = "Teléfono";
 "alert_phone_dismiss" = "Cancelar";
+"alert_document_empty" = "No tiene permisos para ver documentos";
 
 //FaceID
 "auth_reason" = "Se requirede de autenticarse para continuar.";

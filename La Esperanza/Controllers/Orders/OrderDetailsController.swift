@@ -71,7 +71,7 @@ class OrderDetailsController: UITableViewController {
                 return 0
             }
         } else if indexPath.section == 2 {
-            return CGFloat(CGFloat(orderDetails.articles.count) * 55)
+            return CGFloat(Double(orderDetails.articles.count) * 42.5)
         } else if indexPath.section == 4 {
             return (LabelNotes.frame.height * 0.85 < 150 ? 150 : LabelNotes.frame.height * 0.85)
         }
@@ -225,38 +225,41 @@ class OrderDetailsController: UITableViewController {
     }
        
     func clearDataFromUI() {
-         ImageQrCode.image = nil
+        ImageQrCode.image = nil
                  
-         //Label Order Id
-         LabelOrder.text = ""
+        //Label Order Id
+        LabelOrder.text = ""
+        
+        //Label Create Date
+        LabelCreationDate.text = ""
          
-         //Label Create Date
-         LabelCreationDate.text = ""
+        //Label Create Time
+        LabelCreationTime.text = ""
          
-         //Label Create Time
-         LabelCreationTime.text = ""
+        //Label Delivery Date
+        LabelDeliverDate.text = ""
          
-         //Label Delivery Date
-         LabelDeliverDate.text = ""
-         
-         //Label Delivery Time
-         LabelDeliverTime.text = ""
+        //Label Delivery Time
+        LabelDeliverTime.text = ""
          
         //Label Method of Payment
-         LabelPaymentMethod.text = ""
+        LabelPaymentMethod.text = ""
          
-         //Label Customer Name
-         LabelCustomerName.text = ""
-                  
-         //Label Address
-         LabelAddress.text = ""
+        //Label Customer Name
+        LabelCustomerName.text = ""
+        
+        //Customer Phone
+        CustomerPhoneButton.titleLabel?.text = ""
+        
+        //Label Address
+        LabelAddress.text = ""
          
-         //Label Totals
-         LabelDeliveryTax.text = ""
-         LabelOrderTotal.text = ""
+        //Label Totals
+        LabelDeliveryTax.text = ""
+        LabelOrderTotal.text = ""
          
-         //Label Notes
-         LabelNotes.text = ""
+        //Label Notes
+        LabelNotes.text = ""
         
         //Icon Status
         IconStatus.image = UIImage(systemName: "bell")
@@ -465,6 +468,11 @@ class OrderDetailsController: UITableViewController {
         if segue.identifier == "EditSegue" {
             let editView = segue.destination as! EditOrderTableViewController
             editView.orderModel = orderDetails
+        }
+        
+        if segue.identifier == "DocumentSegue" {
+            let docView = segue.destination as! DocumentViewController
+            docView.orderId = orderId
         }
     }
     
