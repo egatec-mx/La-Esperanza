@@ -15,6 +15,7 @@ class SalesTableViewController: UITableViewController {
     var showStartDate: Bool = false
     var showEndDate: Bool = false
     var isTodaysReport: Bool = false
+    var todaySalesModel: TodaySalesModel = TodaySalesModel()
     
     @IBOutlet var startDatePicker: UIDatePicker!
     @IBOutlet var endDatePicker: UIDatePicker!
@@ -42,6 +43,8 @@ class SalesTableViewController: UITableViewController {
         if let tabParent = self.parent as? UITabBarController {
             tabParent.navigationItem.title = NSLocalizedString("tab_sales", tableName: "messages", comment: "")
         }
+        
+        getTodaySales()
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -65,6 +68,45 @@ class SalesTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         tableView.beginUpdates()
         tableView.endUpdates()
+    }
+    
+    func getTodaySales() {
+        webApi.DoGet("orders/todaysales", onCompleteHandler: { (response, error) -> Void in
+            do {
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        self.hideWait()
+                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                    }
+                    return
+                }
+                guard response != nil else { return }
+                if let data = response {
+                    self.hideWait()
+                    self.todaySalesModel = try JSONDecoder().decode(TodaySalesModel.self, from: data)
+                    
+                    DispatchQueue.main.async {
+                        
+                        let currencyFormat = NumberFormatter()
+                        currencyFormat.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
+                        currencyFormat.allowsFloats = true
+                        currencyFormat.minimumFractionDigits = 2
+                        currencyFormat.maximumFractionDigits = 2
+                        currencyFormat.usesGroupingSeparator = true
+                        currencyFormat.numberStyle = .currencyAccounting
+                        
+                        self.ordersCountLabel.text = String(self.todaySalesModel.count)
+                        self.ordersDeliveryTaxLabel.text = currencyFormat.string(for: self.todaySalesModel.deliveryTaxTotal)
+                        self.ordersTotalLabel.text = currencyFormat.string(for: self.todaySalesModel.total)
+                        
+                        self.tableView.beginUpdates()
+                        self.tableView.endUpdates()
+                    }
+                }
+            } catch {
+                return
+            }
+        })
     }
     
     @IBAction func selectedDate(_ sender: UIDatePicker) {
