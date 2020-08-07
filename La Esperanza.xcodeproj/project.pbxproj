@@ -50,6 +50,8 @@
 		7C7D098224C3DC78001280C5 /* NewCustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D098124C3DC78001280C5 /* NewCustomerTableViewController.swift */; };
 		7C7D098424C3EFBD001280C5 /* EditOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */; };
 		7C88E38F24BB9242002D449E /* RejectOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C88E38E24BB9242002D449E /* RejectOrderModel.swift */; };
+		7C8B72A424DDBEC900404C52 /* SalesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B72A324DDBEC900404C52 /* SalesTableViewController.swift */; };
+		7C8B72A624DDF48400404C52 /* SalesReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B72A524DDF48400404C52 /* SalesReportViewController.swift */; };
 		7C8EC1A424C73B740014C974 /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8EC1A324C73B740014C974 /* DeviceModel.swift */; };
 		7CB05020245DD0EA00CF8245 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB0501F245DD0EA00CF8245 /* AppDelegate.swift */; };
 		7CB05022245DD0EA00CF8245 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB05021245DD0EA00CF8245 /* SceneDelegate.swift */; };
@@ -115,6 +117,8 @@
 		7C7D098124C3DC78001280C5 /* NewCustomerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCustomerTableViewController.swift; sourceTree = "<group>"; };
 		7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrderTableViewController.swift; sourceTree = "<group>"; };
 		7C88E38E24BB9242002D449E /* RejectOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectOrderModel.swift; sourceTree = "<group>"; };
+		7C8B72A324DDBEC900404C52 /* SalesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesTableViewController.swift; sourceTree = "<group>"; };
+		7C8B72A524DDF48400404C52 /* SalesReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReportViewController.swift; sourceTree = "<group>"; };
 		7C8EC1A324C73B740014C974 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
 		7CB0501C245DD0EA00CF8245 /* La Esperanza.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "La Esperanza.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CB0501F245DD0EA00CF8245 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -368,6 +372,15 @@
 			path = Lists;
 			sourceTree = "<group>";
 		};
+		7C8B72A224DDBEB300404C52 /* Sales */ = {
+			isa = PBXGroup;
+			children = (
+				7C8B72A324DDBEC900404C52 /* SalesTableViewController.swift */,
+				7C8B72A524DDF48400404C52 /* SalesReportViewController.swift */,
+			);
+			path = Sales;
+			sourceTree = "<group>";
+		};
 		7CB05013245DD0EA00CF8245 = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +428,7 @@
 		7CCAC6E824AE664E00D4D1F9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7C8B72A224DDBEB300404C52 /* Sales */,
 				7C3540E324C781CB0001B4A2 /* Wait */,
 				7C65C20724C1336400158112 /* Customers */,
 				7C2DE86724BF6D5C00491D85 /* Products */,
@@ -525,12 +539,14 @@
 				7C4725BC24B7E8A200181065 /* CancelOrderModel.swift in Sources */,
 				7C2DE87024BF708F00491D85 /* ProductModel.swift in Sources */,
 				7C42B36D24B518B2008C014D /* OrderDetailsModel.swift in Sources */,
+				7C8B72A624DDF48400404C52 /* SalesReportViewController.swift in Sources */,
 				7C3540E524C781E40001B4A2 /* WaitViewController.swift in Sources */,
 				7CB2C90D24C5EE8E00E40A2E /* MethodOfPaymentList.swift in Sources */,
 				7C2DE86924BF6D7100491D85 /* ProductsTableViewController.swift in Sources */,
 				7C60244B24AD788D00FB6D5A /* LogInViewController.swift in Sources */,
 				7C7D097E24C3A9D7001280C5 /* FixedLengthTextField.swift in Sources */,
 				7C24777224C28931009433AA /* CustomerTableViewCell.swift in Sources */,
+				7C8B72A424DDBEC900404C52 /* SalesTableViewController.swift in Sources */,
 				7C65120424AE8CF000E1CEFB /* OrdersViewController.swift in Sources */,
 				7C1C461924C2006200591641 /* BaseUIView.swift in Sources */,
 				7C42B37324B57E46008C014D /* ArticlesViewTableCell.swift in Sources */,
@@ -729,7 +745,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "La Esperanza/esperanza.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1040;
+				CURRENT_PROJECT_VERSION = 1050;
 				DEVELOPMENT_TEAM = F9F38B26L3;
 				INFOPLIST_FILE = "La Esperanza/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -750,7 +766,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "La Esperanza/esperanza.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1040;
+				CURRENT_PROJECT_VERSION = 1050;
 				DEVELOPMENT_TEAM = F9F38B26L3;
 				INFOPLIST_FILE = "La Esperanza/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

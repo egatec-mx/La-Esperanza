@@ -50,6 +50,7 @@
 "alert_phone_title" = "Phone";
 "alert_phone_dismiss" = "Cancel";
 "alert_document_empty" = "You are not authorized to view documents";
+"alert_report_notfound" = "There is no report for the date";
 
 //FaceID
 "auth_reason" = "Authentication is required.";
@@ -75,6 +76,7 @@
 //Tabs Titles
 "tab_orders" = "Orders";
 "tab_admin" = "Configuration";
+"tab_sales" = "Sales";
 
 //List
 "select_empty" = "- Select -";

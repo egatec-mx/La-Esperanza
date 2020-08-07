@@ -11,48 +11,49 @@ import PDFKit
 import WebKit
 
 class DocumentViewController: UIViewController {
+    let webApi: WebApi = WebApi()
     let alerts: AlertsHelper = AlertsHelper()
-    let baseUrl: String = "https://esperanza.egatec.com.mx"
-    var pdfPath: URL?
     var orderId: CLongLong = 0
     var stringOrderId: String = ""
+    var pdfPath: URL?
     
-    @IBOutlet var LabelTitle: UILabel!
-    @IBOutlet var PDFViewer: WKWebView!
+    @IBOutlet var pdfViewer: WKWebView!
+    @IBOutlet var titleLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         stringOrderId = String(orderId).leftPadding(toLength: 6, withPad: "0")
-        LabelTitle.text = "#\(stringOrderId)"
+        titleLabel.text = "#\(stringOrderId)"
         getPDF()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(true, animated: false)
     }
     
     func getPDF() {
         self.showWait()
         
-        let pdfRoute: String = "/print/printappleorder/\(orderId)"
-        let pdfUrl: URL = URL(string: "\(baseUrl)\(pdfRoute)")!
-        
-        var pdfRequest = URLRequest(url: pdfUrl)
-        pdfRequest.setValue(UserDefaults.standard.string(forKey: "PushToken"), forHTTPHeaderField: "Device")
-        
-        let pdfTask = URLSession.shared.dataTask(with: pdfRequest) { (data, response, error) -> Void in
+        webApi.DoGet("print/order/\(orderId)", onCompleteHandler: {(response, error) -> Void in
             self.hideWait()
             
-            guard data!.count > 0 else {
-                self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_document_empty", tableName: "messages", comment: ""), onComplete: nil)
+            guard error == nil else {
+                if (error as NSError?)?.code == 401 {
+                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                }
                 return
             }
             
-            let pdfDocument: PDFDocument = PDFDocument(data: data!)!
+            guard response!.count > 0 else { return }
+            
+            let pdfDocument: PDFDocument = PDFDocument(data: response!)!
             self.pdfPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(self.stringOrderId).pdf")
             pdfDocument.write(to: self.pdfPath!)
             
             DispatchQueue.main.async {
-                self.PDFViewer.loadFileURL(self.pdfPath!, allowingReadAccessTo: self.pdfPath!)
+                self.pdfViewer.loadFileURL(self.pdfPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
             }
-        }
-        pdfTask.resume()
+        })
     }
     
     func showSharePanel(shareItems: [Any]){

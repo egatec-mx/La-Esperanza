@@ -233,6 +233,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             } catch {
                 return
             }
+        } else {
+            sleep(1)
+            self.navigateToNextView()
         }
     }
     

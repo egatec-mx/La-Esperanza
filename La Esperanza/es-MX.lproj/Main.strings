@@ -458,5 +458,20 @@
 /* Class = "UILabel"; text = "Manage your customers"; ObjectID = "zpq-Ez-9LP"; */
 "zpq-Ez-9LP.text" = "Administre sus clientes";
 
-/* Class = "UIButton"; text = "Cancel"; ObjectID = "JXJ-4n-JA4"; */
-"JXJ-4n-JA4.normalTitle" = "Cancelar";
+/* Class = "UIButton"; text = "Cancel"; ObjectID = "ZFQ-sQ-95B"; */
+"ZFQ-sQ-95B.normalTitle" = "Cancelar";
+
+/* Class = "UITableViewSection"; headerTitle = "SALES REPORT"; ObjectID = "Z90-7v-7ZK"; */
+"Z90-7v-7ZK.headerTitle" = "Reporte de ventas";
+
+/* Class = "UILabel"; text = "Start Date"; ObjectID = "25c-Pg-qAN"; */
+"25c-Pg-qAN.text" = "Fecha inicio";
+
+/* Class = "UILabel"; text = "End Date"; ObjectID = "dsC-Ag-sjR"; */
+"dsC-Ag-sjR.text" = "Fecha fin";
+
+/* Class = "UIButton"; text = "View"; ObjectID = "Ewx-0g-vpx"; */
+"Ewx-0g-vpx.normalTitle" = "Visualizar";
+
+/* Class = "UINavigationItem"; title = "Sales Report"; ObjectID = "Ug4-gm-BX6"; */
+"Ug4-gm-BX6.title" = "Reporte de ventas";

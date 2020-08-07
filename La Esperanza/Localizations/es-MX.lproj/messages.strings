@@ -50,6 +50,7 @@
 "alert_phone_title" = "Teléfono";
 "alert_phone_dismiss" = "Cancelar";
 "alert_document_empty" = "No tiene permisos para ver documentos";
+"alert_report_notfound" = "No hay reporte de ventas para la fecha indicada.";
 
 //FaceID
 "auth_reason" = "Se requirede de autenticarse para continuar.";
@@ -75,6 +76,7 @@
 //Tabs Titles
 "tab_orders" = "Pedidos";
 "tab_admin" = "Configuración";
+"tab_sales" = "Ventas";
 
 //List
 "select_empty" = "- Seleccione -";
