@@ -490,3 +490,6 @@
 
 /* Class = "UIButton"; text = "View"; ObjectID = "lwe-jn-QDr"; */
 "lwe-jn-QDr.normalTitle" = "Visualizar";
+
+/* Class = "UITabBarItem"; title = "Sales"; ObjectID = "g8t-vm-gJC"; */
+"g8t-vm-gJC.title" = "Ventas";
