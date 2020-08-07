@@ -11,14 +11,18 @@ import UIKit
 class SalesTableViewController: UITableViewController {
     let webApi: WebApi = WebApi()
     let alerts: AlertsHelper = AlertsHelper()
-    let dateFormat = DateFormatter()
-    var showStartDate = false
-    var showEndDate = false
+    let dateFormat: DateFormatter = DateFormatter()
+    var showStartDate: Bool = false
+    var showEndDate: Bool = false
+    var isTodaysReport: Bool = false
     
     @IBOutlet var startDatePicker: UIDatePicker!
     @IBOutlet var endDatePicker: UIDatePicker!
     @IBOutlet var startDateLabel: UILabel!
     @IBOutlet var endDateLabel: UILabel!
+    @IBOutlet var ordersCountLabel: UILabel!
+    @IBOutlet var ordersDeliveryTaxLabel: UILabel!
+    @IBOutlet var ordersTotalLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,17 +45,21 @@ class SalesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.row == 1 && !showStartDate) || (indexPath.row == 3 && !showEndDate) { return 0 }
+        if indexPath.section == 1 {
+            if (indexPath.row == 1 && !showStartDate) || (indexPath.row == 3 && !showEndDate) { return 0 }
+        }
         return super.tableView(tableView, heightForRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            showStartDate = !showStartDate
-            showEndDate = false
-        } else if indexPath.row == 2 {
-            showEndDate = !showEndDate
-            showStartDate = false
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                showStartDate = !showStartDate
+                showEndDate = false
+            } else if indexPath.row == 2 {
+                showEndDate = !showEndDate
+                showStartDate = false
+            }
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -67,6 +75,16 @@ class SalesTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func showDailyReport(_ sender: UIButton) {
+        isTodaysReport = true
+        self.performSegue(withIdentifier: "ShowReportSegue", sender: sender)
+    }
+    
+    @IBAction func showRangeReport(_ sender: Any) {
+        isTodaysReport = false
+        self.performSegue(withIdentifier: "ShowReportSegue", sender: sender)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "yyyy-MM-dd"
@@ -75,7 +93,15 @@ class SalesTableViewController: UITableViewController {
         dateFormat.timeZone = TimeZone.current
         
         let reportView = segue.destination as! SalesReportViewController
-        reportView.reportDate = dateFormat.string(from: startDatePicker.date)
+        
+        if isTodaysReport {
+            reportView.reportName = dateFormat.string(from: Date())
+        } else {
+            reportView.reportStartDate = dateFormat.string(from: startDatePicker.date)
+            reportView.reportEndDate = dateFormat.string(from: endDatePicker.date)
+        }
+        
+        reportView.isTodaysReport = isTodaysReport
     }
     
 }

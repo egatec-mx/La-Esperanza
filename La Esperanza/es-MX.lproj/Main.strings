@@ -475,3 +475,18 @@
 
 /* Class = "UINavigationItem"; title = "Sales Report"; ObjectID = "Ug4-gm-BX6"; */
 "Ug4-gm-BX6.title" = "Reporte de ventas";
+
+/* Class = "UITableViewSection"; headerTitle = "TODAY'S SALES"; ObjectID = "Wdy-0T-5k5"; */
+"Wdy-0T-5k5.headerTitle" = "Ventas del día";
+
+/* Class = "UILabel"; text = "Orders"; ObjectID = "jtJ-e1-Cx2"; */
+"jtJ-e1-Cx2.text" = "Pedidos";
+
+/* Class = "UILabel"; text = "Delivery Tax"; ObjectID = "Jko-h4-GT9"; */
+"Jko-h4-GT9.text" = "Envíos";
+
+/* Class = "UILabel"; text = "Total"; ObjectID = "aLo-28-Yhe"; */
+"aLo-28-Yhe.text" = "Total";
+
+/* Class = "UIButton"; text = "View"; ObjectID = "lwe-jn-QDr"; */
+"lwe-jn-QDr.normalTitle" = "Visualizar";
