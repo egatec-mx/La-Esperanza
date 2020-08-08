@@ -137,7 +137,7 @@ class SalesTableViewController: UITableViewController {
         let reportView = segue.destination as! SalesReportViewController
         
         if isTodaysReport {
-            reportView.reportName = dateFormat.string(from: Date())
+            reportView.reportStartDate = dateFormat.string(from: Date())
         } else {
             reportView.reportStartDate = dateFormat.string(from: startDatePicker.date)
             reportView.reportEndDate = dateFormat.string(from: endDatePicker.date)
