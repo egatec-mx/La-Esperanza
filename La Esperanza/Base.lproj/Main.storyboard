@@ -534,9 +534,11 @@
                         <outlet property="startDateLabel" destination="Ils-Zq-MY6" id="NNK-Je-HX8"/>
                         <outlet property="startDatePicker" destination="wii-05-6iy" id="IfO-S2-CSu"/>
                         <segue destination="dID-aP-qvN" kind="show" identifier="ShowReportSegue" id="3u8-Cy-7Rx"/>
+                        <segue destination="0Tg-AH-7hx" kind="unwind" identifier="TimeoutSegue" unwindAction="sessionExpired:" id="l71-Rt-lYH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6in-3m-H2t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="0Tg-AH-7hx" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="421.60000000000002" y="891.90404797601207"/>
         </scene>
