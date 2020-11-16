@@ -46,6 +46,17 @@ class ArticlesTableView: UITableView, UITableViewDelegate, UITableViewDataSource
         case .delete:
             articles.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            if let parent = self.findViewController() as? EditOrderTableViewController {
+                parent.orderModel.articles.remove(at: indexPath.row)
+                parent.tableView.reloadData()
+                parent.tableView.beginUpdates()
+                parent.tableView.endUpdates()
+            } else if let parent = self.findViewController() as? NewOrderTableViewController {
+                parent.orderModel.articles.remove(at: indexPath.row)
+                parent.tableView.reloadData()
+                parent.tableView.beginUpdates()
+                parent.tableView.endUpdates()
+            }
         case .insert:
             articles.append(ArticlesModel())
             tableView.insertRows(at: [IndexPath(row: (articles.count - 1), section: 0)], with: .automatic)
