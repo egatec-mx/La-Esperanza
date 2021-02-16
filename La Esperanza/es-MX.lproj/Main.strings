@@ -324,7 +324,7 @@
 "eie-B1-S5s.placeholder" = "Código postal";
 
 /* Class = "UILabel"; text = "Please wait..."; ObjectID = "frm-yP-59d"; */
-"frm-yP-59d.text" = "Espere ...";
+"frm-yP-59d.text" = "Espere...";
 
 /* Class = "UINavigationItem"; title = "Product Details"; ObjectID = "gRK-m8-tBo"; */
 "gRK-m8-tBo.title" = "Detalles del producto";

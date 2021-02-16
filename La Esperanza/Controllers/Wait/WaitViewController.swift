@@ -10,7 +10,11 @@ import UIKit
 
 class WaitViewController: UIViewController {
     
+    @IBOutlet var waitLoaderView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        waitLoaderView.layer.cornerRadius = 20
+        waitLoaderView.layer.shadowRadius = 20        
     }
 }

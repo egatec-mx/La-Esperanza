@@ -4,13 +4,13 @@
       "color" : {
         "color-space" : "extended-srgb",
         "components" : {
-          "alpha" : "0.500",
-          "blue" : "0",
-          "green" : "0",
-          "red" : "0"
+          "alpha" : "0.900",
+          "blue" : "255",
+          "green" : "255",
+          "red" : "255"
         }
       },
-      "idiom" : "iphone"
+      "idiom" : "universal"
     }
   ],
   "info" : {

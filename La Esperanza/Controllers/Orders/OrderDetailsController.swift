@@ -157,7 +157,8 @@ class OrderDetailsController: UITableViewController {
                             \(orderDetails.customerStreet),
                             \(orderDetails.customerColony),
                             \(orderDetails.customerCity),
-                            \(orderDetails.stateName), \(orderDetails.countryName), C.P \(orderDetails.customerZipcode)
+                            \(orderDetails.stateName), C.P \(orderDetails.customerZipcode),                            
+                            \(orderDetails.countryName)
                             """
         LabelAddress.frame.size = CGSize(width: LabelAddress.frame.width, height: LabelAddress.height(text: LabelAddress.text!, font: LabelAddress.font, width: LabelAddress.frame.width))
         
