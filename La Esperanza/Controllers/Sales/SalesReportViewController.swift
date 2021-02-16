@@ -89,6 +89,9 @@ class SalesReportViewController: UIViewController {
                 
                 guard response!.count > 0 else { return }
                 
+                var temp = FileManager.default.temporaryDirectory
+                temp.removeAllCachedResourceValues()
+                
                 let pdfDocument: PDFDocument = PDFDocument(data: response!)!
                 reportPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(reportName).pdf")
                 pdfDocument.write(to: reportPath!)

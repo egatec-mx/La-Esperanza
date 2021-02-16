@@ -45,6 +45,9 @@ class DocumentViewController: UIViewController {
                 
                 guard response!.count > 0 else { return }
                 
+                var temp = FileManager.default.temporaryDirectory
+                temp.removeAllCachedResourceValues()
+                
                 let pdfDocument: PDFDocument = PDFDocument(data: response!)!
                 pdfPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(stringOrderId).pdf")
                 pdfDocument.write(to: pdfPath!)
