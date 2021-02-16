@@ -80,11 +80,10 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
     }
     
     func getStatesList() {
-        webApi.DoGet("customers/states-list", onCompleteHandler: {(response, error) -> Void in
+        webApi.DoGet("customers/states-list", onCompleteHandler: { response, error in
             do {
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
-                        self.hideWait()
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                     }
                     return
@@ -107,12 +106,11 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
     
     @IBAction func save(_ sender: Any) {
         if !validateInputs() {
-            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), delay: false, onComplete: {() -> Void in
+            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {
                 self.setInvalidInputs()
             })            
         } else {
-            
-            self.showWait({ [self]() -> Void in
+            self.showWait { [self] in
                 customerModel.customerId = 0
                 customerModel.customerActive = true
                 customerModel.customerName = customerName.text!
@@ -126,13 +124,12 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
                 
                 do {
                     let data = try JSONEncoder().encode(customerModel)
-                
-                    webApi.DoPost("customers/add", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                                            
+                    webApi.DoPost("customers/add", jsonData: data, onCompleteHandler: {response, error in
                         guard error == nil else {
                             if (error as NSError?)?.code == 401 {
-                                hideWait()
-                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                hideWait {
+                                    performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                }
                             }
                             return
                         }
@@ -141,35 +138,38 @@ class NewCustomerTableViewController: UITableViewController, UIPickerViewDelegat
                         
                         do {
                             if let data = response {
-                                hideWait()
-                                
                                 customerModel = try JSONDecoder().decode(CustomerModel.self, from: data)
-                                
-                                if customerModel.errors.count > 0 {
-                                    alerts.processErrors(self, errors: customerModel.errors)
-                                }
-                                
-                                if !customerModel.message.isEmpty {
-                                    alerts.showSuccessAlert(self, message: customerModel.message, onComplete: {() -> Void in
-                                        if sourceSegue == "NewSegue" {
-                                            performSegue(withIdentifier: "ReloadSegue", sender: nil)
-                                        } else {
-                                            performSegue(withIdentifier: "GoBackSegue", sender: nil)
-                                        }
-                                    })
-                                }
                             }
                         }
                         catch {
-                            return
+                            hideWait {
+                                return
+                            }
                         }
-                    })
-                } catch {
-                    
-                    return
-                }
-            })
                         
+                        hideWait {
+                            if customerModel.errors.count > 0 {
+                                alerts.processErrors(self, errors: customerModel.errors)
+                            }
+                            
+                            if !customerModel.message.isEmpty {
+                                alerts.showSuccessAlert(self, message: customerModel.message, onComplete: {
+                                    if sourceSegue == "NewSegue" {
+                                        performSegue(withIdentifier: "ReloadSegue", sender: nil)
+                                    } else {
+                                        performSegue(withIdentifier: "GoBackSegue", sender: nil)
+                                    }
+                                })
+                            }
+                        }
+                        
+                    })
+                } catch {                    
+                    hideWait {
+                        return
+                    }
+                }
+            }
         }
     }
     

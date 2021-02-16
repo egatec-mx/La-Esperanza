@@ -43,7 +43,7 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
     @IBAction func save(_ sender: Any) {
         if inputProductName.text!.isEmpty || inputProductPrice.text!.isEmpty {
             
-            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages" , comment: ""), delay: false, onComplete: {() -> Void in
+            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages" , comment: ""), onComplete: {
                 
                 if self.inputProductName.text!.isEmpty {
                     self.inputProductName.setValidationError()
@@ -56,49 +56,53 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
             
         } else {
             
-            self.showWait({ [self] () -> Void in
+            self.showWait { [self] in
                 productModel.productName = inputProductName.text!
                 productModel.productPrice = numberFormat.number(from: inputProductPrice.text!) as! Decimal
                 productModel.productActive = true
                 
                 do {
                     let data = try JSONEncoder().encode(productModel)
-                
-                    webApi.DoPost("products/add", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                                            
+                    webApi.DoPost("products/add", jsonData: data, onCompleteHandler: { response, error in
                         guard error == nil else {
                             if (error as NSError?)?.code == 401 {
-                                hideWait()
-                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                hideWait({[self] () -> Void in
+                                    performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                })
                             }
                             return
                         }
                         
                         guard response != nil else { return }
                         
-                        if let data = response {
-                            productModel = try! JSONDecoder().decode(ProductModel.self, from: data)
+                        do {
+                            if let data = response {
+                                productModel = try JSONDecoder().decode(ProductModel.self, from: data)
+                            }
+                        } catch {
+                            hideWait {
+                                return
+                            }
                         }
                         
-                        hideWait()
-                        
-                        if productModel.errors.count > 0 {
-                            alerts.processErrors(self, errors: productModel.errors)
+                        hideWait {
+                            if productModel.errors.count > 0 {
+                                alerts.processErrors(self, errors: productModel.errors)
+                            }
+                            
+                            if !productModel.message.isEmpty {
+                                alerts.showSuccessAlert(self, message: productModel.message, onComplete: {
+                                    performSegue(withIdentifier: "GoBackSegue", sender: self)
+                                })
+                            }
                         }
-                        
-                        if !productModel.message.isEmpty {
-                            alerts.showSuccessAlert(self, message: productModel.message, onComplete: {() -> Void in
-                                performSegue(withIdentifier: "GoBackSegue", sender: self)
-                            })
-                        }
-                                                
                     })
                 } catch {
-                    
-                    return
+                    hideWait {
+                        return
+                    }
                 }
-            })
-            
+            }
         }
     }
 }

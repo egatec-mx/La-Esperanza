@@ -92,31 +92,30 @@ class SelectCustomersTableViewController: UITableViewController, UISearchBarDele
     }
     
     @objc func getCustomers() {
-        webApi.DoGet("customers", onCompleteHandler: {(response, error) -> Void in
-            do {
-                                
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                    }
-                    return
+        webApi.DoGet("customers", onCompleteHandler: { response, error in
+            guard error == nil else {
+                if (error as NSError?)?.code == 401 {
+                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                 }
-                
-                guard response != nil else { return }
-                
+                return
+            }
+            
+            guard response != nil else { return }
+            
+            do {
                 if let data = response {
                     self.customerList = try JSONDecoder().decode([CustomerModel].self, from: data)
                     self.searchList = self.customerList
                 }
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.refreshControl?.endRefreshing()
-                    self.tableView.beginUpdates()
-                    self.tableView.endUpdates()
-                }
             } catch {
                 return
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
             }
         })
     }

@@ -61,40 +61,39 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
                 self.productModel = self.searchList[indexPath.row]
                 self.productModel.productActive = false
                 
-                self.showWait({ [self] () -> Void in
+                self.showWait { [self] in
                     do {
                         let data = try JSONEncoder().encode(productModel)
-                        
-                        webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                        webApi.DoPost("products/update", jsonData: data, onCompleteHandler: { response, error in
                             guard error == nil else {
                                 if (error as NSError?)?.code == 401 {
-                                    hideWait()
-                                    performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                    hideWait {
+                                        performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                    }
                                 }
                                 return
                             }
                             
                             guard response != nil else { return }
                             
-                            hideWait()
-                            
-                            if productModel.errors.count > 0 {
-                                alerts.processErrors(self, errors: productModel.errors)
+                            hideWait {
+                                if productModel.errors.count > 0 {
+                                    alerts.processErrors(self, errors: productModel.errors)
+                                }
+                                
+                                if !productModel.message.isEmpty {
+                                    alerts.showSuccessAlert(self, message: productModel.message, onComplete: nil)
+                                }
+                                
+                                getProducts()
                             }
-                            
-                            if !productModel.message.isEmpty {
-                                alerts.showSuccessAlert(self, message: productModel.message, onComplete: nil)
-                            }
-                            
-                            getProducts()
-                            
                         })
                     } catch {
-                        
+                        hideWait {
+                            return
+                        }
                     }
-                })
-                
-                
+                }
             }))
             
             self.present(warningAlert, animated: true, completion: nil)
@@ -111,30 +110,29 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
     
     @objc func getProducts() {
         webApi.DoGet("products", onCompleteHandler: {(response, error) -> Void in
-            do {
-                                
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                    }
-                    return
+            guard error == nil else {
+                if (error as NSError?)?.code == 401 {
+                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                 }
-                
-                guard response != nil else { return }
-                
+                return
+            }
+            
+            guard response != nil else { return }
+            
+            do {
                 if let data = response {
                     self.productsList = try JSONDecoder().decode([ProductModel].self, from: data)
                     self.searchList = self.productsList
                 }
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.refreshControl?.endRefreshing()
-                    self.tableView.beginUpdates()
-                    self.tableView.endUpdates()
-                }
             } catch {
                 return
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+                self.tableView.beginUpdates()
+                self.tableView.endUpdates()
             }
         })
     }

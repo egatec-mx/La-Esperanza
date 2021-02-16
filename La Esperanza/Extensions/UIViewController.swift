@@ -16,15 +16,15 @@ extension UIViewController {
         waitModal.modalPresentationStyle = .overFullScreen
         waitViewController = waitModal
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { () -> Void in
+        DispatchQueue.main.async {
             self.present(waitModal, animated: true, completion: onShowComplete)
-        })
+        }
         
     }
     
-    func hideWait() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { () -> Void in
-            waitViewController?.dismiss(animated: true, completion: nil)
-        })
+    func hideWait(_ onHideComplete: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            waitViewController?.dismiss(animated: true, completion: onHideComplete)
+        }
     }
 }

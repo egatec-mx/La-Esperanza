@@ -71,40 +71,38 @@ class SalesTableViewController: UITableViewController {
     }
     
     func getTodaySales() {
-        webApi.DoGet("orders/todaysales", onCompleteHandler: { (response, error) -> Void in
-            do {
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.hideWait()
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                    }
-                    return
+        let currencyFormat = NumberFormatter()
+        currencyFormat.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
+        currencyFormat.allowsFloats = true
+        currencyFormat.minimumFractionDigits = 2
+        currencyFormat.maximumFractionDigits = 2
+        currencyFormat.usesGroupingSeparator = true
+        currencyFormat.numberStyle = .currencyAccounting
+        
+        webApi.DoGet("orders/todaysales", onCompleteHandler: { response, error in
+            guard error == nil else {
+                if (error as NSError?)?.code == 401 {
+                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                 }
-                guard response != nil else { return }
+                return
+            }
+            
+            guard response != nil else { return }
+            
+            do {
                 if let data = response {
-                    self.hideWait()
                     self.todaySalesModel = try JSONDecoder().decode(TodaySalesModel.self, from: data)
-                    
-                    DispatchQueue.main.async {
-                        
-                        let currencyFormat = NumberFormatter()
-                        currencyFormat.locale = Locale(identifier: UserDefaults.standard.string(forKey: "DEFAULT_LOCALE")!)
-                        currencyFormat.allowsFloats = true
-                        currencyFormat.minimumFractionDigits = 2
-                        currencyFormat.maximumFractionDigits = 2
-                        currencyFormat.usesGroupingSeparator = true
-                        currencyFormat.numberStyle = .currencyAccounting
-                        
-                        self.ordersCountLabel.text = String(self.todaySalesModel.count)
-                        self.ordersDeliveryTaxLabel.text = currencyFormat.string(for: self.todaySalesModel.deliveryTaxTotal)
-                        self.ordersTotalLabel.text = currencyFormat.string(for: self.todaySalesModel.total)
-                        
-                        self.tableView.beginUpdates()
-                        self.tableView.endUpdates()
-                    }
                 }
             } catch {
                 return
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.beginUpdates()
+                self.ordersCountLabel.text = String(self.todaySalesModel.count)
+                self.ordersDeliveryTaxLabel.text = currencyFormat.string(for: self.todaySalesModel.deliveryTaxTotal)
+                self.ordersTotalLabel.text = currencyFormat.string(for: self.todaySalesModel.total)
+                self.tableView.endUpdates()
             }
         })
     }

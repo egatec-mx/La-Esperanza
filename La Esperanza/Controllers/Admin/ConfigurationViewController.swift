@@ -52,12 +52,10 @@ class ConfigurationViewController: UITableViewController {
     }
     
     func getProfile() {
-        webApi.DoGet("account/profile", onCompleteHandler: { (response, error) -> Void in
-            do {
-                
+        webApi.DoGet("account/profile", onCompleteHandler: { response, error in
+            do {                
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
-                        self.hideWait()
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                     }
                     return

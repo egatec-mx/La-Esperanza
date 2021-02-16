@@ -36,17 +36,19 @@ class SalesReportViewController: UIViewController {
     }
     
     func getRangeReport() {
-        self.showWait({ [self] () -> Void in
-            webApi.DoGet("print/report/\(reportStartDate)?enddate=\(reportEndDate)", onCompleteHandler: { (response, error) -> Void in
-                hideWait()
-                
+        self.showWait{ [self] in
+            webApi.DoGet("print/report/\(reportStartDate)?enddate=\(reportEndDate)", onCompleteHandler: { response, error in
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
-                        performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        hideWait {
+                            performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        }
                     } else if (error as NSError?)?.code == 404 {
-                        shareButton.isEnabled = false
-                        stopImage.isHidden = false
-                        alerts.showErrorAlert(self, message: NSLocalizedString("alert_report_notfound", tableName: "messages", comment: ""), onComplete: nil)
+                        hideWait {
+                            shareButton.isEnabled = false
+                            stopImage.isHidden = false
+                            alerts.showErrorAlert(self, message: NSLocalizedString("alert_report_notfound", tableName: "messages", comment: ""), onComplete: nil)
+                        }
                     }
                     return
                 }
@@ -57,26 +59,30 @@ class SalesReportViewController: UIViewController {
                 reportPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(reportName).pdf")
                 pdfDocument.write(to: reportPath!)
                 
-                DispatchQueue.main.async {
-                    pdfViewer.loadFileURL(reportPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
+                hideWait {
+                    DispatchQueue.main.async {
+                        pdfViewer.loadFileURL(reportPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
+                    }
                 }
+                
             })
-        })
-        
+        }
     }
     
     func getTodaysReport() {
-        self.showWait({ [self] () -> Void in
-            webApi.DoGet("print/sales/\(reportStartDate)", onCompleteHandler: { (response, error) -> Void in
-                hideWait()
-                
+        self.showWait{ [self] in
+            webApi.DoGet("print/sales/\(reportStartDate)", onCompleteHandler: { response, error in
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
-                        performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        hideWait {
+                            performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        }
                     } else if (error as NSError?)?.code == 404 {
-                        shareButton.isEnabled = false
-                        stopImage.isHidden = false
-                        alerts.showErrorAlert(self, message: NSLocalizedString("alert_report_notfound", tableName: "messages", comment: ""), onComplete: nil)
+                        hideWait {
+                            shareButton.isEnabled = false
+                            stopImage.isHidden = false
+                            alerts.showErrorAlert(self, message: NSLocalizedString("alert_report_notfound", tableName: "messages", comment: ""), onComplete: nil)
+                        }
                     }
                     return
                 }
@@ -87,12 +93,13 @@ class SalesReportViewController: UIViewController {
                 reportPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(reportName).pdf")
                 pdfDocument.write(to: reportPath!)
                 
-                DispatchQueue.main.async {
-                    pdfViewer.loadFileURL(reportPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
+                hideWait {
+                    DispatchQueue.main.async {
+                        pdfViewer.loadFileURL(reportPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
+                    }
                 }
             })
-        })
-        
+        }        
     }
     
     func sharePanel(shareItems: [Any]){

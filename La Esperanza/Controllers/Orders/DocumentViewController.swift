@@ -33,12 +33,12 @@ class DocumentViewController: UIViewController {
     
     func getPDF() {
         self.showWait({ [self] () -> Void in
-            webApi.DoGet("print/order/\(orderId)", onCompleteHandler: {(response, error) -> Void in
-                hideWait()
-                
+            webApi.DoGet("print/order/\(orderId)", onCompleteHandler: { response, error -> Void in
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        hideWait {
+                            performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        }
                     }
                     return
                 }
@@ -49,8 +49,10 @@ class DocumentViewController: UIViewController {
                 pdfPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(stringOrderId).pdf")
                 pdfDocument.write(to: pdfPath!)
                 
-                DispatchQueue.main.async {
-                    pdfViewer.loadFileURL(pdfPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
+                hideWait {
+                    DispatchQueue.main.async {
+                        pdfViewer.loadFileURL(pdfPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
+                    }
                 }
             })
         })

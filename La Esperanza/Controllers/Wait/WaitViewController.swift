@@ -9,7 +9,7 @@
 import UIKit
 
 class WaitViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

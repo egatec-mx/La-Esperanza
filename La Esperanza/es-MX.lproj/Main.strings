@@ -201,7 +201,7 @@
 "Q5Q-Ab-6DR.placeholder" = "Nombre del producto";
 
 /* Class = "UILabel"; text = "© EGATEC 2020. All rights reserved."; ObjectID = "QfT-5F-TPY"; */
-"QfT-5F-TPY.text" = "© EGATEC 2020. Todos los derechos reservados.";
+"QfT-5F-TPY.text" = "© EGATEC 2021. Todos los derechos reservados.";
 
 /* Class = "UITextField"; placeholder = "(55) 5555 - 5555"; ObjectID = "Qlc-tP-uIY"; */
 "Qlc-tP-uIY.placeholder" = "(55) 5555 - 5555";
@@ -324,7 +324,7 @@
 "eie-B1-S5s.placeholder" = "Código postal";
 
 /* Class = "UILabel"; text = "Please wait..."; ObjectID = "frm-yP-59d"; */
-"frm-yP-59d.text" = "Porfavor espere...";
+"frm-yP-59d.text" = "Espere ...";
 
 /* Class = "UINavigationItem"; title = "Product Details"; ObjectID = "gRK-m8-tBo"; */
 "gRK-m8-tBo.title" = "Detalles del producto";

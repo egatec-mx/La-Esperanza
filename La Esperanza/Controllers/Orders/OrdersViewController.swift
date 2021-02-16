@@ -171,51 +171,51 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                 self.cancelOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
                 self.cancelOrderModel.cancelReason = self.cancelReasonTextField.text!
                 
-                self.showWait({ [self]() -> Void in
+                self.showWait { [self] in
                     do {
                         let data = try JSONEncoder().encode(cancelOrderModel)
-                        
-                        webApi.DoPost("orders/cancel", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                            do {
-                                                            
-                                guard error == nil else {
-                                    if (error as NSError?)?.code == 401 {
-                                        hideWait()
+                        webApi.DoPost("orders/cancel", jsonData: data, onCompleteHandler: { response, error in
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    hideWait {
                                         performSegue(withIdentifier: "TimeoutSegue", sender: self)
                                     }
-                                    return
                                 }
+                                return
+                            }
+                            
+                            guard response != nil else { return }
                                 
-                                guard response != nil else { return }
-                                
+                            do {
                                 if let data = response {
                                     cancelOrderModel = try JSONDecoder().decode(CancelOrderModel.self, from: data)
                                 }
-                                
-                                hideWait()
-                                
+                            } catch {
+                                hideWait {
+                                    print(error)
+                                    return
+                                }
+                            }
+                            
+                            hideWait {
                                 if cancelOrderModel.errors.count > 0 {
                                     alerts.processErrors(self, errors: cancelOrderModel.errors)
                                 }
                                 
                                 if !cancelOrderModel.message.isEmpty {
-                                    alerts.showSuccessAlert(self, message: cancelOrderModel.message, onComplete: {() -> Void in
+                                    alerts.showSuccessAlert(self, message: cancelOrderModel.message, onComplete: {
                                         getOrdersReport()
                                         tableView.reloadData()
                                     })
                                 }
-                                                                
-                            } catch {
-                                print(error)
-                                return
                             }
                         })
-                                                
                     } catch {
-                        
+                        hideWait {
+                            return
+                        }
                     }
-                })
-                
+                }
             }))
             
             self.present(deleteAlert, animated: true, completion: nil)
@@ -237,50 +237,51 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                 self.rejectOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
                 self.rejectOrderModel.rejectReason = self.cancelReasonTextField.text!
                 
-                self.showWait({ [self]() -> Void in
+                self.showWait { [self] in
                     do {
                         let data = try JSONEncoder().encode(rejectOrderModel)
-                        
-                        webApi.DoPost("orders/reject", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                            do {
-                                                            
-                                guard error == nil else {
-                                    if (error as NSError?)?.code == 401 {
+                        webApi.DoPost("orders/reject", jsonData: data, onCompleteHandler: { response, error in
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    hideWait {
                                         performSegue(withIdentifier: "TimeoutSegue", sender: self)
                                     }
-                                    return
                                 }
-                                
-                                guard response != nil else { return }
-                                
+                                return
+                            }
+                            
+                            guard response != nil else { return }
+                            
+                            do {
                                 if let data = response {
                                     rejectOrderModel = try JSONDecoder().decode(RejectOrderModel.self, from: data)
                                 }
-                                
-                                hideWait()
-                                
+                            } catch {
+                                hideWait {
+                                    print(error)
+                                    return
+                                }
+                            }
+                            
+                            hideWait {
                                 if rejectOrderModel.errors.count > 0 {
                                     alerts.processErrors(self, errors: rejectOrderModel.errors)
                                 }
                                 
                                 if !rejectOrderModel.message.isEmpty {
-                                    alerts.showSuccessAlert(self, message: cancelOrderModel.message, onComplete: {() -> Void in
+                                    alerts.showSuccessAlert(self, message: cancelOrderModel.message, onComplete: {
                                         getOrdersReport()
                                         tableView.reloadData()
                                     })
                                 }
-                                
-                            } catch {
-                                print(error)
-                                return
                             }
                         })
-                                                
                     } catch {
-                        return
+                        hideWait {
+                            return
+                        }
                     }
-                })
-                
+                }
             }))
                         
             self.present(rejectAlert, animated: true, completion: nil)
@@ -314,49 +315,51 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                 
                 self.moveOrderModel.orderId = self.ordersReport[indexPath.section].orders[indexPath.row].orderId
                 
-                self.showWait({ [self] () -> Void in
+                self.showWait{ [self] in
                     do {
                         let data = try JSONEncoder().encode(moveOrderModel)
-                        
-                        webApi.DoPost("orders/advance", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                            do {
-                                
-                                guard error == nil else {
-                                    if (error as NSError?)?.code == 401 {
+                        webApi.DoPost("orders/advance", jsonData: data, onCompleteHandler: { response, error in
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    hideWait {
                                         performSegue(withIdentifier: "TimeoutSegue", sender: self)
                                     }
-                                    return
                                 }
-                                
-                                guard response != nil else { return }
-                                
+                                return
+                            }
+                            
+                            guard response != nil else { return }
+                            
+                            do {
                                 if let data = response {
                                     moveOrderModel = try JSONDecoder().decode(MoveOrderModel.self, from: data)
                                 }
-                                
-                                hideWait()
-                                
+                            } catch {
+                                hideWait {
+                                    print(error)
+                                    return
+                                }
+                            }
+                            
+                            hideWait {
                                 if moveOrderModel.errors.count > 0 {
                                     alerts.processErrors(self, errors: moveOrderModel.errors)
                                 }
                                 
                                 if !moveOrderModel.message.isEmpty {
-                                    alerts.showSuccessAlert(self, message: moveOrderModel.message, onComplete: {() -> Void in
+                                    alerts.showSuccessAlert(self, message: moveOrderModel.message, onComplete: {
                                         getOrdersReport()
                                         tableView.reloadData()
                                     })
                                 }
-                                                                
-                            } catch {
-                                print(error)
-                                return
                             }
                         })
-                        
                     } catch {
-                    
+                        hideWait {
+                            return
+                        }
                     }
-                })
+                }
                 
                 performed(true)
                                 
@@ -392,9 +395,8 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
     }
             
     @objc func getOrdersReport() {
-        webApi.DoGet("orders", onCompleteHandler: { (response, error) -> Void in
+        webApi.DoGet("orders", onCompleteHandler: { response, error in
             do {
-                                
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
@@ -433,12 +435,9 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         
     func getSearchResults(_ searchTerm: String) {
         searchModel.searchTerm = String(searchTerm)
-        
-        let data = try! JSONEncoder().encode(searchModel)
-        
-        webApi.DoPost("orders/search", jsonData: data, onCompleteHandler: { (response, error) -> Void in
-            do {
-                
+        do {
+            let data = try JSONEncoder().encode(searchModel)
+            webApi.DoPost("orders/search", jsonData: data, onCompleteHandler: { response, error in
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
@@ -448,20 +447,23 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                 
                 guard response != nil else { return }
                 
-                if let data = response {
-                    let results = try JSONDecoder().decode([OrdersModel].self, from: data)
-                    self.ordersReport = OrdersReport.group(orders: results)
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                        self.refreshControl?.endRefreshing()
+                do {
+                    if let data = response {
+                        let results = try JSONDecoder().decode([OrdersModel].self, from: data)
+                        self.ordersReport = OrdersReport.group(orders: results)
                     }
-                    
+                } catch {
+                    return
                 }
-            } catch {
-                return
-            }
-        })
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
+                }
+            })
+        } catch {
+            return
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

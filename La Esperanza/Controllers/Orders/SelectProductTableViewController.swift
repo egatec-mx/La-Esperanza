@@ -105,28 +105,27 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
     }
     
     func getProducts() {
-       webApi.DoGet("orders/products", onCompleteHandler: {(response, error) -> Void in
-            do {
-                                
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                    }
-                    return
+        webApi.DoGet("orders/products", onCompleteHandler: {(response, error) -> Void in
+            guard error == nil else {
+                if (error as NSError?)?.code == 401 {
+                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
                 }
-                
-                guard response != nil else { return }
-                
+                return
+            }
+        
+            guard response != nil else { return }
+            
+            do {
                 if let data = response {
                     self.productsList = try JSONDecoder().decode([ProductModel].self, from: data)
                 }
-                
-                DispatchQueue.main.async {
-                    self.productPickerView.reloadAllComponents()
-                    self.displayInfo()
-                }
             } catch {
                 return
+            }
+            
+            DispatchQueue.main.async {
+                self.productPickerView.reloadAllComponents()
+                self.displayInfo()
             }
         })
     }
@@ -207,7 +206,7 @@ class SelectProductTableViewController: UITableViewController, UIPickerViewDeleg
             }
             
         } else {
-            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), delay: false, onComplete: {() -> Void in
+            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {
                 self.markInvalidInputs()
             })
         }

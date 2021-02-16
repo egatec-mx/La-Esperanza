@@ -63,40 +63,44 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
               
             warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .cancel, handler: nil))
               
-            warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .destructive, handler: { [self](action) -> Void in
+            warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .destructive, handler: { [self] action in
                   
                 customerModel = searchList[indexPath.row]
                 customerModel.customerActive = false
                 
-                showWait({ [self]() -> Void in
-                    let data = try! JSONEncoder().encode(customerModel)
-                      
-                    webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                        guard error == nil else {
-                            if (error as NSError?)?.code == 401 {
-                                hideWait()
-                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                showWait { [self] in
+                    do {
+                        let data = try JSONEncoder().encode(customerModel)
+                        webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: { response, error in
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    hideWait {
+                                        performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                    }
+                                }
+                                return
                             }
+                            
+                            guard response != nil else { return }
+                            
+                            hideWait {
+                                if customerModel.errors.count > 0 {
+                                    alerts.processErrors(self, errors: customerModel.errors)
+                                }
+                                
+                                if !customerModel.message.isEmpty {
+                                    alerts.showSuccessAlert(self, message: customerModel.message, onComplete: nil)
+                                 }
+                                
+                                getCustomers()
+                            }
+                          })
+                    } catch {
+                        hideWait {
                             return
                         }
-                        
-                        guard response != nil else { return }
-                        
-                        hideWait()
-                        
-                        if customerModel.errors.count > 0 {
-                            alerts.processErrors(self, errors: customerModel.errors)
-                        }
-                        
-                        if !customerModel.message.isEmpty {
-                            alerts.showSuccessAlert(self, message: customerModel.message, onComplete: nil)
-                         }
-                        
-                        getCustomers()
-              
-                      })
-                })
-                
+                    }
+                }
               }))
               
               present(warningAlert, animated: true, completion: nil)
@@ -152,9 +156,8 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     @objc func getCustomers() {
-        webApi.DoGet("customers", onCompleteHandler: {(response, error) -> Void in
-            do {
-                                
+        webApi.DoGet("customers", onCompleteHandler: { response, error in
+            do {                                
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
                         self.performSegue(withIdentifier: "TimeoutSegue", sender: self)

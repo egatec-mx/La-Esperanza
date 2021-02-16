@@ -144,7 +144,7 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
     }
     
     func getMethodOfPayment() {
-        webApi.DoGet("orders/mop-list", onCompleteHandler: { (response, error) -> Void in
+        webApi.DoGet("orders/mop-list", onCompleteHandler: { response, error in
             guard error == nil else {
                 return
             }
@@ -200,30 +200,34 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
     }
     
     @IBAction func updateOrder(_ sender: Any) {
-        self.showWait({ [self] () -> Void in
+        self.showWait { [self] in
             do {
-                
                 orderModel.orderNotes = notesTextView.text
                 
                 let data = try JSONEncoder().encode(orderModel)
-                
-                webApi.DoPost("orders/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                    
+                webApi.DoPost("orders/update", jsonData: data, onCompleteHandler: { response, error in
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
-                            hideWait()
-                            performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                            hideWait {
+                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                            }
                         }
                         return
                     }
                     
                     guard response != nil else { return }
                     
-                    if let data = response {
-                        hideWait()
-                        
-                        orderModel = try! JSONDecoder().decode(OrderDetailsModel.self, from: data)
-                        
+                    do {
+                        if let data = response {
+                            orderModel = try JSONDecoder().decode(OrderDetailsModel.self, from: data)
+                        }
+                    } catch {
+                        hideWait {
+                            return
+                        }
+                    }
+                    
+                    hideWait {
                         if orderModel.errors.count > 0 {
                             alerts.processErrors(self, errors: orderModel.errors)
                         }
@@ -236,10 +240,11 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
                     }
                 })
             } catch {
-                return
+                hideWait {
+                    return
+                }
             }
-        })
-        
+        }
     }
     
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {

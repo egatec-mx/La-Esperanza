@@ -79,7 +79,7 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
     }
     
     func getStatesList() {
-        webApi.DoGet("customers/states-list", onCompleteHandler: {(response, error) -> Void in
+        webApi.DoGet("customers/states-list", onCompleteHandler: { response, error in
             do {
                 guard error == nil else {
                     if (error as NSError?)?.code == 401 {
@@ -105,12 +105,14 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
     }
     
     func getCustomer() {
-        self.showWait({ () -> Void in
-            self.webApi.DoGet("customers/\(self.customerModel.customerId)", onCompleteHandler: {(response, error) -> Void in
+        self.showWait { [self] in
+            webApi.DoGet("customers/\(customerModel.customerId)", onCompleteHandler: { response, error in
                 do {
                     guard error == nil else {
                         if (error as NSError?)?.code == 401 {
-                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                            hideWait {
+                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                            }
                         }
                         return
                     }
@@ -118,20 +120,21 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
                     guard response != nil else { return }
                     
                     if let data = response {
-                        self.customerModel = try JSONDecoder().decode(CustomerModel.self, from: data)
+                        customerModel = try JSONDecoder().decode(CustomerModel.self, from: data)
                     }
                     
-                    self.hideWait()
-                    
-                    DispatchQueue.main.async {
-                        self.displayInfo()
+                    hideWait {
+                        DispatchQueue.main.async {
+                            displayInfo()
+                        }
                     }
                 } catch {
-                    return
+                    hideWait {
+                        return
+                    }
                 }
             })
-        })
-        
+        }
     }
         
     func displayInfo() {
@@ -153,11 +156,11 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
     
     @IBAction func update(_ sender: Any) {
         if !validateInputs() {
-            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), delay: false, onComplete: {() -> Void in
+            self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {
                 self.setInvalidInputs()
             })
         } else {
-            self.showWait({ [self] () -> Void in
+            self.showWait { [self] in
                 customerModel.customerName = customerName.text!
                 customerModel.customerLastname = customerLastname.text!
                 customerModel.customerPhone = customerPhone.unMaskValue()
@@ -169,12 +172,12 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
                 
                 do {
                     let data = try JSONEncoder().encode(customerModel)
-                    
-                    webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                    webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: { response, error in
                         guard error == nil else {
                             if (error as NSError?)?.code == 401 {
-                                hideWait()
-                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                hideWait {
+                                    performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                }
                             }
                             return
                         }
@@ -183,32 +186,33 @@ class EditCustomerTableViewController: UITableViewController, UIPickerViewDelega
                         
                         do {
                             if let data = response {
-                                
                                 customerModel = try JSONDecoder().decode(CustomerModel.self, from: data)
-                                
-                                hideWait()
-                                
-                                if customerModel.errors.count > 0 {
-                                    alerts.processErrors(self, errors: customerModel.errors)
-                                }
-                                
-                                if !customerModel.message.isEmpty {
-                                    alerts.showSuccessAlert(self, message: customerModel.message, onComplete: {() -> Void in
-                                        performSegue(withIdentifier: "GoBackSegue", sender: nil)
-                                    })
-                                }
                             }
                         }
                         catch {
-                            return
+                            hideWait {
+                                return
+                            }
+                        }
+                        
+                        hideWait {
+                            if customerModel.errors.count > 0 {
+                                alerts.processErrors(self, errors: customerModel.errors)
+                            }
+                            
+                            if !customerModel.message.isEmpty {
+                                alerts.showSuccessAlert(self, message: customerModel.message, onComplete: {
+                                    performSegue(withIdentifier: "GoBackSegue", sender: nil)
+                                })
+                            }
                         }
                     })
-                } catch {
-                    
-                    return
+                } catch {                    
+                    hideWait {
+                        return
+                    }
                 }
-            })
-            
+            }
         }
     }
     

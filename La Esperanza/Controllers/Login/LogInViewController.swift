@@ -90,7 +90,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         loginModel.password = TextFieldPassword.text ?? ""
         
         if loginModel.userName.isEmpty || loginModel.password.isEmpty {
-            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), delay: false, onComplete: {() -> Void in
+            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: {
                 
                 if self.loginModel.userName.isEmpty {
                     self.TextFieldUsername.setValidationError()
@@ -113,17 +113,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func doLogIn() {
-        self.showWait({ [self] () -> Void in
+        self.showWait { [self] in
             do {
                 let data = try JSONEncoder().encode(loginModel)
-                
-                webApi.DoPost("account/login", jsonData: data, onCompleteHandler: { (response, error) -> Void in
-                    
-                    hideWait()
-                    
+                webApi.DoPost("account/login", jsonData: data, onCompleteHandler: { response, error in
                     guard error == nil else {
                         if (error as NSError?)?.code != 401 {
-                            self.alerts.showErrorAlert(self, message: NSLocalizedString("error_not_connection", tableName: "messages", comment: ""), onComplete: nil)
+                            hideWait {
+                                self.alerts.showErrorAlert(self, message: NSLocalizedString("error_not_connection", tableName: "messages", comment: ""), onComplete: nil)
+                            }
                         }
                         return
                     }
@@ -133,41 +131,47 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     do {
                         if let data = response {
                             loginModel = try JSONDecoder().decode(LoginModel.self, from: data)
-                            
-                            if loginModel.errors.count > 0 {
-                                alerts.processErrors(self, errors: loginModel.errors)
-                            }
-                            
-                            if !loginModel.token.isEmpty {
-                                UserDefaults.standard.set(loginModel.token, forKey: "JWTToken")
-                                UserDefaults.standard.synchronize()
-                                
-                                if !self.savedCredentials {
-                                    self.loginModel.password = TextFieldPassword.text!
-                                }
-                                
-                                if self.useFaceID {
-                                    self.useBiometrics()
-                                } else {
-                                    self.registerDevice()
-                                }
-                            }
                         }
                     } catch {
-                        return
+                        hideWait {
+                            return
+                        }
+                    }
+                    
+                    hideWait {
+                        if loginModel.errors.count > 0 {
+                            alerts.processErrors(self, errors: loginModel.errors)
+                        }
+                        
+                        if !loginModel.token.isEmpty {
+                            UserDefaults.standard.set(loginModel.token, forKey: "JWTToken")
+                            UserDefaults.standard.synchronize()
+                            
+                            if !self.savedCredentials {
+                                self.loginModel.password = TextFieldPassword.text!
+                            }
+                            
+                            if self.useFaceID {
+                                self.useBiometrics()
+                            } else {
+                                self.registerDevice()
+                            }
+                        }
                     }
                 })
             } catch {
-                return
+                hideWait {
+                    return
+                }
             }
-        })
+        }
     }
     
     func useBiometrics() {
         var authError: NSError?
         
         if self.authenticationContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &authError) {
-            self.authenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: NSLocalizedString("auth_reason", tableName: "messages", comment: "")) { (succes, error) in
+            self.authenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: NSLocalizedString("auth_reason", tableName: "messages", comment: "")) { succes, error in
                 
                 if succes {
                     if !self.savedCredentials {
@@ -208,7 +212,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     if canContinue {
-                        self.alerts.showErrorAlert(self, message: message, onComplete: {() -> Void in
+                        self.alerts.showErrorAlert(self, message: message, onComplete: {
                             self.registerDevice()
                         })
                     } else {
@@ -227,28 +231,26 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             
             do{
                 let data = try JSONEncoder().encode(device)
-                
-                webApi.DoPost("account/register", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                webApi.DoPost("account/register", jsonData: data, onCompleteHandler: {_ , _ in
                     self.navigateToNextView()
                 })
             } catch {
                 return
             }
         } else {
-            sleep(1)
             self.navigateToNextView()
         }
     }
     
     func navigateToNextView() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { () -> Void in
+        DispatchQueue.main.async {
             if self.view.frame.origin.y != 0 { self.view.frame.origin.y = 0 }
             self.performSegue(withIdentifier: "MainViewSegue", sender: self)
-        })
+        }
     }
     
     @IBAction func sessionExpired(_ segue: UIStoryboardSegue) {
-        self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_session_timeout", tableName: "messages", comment: ""), onComplete: {() -> Void in
+        self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_session_timeout", tableName: "messages", comment: ""), onComplete: {
             self.TextFieldPassword.text = ""
             self.TextFieldUsername.text = ""
             self.logInWithCredentials()

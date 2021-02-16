@@ -141,7 +141,7 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
     }
         
     func getMethodOfPayment() {
-        webApi.DoGet("orders/mop-list", onCompleteHandler: { (response, error) -> Void in
+        webApi.DoGet("orders/mop-list", onCompleteHandler: { response, error in
             guard error == nil else {
                 return
             }
@@ -241,47 +241,53 @@ class NewOrderTableViewController: UITableViewController, UIPickerViewDelegate, 
         orderModel.orderNotes = notesTextView.text
         
         if validateOrder() {
-            self.showWait({ [self] () -> Void in
+            self.showWait{ [self] in
                 do {
                     let data = try JSONEncoder().encode(orderModel)
-                    
-                    webApi.DoPost("orders/add", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                        
+                    webApi.DoPost("orders/add", jsonData: data, onCompleteHandler: { response, error in
                         guard error == nil else {
                             if (error as NSError?)?.code == 401 {
-                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                hideWait {
+                                    performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                }
                             }
                             return
                         }
                         
                         guard response != nil else { return }
                         
-                        if let data = response {
-                            orderModel = try! JSONDecoder().decode(OrderDetailsModel.self, from: data)
+                        do {
+                            if let data = response {
+                                orderModel = try JSONDecoder().decode(OrderDetailsModel.self, from: data)
+                            }
+                        } catch {
+                            hideWait {
+                                return
+                            }
                         }
                         
-                        hideWait()
-                        
-                        if orderModel.errors.count > 0 {
-                            alerts.processErrors(self, errors: self.orderModel.errors)
+                        hideWait {
+                            if orderModel.errors.count > 0 {
+                                alerts.processErrors(self, errors: self.orderModel.errors)
+                            }
+                            
+                            if !orderModel.message.isEmpty {
+                                alerts.showSuccessAlert(self, message: orderModel.message, onComplete: {
+                                    performSegue(withIdentifier: "GoBackSegue", sender: self)
+                                })
+                            }
                         }
-                        
-                        if !orderModel.message.isEmpty {
-                            alerts.showSuccessAlert(self, message: orderModel.message, onComplete: {() -> Void in
-                                performSegue(withIdentifier: "GoBackSegue", sender: self)
-                            })
-                        }
-                                              
                     })
                 }
                 catch {
-                    
+                    hideWait {
+                        return
+                    }
                 }
-            })
-                            
+            }
         }
         else {
-            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), delay: false, onComplete: nil)
+            alerts.showErrorAlert(self, message: NSLocalizedString("alert_validation_message", tableName: "messages", comment: ""), onComplete: nil)
         }
     }
     

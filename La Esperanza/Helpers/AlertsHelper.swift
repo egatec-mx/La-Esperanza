@@ -9,7 +9,7 @@
 import UIKit
 
 class AlertsHelper {
-    func showSuccessAlert(_ controller: UIViewController, message: String, delay: Bool = true, onComplete: (() -> Void)?) {
+    func showSuccessAlert(_ controller: UIViewController, message: String, onComplete: (() -> Void)?) {
         let successAlert = UIAlertController(title: NSLocalizedString("alert_success", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
         
         successAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
@@ -17,12 +17,12 @@ class AlertsHelper {
             onComplete?()
         }))
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + (delay ? 1.5 : 0), execute: { () -> Void in
+        DispatchQueue.main.async {
             controller.present(successAlert, animated: true, completion: nil)
-        })
+        }
     }
     
-    func showErrorAlert(_ controller: UIViewController, message: String, delay: Bool = true, onComplete: (() -> Void)?) {
+    func showErrorAlert(_ controller: UIViewController, message: String, onComplete: (() -> Void)?) {
         let errorAlert = UIAlertController(title: NSLocalizedString("error_title", tableName: "messages", comment: ""), message: message, preferredStyle: .alert)
         
         errorAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_accept", tableName: "messages", comment: ""), style: .default, handler: { (action) -> Void in
@@ -30,9 +30,9 @@ class AlertsHelper {
             onComplete?()
         }))
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + (delay ? 1.5 : 0), execute: { () -> Void in
+        DispatchQueue.main.async {
             controller.present(errorAlert, animated: true, completion: nil)
-        })
+        }
     }
     
     func processErrors(_ controller: UIViewController, errors: [String]) {
@@ -50,7 +50,7 @@ class AlertsHelper {
         }
     }
     
-    func showMapsOptions(_ controller: UIViewController, customer: CustomerModel, delay: Bool = false) {
+    func showMapsOptions(_ controller: UIViewController, customer: CustomerModel) {
         let mapsAlert = UIAlertController(title: NSLocalizedString("alert_navigation_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_navigation_message", tableName: "messages", comment: ""), preferredStyle: .actionSheet)
         
         let mapsAction = UIAlertAction(title: "Apple Maps", style: .default, handler: {(action) -> Void in
@@ -83,12 +83,12 @@ class AlertsHelper {
         mapsAlert.addAction(mapsAction)
         mapsAlert.addAction(dismissAction)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + (delay ? 1.5 : 0), execute: {() -> Void in
+        DispatchQueue.main.async {
             controller.present(mapsAlert, animated: true, completion: nil)
-        })
+        }
     }
     
-    func showPhoneOptions(_ controller: UIViewController, customer: CustomerModel, delay: Bool = false) {        
+    func showPhoneOptions(_ controller: UIViewController, customer: CustomerModel) {        
         let phoneAlert = UIAlertController(title: NSLocalizedString("alert_phone_title", tableName: "messages", comment: ""), message: NSLocalizedString("alert_phone_message", tableName: "messages", comment: ""), preferredStyle: .actionSheet)
         
         let callAction = UIAlertAction(title: NSLocalizedString("menu_call", tableName: "messages", comment: ""), style: .default, handler: {(action) -> Void in
@@ -107,8 +107,8 @@ class AlertsHelper {
         phoneAlert.addAction(whatsAppAction)
         phoneAlert.addAction(dismissAction)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + (delay ? 1.5 : 0), execute: {() -> Void in
+        DispatchQueue.main.async {
             controller.present(phoneAlert, animated: true, completion: nil)
-        })
+        }
     }
 }
