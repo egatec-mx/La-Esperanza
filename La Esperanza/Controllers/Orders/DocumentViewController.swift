@@ -32,27 +32,27 @@ class DocumentViewController: UIViewController {
     }
     
     func getPDF() {
-        self.showWait()
-        
-        webApi.DoGet("print/order/\(orderId)", onCompleteHandler: {(response, error) -> Void in
-            self.hideWait()
-            
-            guard error == nil else {
-                if (error as NSError?)?.code == 401 {
-                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+        self.showWait({ [self] () -> Void in
+            webApi.DoGet("print/order/\(orderId)", onCompleteHandler: {(response, error) -> Void in
+                hideWait()
+                
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                    }
+                    return
                 }
-                return
-            }
-            
-            guard response!.count > 0 else { return }
-            
-            let pdfDocument: PDFDocument = PDFDocument(data: response!)!
-            self.pdfPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(self.stringOrderId).pdf")
-            pdfDocument.write(to: self.pdfPath!)
-            
-            DispatchQueue.main.async {
-                self.pdfViewer.loadFileURL(self.pdfPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
-            }
+                
+                guard response!.count > 0 else { return }
+                
+                let pdfDocument: PDFDocument = PDFDocument(data: response!)!
+                pdfPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(stringOrderId).pdf")
+                pdfDocument.write(to: pdfPath!)
+                
+                DispatchQueue.main.async {
+                    pdfViewer.loadFileURL(pdfPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
+                }
+            })
         })
     }
     

@@ -63,41 +63,43 @@ class CustomersTableViewController: UITableViewController, UISearchBarDelegate {
               
             warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_cancel", tableName: "messages", comment: ""), style: .cancel, handler: nil))
               
-            warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .destructive, handler: { (action) -> Void in
+            warningAlert.addAction(UIAlertAction(title: NSLocalizedString("alert_delete_accept", tableName: "messages", comment: ""), style: .destructive, handler: { [self](action) -> Void in
                   
-                self.customerModel = self.searchList[indexPath.row]
-                self.customerModel.customerActive = false
-                self.showWait()
-                  
-                let data = try! JSONEncoder().encode(self.customerModel)
-                  
-                self.webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                    guard error == nil else {
-                        if (error as NSError?)?.code == 401 {
-                            self.hideWait()
-                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                customerModel = searchList[indexPath.row]
+                customerModel.customerActive = false
+                
+                showWait({ [self]() -> Void in
+                    let data = try! JSONEncoder().encode(customerModel)
+                      
+                    webApi.DoPost("customers/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                        guard error == nil else {
+                            if (error as NSError?)?.code == 401 {
+                                hideWait()
+                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                            }
+                            return
                         }
-                        return
-                    }
-                    
-                    guard response != nil else { return }
-                    
-                    self.hideWait()
-                    
-                    if self.customerModel.errors.count > 0 {
-                        self.alerts.processErrors(self, errors: self.customerModel.errors)
-                    }
-                    
-                    if !self.customerModel.message.isEmpty {
-                        self.alerts.showSuccessAlert(self, message: self.customerModel.message, onComplete: nil)
-                     }
-                    
-                    self.getCustomers()
-          
-                  })
+                        
+                        guard response != nil else { return }
+                        
+                        hideWait()
+                        
+                        if customerModel.errors.count > 0 {
+                            alerts.processErrors(self, errors: customerModel.errors)
+                        }
+                        
+                        if !customerModel.message.isEmpty {
+                            alerts.showSuccessAlert(self, message: customerModel.message, onComplete: nil)
+                         }
+                        
+                        getCustomers()
+              
+                      })
+                })
+                
               }))
               
-              self.present(warningAlert, animated: true, completion: nil)
+              present(warningAlert, animated: true, completion: nil)
             
           default:
               return

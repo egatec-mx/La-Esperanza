@@ -56,48 +56,49 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
             
         } else {
             
-            self.showWait()
-            
-            productModel.productName = inputProductName.text!
-            productModel.productPrice = numberFormat.number(from: inputProductPrice.text!) as! Decimal
-            productModel.productActive = true
-            
-            do {
-                let data = try JSONEncoder().encode(productModel)
-            
-                webApi.DoPost("products/add", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                                        
-                    guard error == nil else {
-                        if (error as NSError?)?.code == 401 {
-                            self.hideWait()
-                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                        }
-                        return
-                    }
-                    
-                    guard response != nil else { return }
-                    
-                    if let data = response {                        
-                        self.hideWait()
-                        
-                        self.productModel = try! JSONDecoder().decode(ProductModel.self, from: data)
-                        
-                        if self.productModel.errors.count > 0 {
-                            self.alerts.processErrors(self, errors: self.productModel.errors)
+            self.showWait({ [self] () -> Void in
+                productModel.productName = inputProductName.text!
+                productModel.productPrice = numberFormat.number(from: inputProductPrice.text!) as! Decimal
+                productModel.productActive = true
+                
+                do {
+                    let data = try JSONEncoder().encode(productModel)
+                
+                    webApi.DoPost("products/add", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                                            
+                        guard error == nil else {
+                            if (error as NSError?)?.code == 401 {
+                                hideWait()
+                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                            }
+                            return
                         }
                         
-                        if !self.productModel.message.isEmpty {
-                            self.alerts.showSuccessAlert(self, message: self.productModel.message, onComplete: {() -> Void in
-                                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
+                        guard response != nil else { return }
+                        
+                        if let data = response {
+                            productModel = try! JSONDecoder().decode(ProductModel.self, from: data)
+                        }
+                        
+                        hideWait()
+                        
+                        if productModel.errors.count > 0 {
+                            alerts.processErrors(self, errors: productModel.errors)
+                        }
+                        
+                        if !productModel.message.isEmpty {
+                            alerts.showSuccessAlert(self, message: productModel.message, onComplete: {() -> Void in
+                                performSegue(withIdentifier: "GoBackSegue", sender: self)
                             })
                         }
-                    }
+                                                
+                    })
+                } catch {
                     
-                })
-            } catch {
-                
-                return
-            }
+                    return
+                }
+            })
+            
         }
     }
 }

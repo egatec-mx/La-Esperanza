@@ -113,53 +113,54 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func doLogIn() {
-        do {
-            self.showWait()
-            let data = try JSONEncoder().encode(loginModel)
-            
-            webApi.DoPost("account/login", jsonData: data, onCompleteHandler: { (response, error) -> Void in
+        self.showWait({ [self] () -> Void in
+            do {
+                let data = try JSONEncoder().encode(loginModel)
                 
-                self.hideWait()
-                
-                guard error == nil else {
-                    if (error as NSError?)?.code != 401 {
-                        self.alerts.showErrorAlert(self, message: NSLocalizedString("error_not_connection", tableName: "messages", comment: ""), onComplete: nil)
-                    }
-                    return
-                }
-                
-                guard response != nil else { return }
-                
-                do {
-                    if let data = response {
-                        self.loginModel = try JSONDecoder().decode(LoginModel.self, from: data)
-                        
-                        if self.loginModel.errors.count > 0 {
-                            self.alerts.processErrors(self, errors: self.loginModel.errors)
+                webApi.DoPost("account/login", jsonData: data, onCompleteHandler: { (response, error) -> Void in
+                    
+                    hideWait()
+                    
+                    guard error == nil else {
+                        if (error as NSError?)?.code != 401 {
+                            self.alerts.showErrorAlert(self, message: NSLocalizedString("error_not_connection", tableName: "messages", comment: ""), onComplete: nil)
                         }
-                        
-                        if !self.loginModel.token.isEmpty {                            
-                            UserDefaults.standard.set(self.loginModel.token, forKey: "JWTToken")
-                            UserDefaults.standard.synchronize()
+                        return
+                    }
+                    
+                    guard response != nil else { return }
+                    
+                    do {
+                        if let data = response {
+                            loginModel = try JSONDecoder().decode(LoginModel.self, from: data)
                             
-                            if !self.savedCredentials {
-                                self.loginModel.password = self.TextFieldPassword.text!
+                            if loginModel.errors.count > 0 {
+                                alerts.processErrors(self, errors: loginModel.errors)
                             }
                             
-                            if self.useFaceID {
-                                self.useBiometrics()
-                            } else {
-                                self.registerDevice()
+                            if !loginModel.token.isEmpty {
+                                UserDefaults.standard.set(loginModel.token, forKey: "JWTToken")
+                                UserDefaults.standard.synchronize()
+                                
+                                if !self.savedCredentials {
+                                    self.loginModel.password = TextFieldPassword.text!
+                                }
+                                
+                                if self.useFaceID {
+                                    self.useBiometrics()
+                                } else {
+                                    self.registerDevice()
+                                }
                             }
                         }
+                    } catch {
+                        return
                     }
-                } catch {
-                    return
-                }
-            })
-        } catch {
-            return
-        }
+                })
+            } catch {
+                return
+            }
+        })
     }
     
     func useBiometrics() {

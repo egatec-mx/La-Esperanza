@@ -60,34 +60,41 @@ class ProductsTableViewController: UITableViewController, UISearchBarDelegate {
                 
                 self.productModel = self.searchList[indexPath.row]
                 self.productModel.productActive = false
-                self.showWait()
                 
-                let data = try! JSONEncoder().encode(self.productModel)
-                
-                self.webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                    guard error == nil else {
-                        if (error as NSError?)?.code == 401 {
-                            self.hideWait()
-                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                        }
-                        return
+                self.showWait({ [self] () -> Void in
+                    do {
+                        let data = try JSONEncoder().encode(productModel)
+                        
+                        webApi.DoPost("products/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    hideWait()
+                                    performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                }
+                                return
+                            }
+                            
+                            guard response != nil else { return }
+                            
+                            hideWait()
+                            
+                            if productModel.errors.count > 0 {
+                                alerts.processErrors(self, errors: productModel.errors)
+                            }
+                            
+                            if !productModel.message.isEmpty {
+                                alerts.showSuccessAlert(self, message: productModel.message, onComplete: nil)
+                            }
+                            
+                            getProducts()
+                            
+                        })
+                    } catch {
+                        
                     }
-                    
-                    guard response != nil else { return }
-                    
-                    self.hideWait()
-                    
-                    if self.productModel.errors.count > 0 {
-                        self.alerts.processErrors(self, errors: self.productModel.errors)
-                    }
-                    
-                    if !self.productModel.message.isEmpty {
-                        self.alerts.showSuccessAlert(self, message: self.productModel.message, onComplete: nil)
-                    }
-                    
-                    self.getProducts()
-                    
                 })
+                
+                
             }))
             
             self.present(warningAlert, animated: true, completion: nil)

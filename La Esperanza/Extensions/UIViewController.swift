@@ -11,13 +11,13 @@ import UIKit
 var waitViewController: UIViewController?
 
 extension UIViewController {
-    func showWait() {
+    func showWait(_ onShowComplete: @escaping () -> Void) {
         let waitModal = storyboard?.instantiateViewController(withIdentifier: "WaitView") as! WaitViewController
         waitModal.modalPresentationStyle = .overFullScreen
         waitViewController = waitModal
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { () -> Void in
-            self.present(waitModal, animated: true, completion: nil)
+            self.present(waitModal, animated: true, completion: onShowComplete)
         })
         
     }

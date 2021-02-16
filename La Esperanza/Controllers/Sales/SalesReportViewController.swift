@@ -36,61 +36,63 @@ class SalesReportViewController: UIViewController {
     }
     
     func getRangeReport() {
-        self.showWait()
-        
-        webApi.DoGet("print/report/\(reportStartDate)?enddate=\(reportEndDate)", onCompleteHandler: { (response, error) -> Void in
-            self.hideWait()
-            
-            guard error == nil else {
-                if (error as NSError?)?.code == 401 {
-                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                } else if (error as NSError?)?.code == 404 {
-                    self.shareButton.isEnabled = false
-                    self.stopImage.isHidden = false
-                    self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_report_notfound", tableName: "messages", comment: ""), onComplete: nil)
+        self.showWait({ [self] () -> Void in
+            webApi.DoGet("print/report/\(reportStartDate)?enddate=\(reportEndDate)", onCompleteHandler: { (response, error) -> Void in
+                hideWait()
+                
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                    } else if (error as NSError?)?.code == 404 {
+                        shareButton.isEnabled = false
+                        stopImage.isHidden = false
+                        alerts.showErrorAlert(self, message: NSLocalizedString("alert_report_notfound", tableName: "messages", comment: ""), onComplete: nil)
+                    }
+                    return
                 }
-                return
-            }
-            
-            guard response!.count > 0 else { return }
-            
-            let pdfDocument: PDFDocument = PDFDocument(data: response!)!
-            self.reportPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(self.reportName).pdf")
-            pdfDocument.write(to: self.reportPath!)
-            
-            DispatchQueue.main.async {
-                self.pdfViewer.loadFileURL(self.reportPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
-            }
+                
+                guard response!.count > 0 else { return }
+                
+                let pdfDocument: PDFDocument = PDFDocument(data: response!)!
+                reportPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(reportName).pdf")
+                pdfDocument.write(to: reportPath!)
+                
+                DispatchQueue.main.async {
+                    pdfViewer.loadFileURL(reportPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
+                }
+            })
         })
+        
     }
     
     func getTodaysReport() {
-        self.showWait()
-        
-        webApi.DoGet("print/sales/\(reportStartDate)", onCompleteHandler: { (response, error) -> Void in
-            self.hideWait()
-            
-            guard error == nil else {
-                if (error as NSError?)?.code == 401 {
-                    self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                } else if (error as NSError?)?.code == 404 {
-                    self.shareButton.isEnabled = false
-                    self.stopImage.isHidden = false
-                    self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_report_notfound", tableName: "messages", comment: ""), onComplete: nil)
+        self.showWait({ [self] () -> Void in
+            webApi.DoGet("print/sales/\(reportStartDate)", onCompleteHandler: { (response, error) -> Void in
+                hideWait()
+                
+                guard error == nil else {
+                    if (error as NSError?)?.code == 401 {
+                        performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                    } else if (error as NSError?)?.code == 404 {
+                        shareButton.isEnabled = false
+                        stopImage.isHidden = false
+                        alerts.showErrorAlert(self, message: NSLocalizedString("alert_report_notfound", tableName: "messages", comment: ""), onComplete: nil)
+                    }
+                    return
                 }
-                return
-            }
-            
-            guard response!.count > 0 else { return }
-            
-            let pdfDocument: PDFDocument = PDFDocument(data: response!)!
-            self.reportPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(self.reportName).pdf")
-            pdfDocument.write(to: self.reportPath!)
-            
-            DispatchQueue.main.async {
-                self.pdfViewer.loadFileURL(self.reportPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
-            }
+                
+                guard response!.count > 0 else { return }
+                
+                let pdfDocument: PDFDocument = PDFDocument(data: response!)!
+                reportPath = FileManager.default.temporaryDirectory.appendingPathComponent("\(reportName).pdf")
+                pdfDocument.write(to: reportPath!)
+                
+                DispatchQueue.main.async {
+                    pdfViewer.loadFileURL(reportPath!, allowingReadAccessTo: FileManager.default.temporaryDirectory)
+                }
+            })
         })
+        
     }
     
     func sharePanel(shareItems: [Any]){

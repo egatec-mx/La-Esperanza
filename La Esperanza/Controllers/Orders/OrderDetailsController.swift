@@ -276,48 +276,51 @@ class OrderDetailsController: UITableViewController {
     }
     
     @IBAction func moveOrder(_ sender: Any) {
-        do {
-            self.showWait()
-            moveOrderModel.orderId = orderId
+        self.showWait({ [self] () -> Void in
+            do {
+                moveOrderModel.orderId = orderId
+                            
+                let data = try JSONEncoder().encode(moveOrderModel)
+                
+                webApi.DoPost("orders/advance", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                    do {
                         
-            let data = try JSONEncoder().encode(moveOrderModel)
-            
-            self.webApi.DoPost("orders/advance", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                do {
-                    
-                    guard error == nil else {
-                        if (error as NSError?)?.code == 401 {
-                            self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        guard error == nil else {
+                            if (error as NSError?)?.code == 401 {
+                                performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                            }
+                            return
                         }
+                        
+                        guard response != nil else { return }
+                        
+                        if let data = response {
+                            moveOrderModel = try JSONDecoder().decode(MoveOrderModel.self, from: data)
+                        }
+                        
+                        hideWait()
+                        
+                        if moveOrderModel.errors.count > 0 {
+                            alerts.processErrors(self, errors: moveOrderModel.errors)
+                        }
+                        
+                        if !moveOrderModel.message.isEmpty {
+                            alerts.showSuccessAlert(self, message: moveOrderModel.message, onComplete: {() -> Void in
+                                performSegue(withIdentifier: "GoBackSegue", sender: self)
+                            })
+                        }
+                        
+                    } catch {
+                        print(error)
                         return
                     }
-                    
-                    guard response != nil else { return }
-                    
-                    if let data = response {
-                        self.hideWait()
-                        self.moveOrderModel = try JSONDecoder().decode(MoveOrderModel.self, from: data)
-                    }
-                    
-                    if self.moveOrderModel.errors.count > 0 {
-                        self.alerts.processErrors(self, errors: self.moveOrderModel.errors)
-                    }
-                    
-                    if !self.moveOrderModel.message.isEmpty {
-                        self.alerts.showSuccessAlert(self, message: self.moveOrderModel.message, onComplete: {() -> Void in
-                            self.performSegue(withIdentifier: "GoBackSegue", sender: self)
-                        })
-                    }
-                    
-                } catch {
-                    print(error)
-                    return
-                }
-            })
-            
-        } catch {
-                        
-        }
+                })
+                
+            } catch {
+                            
+            }
+        })
+        
     }
     
     @IBAction func cancelOrder(_ sender: Any) {
@@ -332,47 +335,50 @@ class OrderDetailsController: UITableViewController {
             
             self.cancelOrderModel.orderId = self.orderId
             self.cancelOrderModel.cancelReason = self.reasonTextField.text!
-            self.showWait()
             
-            do {
-                let data = try JSONEncoder().encode(self.cancelOrderModel)
-                
-                self.webApi.DoPost("orders/cancel", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                    do {
-                                                
-                        guard error == nil else {
-                            if (error as NSError?)?.code == 401 {
-                                self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+            self.showWait({ [self]() -> Void in
+                do {
+                    let data = try JSONEncoder().encode(cancelOrderModel)
+                    
+                    self.webApi.DoPost("orders/cancel", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                        do {
+                                                    
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                }
+                                return
                             }
+                            
+                            guard response != nil else { return }
+                            
+                            if let data = response {
+                                cancelOrderModel = try JSONDecoder().decode(CancelOrderModel.self, from: data)
+                            }
+                            
+                            hideWait()
+                            
+                            if cancelOrderModel.errors.count > 0 {
+                                alerts.processErrors(self, errors: self.cancelOrderModel.errors)
+                            }
+                            
+                            if !cancelOrderModel.message.isEmpty {
+                                alerts.showSuccessAlert(self, message: cancelOrderModel.message, onComplete: {() -> Void in
+                                    performSegue(withIdentifier: "GoBackSegue", sender: self)
+                                })
+                            }
+                            
+                        } catch {
+                            print(error)
                             return
                         }
-                        
-                        guard response != nil else { return }
-                        
-                        if let data = response {
-                            self.hideWait()
-                            self.cancelOrderModel = try JSONDecoder().decode(CancelOrderModel.self, from: data)
-                        }
-                        
-                        if self.cancelOrderModel.errors.count > 0 {
-                            self.alerts.processErrors(self, errors: self.cancelOrderModel.errors)
-                        }
-                        
-                        if !self.cancelOrderModel.message.isEmpty {
-                            self.alerts.showSuccessAlert(self, message: self.cancelOrderModel.message, onComplete: {() -> Void in
-                                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
-                            })
-                        }
-                        
-                    } catch {
-                        print(error)
-                        return
-                    }
-                })
-                                        
-            } catch {
-                
-            }
+                    })
+                                            
+                } catch {
+                    
+                }
+            })
+            
         }))
         
         self.present(deleteAlert, animated: true, completion: nil)
@@ -391,47 +397,50 @@ class OrderDetailsController: UITableViewController {
             
             self.rejectOrderModel.orderId = self.orderId
             self.rejectOrderModel.rejectReason = self.reasonTextField.text!
-            self.showWait()
             
-            do {
-                let data = try JSONEncoder().encode(self.rejectOrderModel)
-                
-                self.webApi.DoPost("orders/reject", jsonData: data, onCompleteHandler: {(response, error) -> Void in
-                    do {
-                        
-                        guard error == nil else {
-                            if (error as NSError?)?.code == 401 {
-                                self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
+            self.showWait({ [self]() -> Void in
+                do {
+                    let data = try JSONEncoder().encode(rejectOrderModel)
+                    
+                    webApi.DoPost("orders/reject", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+                        do {
+                            
+                            guard error == nil else {
+                                if (error as NSError?)?.code == 401 {
+                                    performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                                }
+                                return
                             }
+                            
+                            guard response != nil else { return }
+                            
+                            if let data = response {
+                                self.rejectOrderModel = try JSONDecoder().decode(RejectOrderModel.self, from: data)
+                            }
+                            
+                            hideWait()
+                            
+                            if rejectOrderModel.errors.count > 0 {
+                                alerts.processErrors(self, errors: rejectOrderModel.errors)
+                            }
+                            
+                            if !rejectOrderModel.message.isEmpty {
+                                alerts.showSuccessAlert(self, message: rejectOrderModel.message, onComplete: {() -> Void in
+                                    performSegue(withIdentifier: "GoBackSegue", sender: self)
+                                })
+                            }
+                            
+                        } catch {
+                            print(error)
                             return
                         }
-                        
-                        guard response != nil else { return }
-                        
-                        if let data = response {
-                            self.hideWait()
-                            self.rejectOrderModel = try JSONDecoder().decode(RejectOrderModel.self, from: data)
-                        }
-                        
-                        if self.rejectOrderModel.errors.count > 0 {
-                            self.alerts.processErrors(self, errors: self.rejectOrderModel.errors)
-                        }
-                        
-                        if !self.rejectOrderModel.message.isEmpty {
-                            self.alerts.showSuccessAlert(self, message: self.rejectOrderModel.message, onComplete: {() -> Void in
-                                self.performSegue(withIdentifier: "GoBackSegue", sender: self)
-                            })
-                        }
-                        
-                    } catch {
-                        print(error)
-                        return
-                    }
-                })
-                                        
-            } catch {
-                return
-            }
+                    })
+                                            
+                } catch {
+                    return
+                }
+            })
+            
         }))
         
         self.present(rejectAlert, animated: true, completion: nil)

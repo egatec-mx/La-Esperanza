@@ -200,44 +200,46 @@ class EditOrderTableViewController: UITableViewController, UIPickerViewDelegate,
     }
     
     @IBAction func updateOrder(_ sender: Any) {
-        do {
-            self.showWait()
-            
-            orderModel.orderNotes = notesTextView.text
-            
-            let data = try JSONEncoder().encode(orderModel)
-            
-            webApi.DoPost("orders/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
+        self.showWait({ [self] () -> Void in
+            do {
                 
-                guard error == nil else {
-                    if (error as NSError?)?.code == 401 {
-                        self.hideWait()
-                        self.performSegue(withIdentifier: "TimeoutSegue", sender: self)
-                    }
-                    return
-                }
+                orderModel.orderNotes = notesTextView.text
                 
-                guard response != nil else { return }
+                let data = try JSONEncoder().encode(orderModel)
                 
-                if let data = response {
-                    self.hideWait()
+                webApi.DoPost("orders/update", jsonData: data, onCompleteHandler: {(response, error) -> Void in
                     
-                    self.orderModel = try! JSONDecoder().decode(OrderDetailsModel.self, from: data)
-                    
-                    if self.orderModel.errors.count > 0 {
-                        self.alerts.processErrors(self, errors: self.orderModel.errors)
+                    guard error == nil else {
+                        if (error as NSError?)?.code == 401 {
+                            hideWait()
+                            performSegue(withIdentifier: "TimeoutSegue", sender: self)
+                        }
+                        return
                     }
                     
-                    if !self.orderModel.message.isEmpty {
-                        self.alerts.showSuccessAlert(self, message: self.orderModel.message, onComplete: {() -> Void in
-                            self.performSegue(withIdentifier: "GoBackSegue", sender: self)
-                        })
+                    guard response != nil else { return }
+                    
+                    if let data = response {
+                        hideWait()
+                        
+                        orderModel = try! JSONDecoder().decode(OrderDetailsModel.self, from: data)
+                        
+                        if orderModel.errors.count > 0 {
+                            alerts.processErrors(self, errors: orderModel.errors)
+                        }
+                        
+                        if !orderModel.message.isEmpty {
+                            alerts.showSuccessAlert(self, message: orderModel.message, onComplete: {() -> Void in
+                                performSegue(withIdentifier: "GoBackSegue", sender: self)
+                            })
+                        }
                     }
-                }
-            })
-        } catch {
-            return
-        }
+                })
+            } catch {
+                return
+            }
+        })
+        
     }
     
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
