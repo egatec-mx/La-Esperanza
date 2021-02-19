@@ -15,6 +15,7 @@ struct Order: Hashable {
     let Id: CLongLong
     let Customer: String
     let Amount: Decimal
+    let Status: Int
 }
 
 struct LastOrdersEntry: TimelineEntry {
@@ -51,7 +52,7 @@ struct LastOrdersLoader {
     static func parseOrders(fromData data:[OrdersModel]) -> [Order] {
         var parsedOrders:[Order] = []
         for order in data.reversed().prefix(5) {
-            parsedOrders.append(Order(Id: order.orderId, Customer: order.customer, Amount: order.orderTotal))
+            parsedOrders.append(Order(Id: order.orderId, Customer: order.customer, Amount: order.orderTotal, Status: order.statusId))
         }
         return parsedOrders
     }
@@ -126,6 +127,50 @@ struct WidgetView: View {
                     ForEach(entry.orders, id: \.self) { o in
                         HStack(alignment: .center, spacing: 10, content: {
                             Group{
+                                switch o.Status {
+                                case 1:
+                                    Image(systemName: "bell")
+                                        .foregroundColor(Color(UIColor.systemTeal.cgColor))
+                                        .font(.system(size: 16))
+                                        .fixedSize()
+                                        .frame(width: 16, height: 16)
+                                case 2:
+                                    Image(systemName: "clock")
+                                        .foregroundColor(.orange)
+                                        .font(.system(size: 16))
+                                        .fixedSize()
+                                        .frame(width: 16, height: 16)
+                                case 3:
+                                    Image(systemName: "car")
+                                        .foregroundColor(.purple)
+                                        .font(.system(size: 16))
+                                        .fixedSize()
+                                        .frame(width: 16, height: 16)
+                                case 4:
+                                    Image(systemName: "hand.thumbsup")
+                                        .foregroundColor(.green)
+                                        .font(.system(size: 16))
+                                        .fixedSize()
+                                        .frame(width: 16, height: 16)
+                                case 5:
+                                    Image(systemName: "trash.slash")
+                                        .foregroundColor(.red)
+                                        .font(.system(size: 16))
+                                        .fixedSize()
+                                        .frame(width: 16, height: 16)
+                                case 6:
+                                    Image(systemName: "hand.thumbsdown")
+                                        .foregroundColor(.pink)
+                                        .font(.system(size: 16))
+                                        .fixedSize()
+                                        .frame(width: 16, height: 16)
+                                default:
+                                    Image(systemName: "bell")
+                                        .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                                        .font(.system(size: 16))
+                                        .fixedSize()
+                                        .frame(width: 16, height: 16)
+                                }
                                 Text("#\(String(o.Id).leftPadding(toLength: 6, withPad: "0"))").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                                 Text(o.Customer).frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                                 Text(currencyText(o.Amount))
@@ -171,11 +216,11 @@ struct widget: Widget {
 struct widget_Previews: PreviewProvider {
     static var previews: some View {
         WidgetView(entry: LastOrdersEntry(date: Date(), orders: [
-            Order(Id: 10334, Customer: "María del Carmen Rodríguez", Amount: 150.00),
-            Order(Id: 10335, Customer: "Ara Lago", Amount: 550.50),
-            Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00),
-            Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00),
-            Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00)
+            Order(Id: 10334, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+            Order(Id: 10335, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+            Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+            Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+            Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5)
         ]))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
