@@ -7,7 +7,7 @@
 */
 "w-title" = "La Esperanza";
 "w-kind" = "La Esperanza Widget";
-"w-description" = "Visualice los pedidos pendientes";
-"w-widget-title" = "Pedidos";
-"w-fetch-failed" = "No hay pedidos nuevos";
-"w-no-connection" = "Sin conexión";
+"w-description" = "See your new orders from screen";
+"w-widget-title" = "New Orders";
+"w-fetch-failed" = "No new orders";
+"w-no-connection" = "No connection";

@@ -87,7 +87,7 @@ struct LastOrdersProvider: TimelineProvider {
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<LastOrdersEntry>) -> Void) {
         let currentDate = Date()
-        let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)
+        let refreshDate = Calendar.current.date(byAdding: .second, value: 30, to: currentDate)
         LastOrdersLoader.fetch { result in
             let newOrders: [Order]
             if case .success(let fetchedOrders) = result {
@@ -108,26 +108,31 @@ struct WidgetView: View {
     let entry: LastOrdersEntry    
     var body: some View {
         VStack {
-            HStack(alignment: .firstTextBaseline, spacing: 50, content: {
+            HStack(alignment: .firstTextBaseline, spacing: nil, content: {
                 Text(NSLocalizedString("w-widget-title", tableName: "messages", comment: ""))
                     .font(.title)
                     .frame(alignment: .leading)
+                Spacer()
                 Text(entry.date, style: .date)
                     .font(.subheadline)
                     .frame(alignment: .trailing)
                     .foregroundColor(.gray)
             })
+            .padding(.vertical, 3.0)
+            .padding(.horizontal, 15.0)
             
             if entry.orders.count > 0 {
                 VStack(alignment: .leading, spacing: 5, content: {
                     ForEach(entry.orders, id: \.self) { o in
                         HStack(alignment: .center, spacing: 10, content: {
-                            Text("#\(String(o.Id).leftPadding(toLength: 6, withPad: "0"))")
-                            Text(o.Customer).frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-                            Text(currencyText(o.Amount))
-                        }).font(.system(size: 12)).padding(.horizontal, 10)
+                            Group{
+                                Text("#\(String(o.Id).leftPadding(toLength: 6, withPad: "0"))").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                Text(o.Customer).frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                                Text(currencyText(o.Amount))
+                            }.font(.system(size: 12))
+                        }).padding(.horizontal, 10.0)
                     }
-                }).frame(alignment: .leading)
+                }).frame(alignment: .leading).padding(.horizontal,10)
             } else {
                 Text(NSLocalizedString("w-fetch-failed", tableName: "messages", comment: ""))
                     .font(.system(size: 20))
