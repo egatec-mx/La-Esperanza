@@ -5,8 +5,8 @@
   Created by Efrain Garcia Rocha on 18/02/21.
   Copyright © 2021 Efrain Garcia Rocha. All rights reserved.
 */
-"w-title" = "La Esperanza";
-"w-kind" = "La Esperanza Widget";
+"w-title" = "La Esperanza Widget";
+"w-kind" = "mx.com.egatec.esperanza.widget";
 "w-description" = "Visualice los pedidos pendientes";
 "w-widget-title" = "Pedidos";
 "w-empty" = "No hay pedidos nuevos";

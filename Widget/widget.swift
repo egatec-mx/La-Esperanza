@@ -9,7 +9,8 @@
 import WidgetKit
 import SwiftUI
 
-let webAPI: WebApi = WebApi()
+let serverURL: String = "https://esperanza.egatec.com.mx/mobile/api"
+let suiteName: String = "group.mx.com.egatec.esperanza"
 
 struct Order: Hashable {
     let Id: CLongLong
@@ -18,7 +19,7 @@ struct Order: Hashable {
     let Status: Int
 }
 
-struct LastOrdersEntry: TimelineEntry {
+struct WidgetEntry: TimelineEntry {
     public let date: Date
     public let orders: [Order]
     public let error: Bool
@@ -27,9 +28,12 @@ struct LastOrdersEntry: TimelineEntry {
     }
 }
 
-struct LastOrdersLoader {
-    static func fetch(completion: @escaping (Result<[Order], Error>) -> Void) {
-        webAPI.DoGet("orders", onCompleteHandler: { response, error in
+struct WidgetApi {
+    static func Get(completion: @escaping (Result<[Order], Error>) -> Void) {
+        WebApi.baseURL = serverURL
+        WebApi.suiteName = suiteName
+        
+        WebApi().DoGet("orders", onCompleteHandler: { response, error in
             guard error == nil else {
                 completion(.failure(error!))
                 return
@@ -52,17 +56,17 @@ struct LastOrdersLoader {
     
     static func parseOrders(fromData data:[OrdersModel]) -> [Order] {
         var parsedOrders: [Order] = []
-        for order in data.reversed().prefix(5) {
+        for order in data.reversed() {
             parsedOrders.append(Order(Id: order.orderId, Customer: order.customer, Amount: order.orderTotal, Status: order.statusId))
         }
         return parsedOrders
     }
 }
 
-struct LastOrdersProvider: TimelineProvider {
-    func placeholder(in context: Context) -> LastOrdersEntry {
-        var entry: LastOrdersEntry = LastOrdersEntry(date: Date(), orders: [], error: false)
-        LastOrdersLoader.fetch { result in
+struct WidgetProvider: TimelineProvider {
+    func placeholder(in context: Context) -> WidgetEntry {
+        var entry: WidgetEntry = WidgetEntry(date: Date(), orders: [], error: false)
+        WidgetApi.Get { result in
             let newOrders: [Order]
             var failed: Bool = false
             if case .success(let fetchedOrders) = result {
@@ -72,13 +76,13 @@ struct LastOrdersProvider: TimelineProvider {
                 newOrders = []
                 failed = true
             }
-            entry = LastOrdersEntry(date: Date(), orders: newOrders, error: failed)
+            entry = WidgetEntry(date: Date(), orders: newOrders, error: failed)
         }
         return entry
     }
         
-    func getSnapshot(in context: Context, completion: @escaping (LastOrdersEntry) -> Void) {
-        LastOrdersLoader.fetch { result in
+    func getSnapshot(in context: Context, completion: @escaping (WidgetEntry) -> Void) {
+        WidgetApi.Get { result in
             let newOrders: [Order]
             var failed: Bool = false
             if case .success(let fetchedOrders) = result {
@@ -88,15 +92,15 @@ struct LastOrdersProvider: TimelineProvider {
                 newOrders = []
                 failed = true
             }
-            let entry = LastOrdersEntry(date: Date(), orders: newOrders, error: failed)
+            let entry = WidgetEntry(date: Date(), orders: newOrders, error: failed)
             completion(entry)
         }
     }
     
-    func getTimeline(in context: Context, completion: @escaping (Timeline<LastOrdersEntry>) -> Void) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<WidgetEntry>) -> Void) {
         let currentDate = Date()
         let futureDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)
-        LastOrdersLoader.fetch { result in
+        WidgetApi.Get { result in
             let newOrders: [Order]
             var failed: Bool = false
             if case .success(let fetchedOrders) = result {
@@ -106,48 +110,63 @@ struct LastOrdersProvider: TimelineProvider {
                 newOrders = []
                 failed = true
             }
-            let entry = LastOrdersEntry(date: Date(), orders: newOrders, error: failed)
+            let entry = WidgetEntry(date: Date(), orders: newOrders, error: failed)
             let timeline = Timeline(entries: [entry], policy: .after(futureDate!))
             completion(timeline)
         }
     }
     
-    typealias Entry = LastOrdersEntry
+    typealias Entry = WidgetEntry
 }
 
 struct WidgetView: View {
-    let entry: LastOrdersEntry
+    let entry: WidgetEntry
+    @Environment(\.widgetFamily) var widgetFamily
+        
     var body: some View {
-        VStack {
+        VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: nil, content: {
+            HStack(alignment: .center, spacing: nil, content: {
+                Spacer()
+                Image(systemName: "network")
+                    .foregroundColor(statusNetwork())
+                    .fixedSize()
+                    .frame(width: 16, height: 16)
+            })
+            .padding(.horizontal, 15.0)
+            .padding(.top, 10.0)
+            .padding(.bottom, 0.0)
+            
             HStack(alignment: .firstTextBaseline, spacing: nil, content: {
                 Text(NSLocalizedString("w-widget-title", tableName: "messages", comment: ""))
-                    .font(.title)
-                    .frame(alignment: .leading)
+                    .font(.title2)
                 Spacer()
                 Text(entry.date, style: .date)
                     .font(.subheadline)
-                    .frame(alignment: .trailing)
                     .foregroundColor(.gray)
             })
-            .padding(.vertical, 1.0)
+            .padding(.top, 0.0)
+            .padding(.bottom, 1.0)
             .padding(.horizontal, 15.0)
             
             if entry.orders.count > 0 {
-                VStack(alignment: .leading, spacing: 5, content: {
-                    ForEach(entry.orders, id: \.self) { o in
-                        HStack(alignment: .center, spacing: 10, content: {
+                VStack(alignment: .leading, spacing: nil, content: {
+                    ForEach(filterOrdersView(widgetFamily, orders: entry.orders), id: \.self) { o in
+                        HStack(alignment: .center, spacing: nil, content: {
                             Group {
                                 Image(systemName: statusIcon(o.Status).name)
                                     .foregroundColor(statusIcon(o.Status).color)
-                                    .font(.system(size: 16))
                                     .fixedSize()
-                                    .frame(width: 16, height: 16, alignment: .center)
+                                    .frame(width: 16, height: 16)
+                                    .scaledToFit()
                                 Text("#\(String(o.Id).leftPadding(toLength: 6, withPad: "0"))")
                                     .fontWeight(.bold)
+                                    .scaledToFit()
                                 Text(o.Customer)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                Text(currencyText(o.Amount))
-                            }.font(.system(size: 12))
+                                    .scaledToFit()
+                                Spacer()
+                                Text(o.Amount.toStringFormat(.currency))
+                                    .scaledToFit()
+                            }.font(.system(size: 11.5))
                         }).padding(.horizontal, 5.0)
                     }
                 }).frame(alignment: .leading).padding(.horizontal,10)
@@ -164,19 +183,12 @@ struct WidgetView: View {
                         .frame(alignment: .center)
                 }
             }
-        }
-        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .center)
+        })
+        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .top)
         .foregroundColor(.white)
         .background(Color.black)
         .padding(0)
     }
-}
-
-func currencyText(_ amout: Decimal) -> String {
-    let format: NumberFormatter = NumberFormatter()
-    format.locale = Locale(identifier: "es_MX")
-    format.numberStyle = .currency
-    return format.string(for: amout)!
 }
 
 func statusIcon(_ status: Int) -> (name: String, color: Color) {
@@ -208,11 +220,34 @@ func statusIcon(_ status: Int) -> (name: String, color: Color) {
     return (imgName, imgColor)
 }
 
+func statusNetwork() -> Color {
+    if let token = UserDefaults(suiteName: suiteName)?.string(forKey: "JWTToken") {
+        if !token.isEmpty {
+            return .green
+        } else {
+            return .orange
+        }
+    } else {
+        return .red
+    }
+}
+
+func filterOrdersView(_ family: WidgetFamily, orders: [Order]) -> ArraySlice<Order> {
+    switch family {
+    case .systemMedium:
+        return orders.prefix(5)
+    case .systemLarge:
+        return orders.prefix(15)
+    default:
+        return orders.prefix(upTo: orders.count)
+    }
+}
+
 @main
 struct widget: Widget {
     let kind: String = NSLocalizedString("w-kind", tableName: "messages", comment: "")
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: LastOrdersProvider()) { entry in
+        StaticConfiguration(kind: kind, provider: WidgetProvider()) { entry in
             WidgetView(entry: entry)
         }
         .configurationDisplayName(NSLocalizedString("w-title", tableName: "messages", comment: ""))
@@ -223,13 +258,57 @@ struct widget: Widget {
 
 struct widget_Previews: PreviewProvider {
     static var previews: some View {
-        WidgetView(entry: LastOrdersEntry(date: Date(), orders: [
-            Order(Id: 10334, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
-            Order(Id: 10335, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-            Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-            Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-            Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5)
-        ], error: false))
-            .previewContext(WidgetPreviewContext(family: .systemMedium))
+        Group{
+            WidgetView(entry: WidgetEntry(date: Date(), orders: [
+                Order(Id: 10334, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10335, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+                Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+                Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+                Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
+                Order(Id: 10339, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10340, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+                Order(Id: 10341, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+                Order(Id: 10342, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+                Order(Id: 10343, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
+                Order(Id: 10344, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10345, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+                Order(Id: 10346, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+                Order(Id: 10347, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+                Order(Id: 10348, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
+                Order(Id: 10334, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10335, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+                Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+                Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+                Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
+                Order(Id: 10339, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10340, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+                Order(Id: 10341, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+                Order(Id: 10342, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+                Order(Id: 10343, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
+                Order(Id: 10344, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10345, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+                Order(Id: 10346, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+                Order(Id: 10347, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+                Order(Id: 10348, Customer: "Carmen Frutas", Amount: 150.00, Status: 5)
+            ], error: false)).previewContext(WidgetPreviewContext(family: .systemLarge))
+            
+            WidgetView(entry: WidgetEntry(date: Date(), orders: [
+                Order(Id: 10334, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10335, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+                Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+                Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+                Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
+                Order(Id: 10339, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10340, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+                Order(Id: 10341, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+                Order(Id: 10342, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+                Order(Id: 10343, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
+                Order(Id: 10344, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10345, Customer: "Ara Lago", Amount: 550.50, Status: 2),
+                Order(Id: 10346, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
+                Order(Id: 10347, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
+                Order(Id: 10348, Customer: "Carmen Frutas", Amount: 150.00, Status: 5)
+            ], error: false)).previewContext(WidgetPreviewContext(family: .systemMedium))
+        }
     }
 }

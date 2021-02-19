@@ -57,6 +57,8 @@
 		7C7D098024C3B4FD001280C5 /* PhoneNumberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D097F24C3B4FD001280C5 /* PhoneNumberTextField.swift */; };
 		7C7D098224C3DC78001280C5 /* NewCustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D098124C3DC78001280C5 /* NewCustomerTableViewController.swift */; };
 		7C7D098424C3EFBD001280C5 /* EditOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */; };
+		7C7E8DD525E013B800373C45 /* NumberExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E8DD425E013B800373C45 /* NumberExtension.swift */; };
+		7C7E8DD625E013B800373C45 /* NumberExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E8DD425E013B800373C45 /* NumberExtension.swift */; };
 		7C88E38F24BB9242002D449E /* RejectOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C88E38E24BB9242002D449E /* RejectOrderModel.swift */; };
 		7C8B72A424DDBEC900404C52 /* SalesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B72A324DDBEC900404C52 /* SalesTableViewController.swift */; };
 		7C8B72A624DDF48400404C52 /* SalesReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B72A524DDF48400404C52 /* SalesReportViewController.swift */; };
@@ -158,6 +160,7 @@
 		7C7D097F24C3B4FD001280C5 /* PhoneNumberTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberTextField.swift; sourceTree = "<group>"; };
 		7C7D098124C3DC78001280C5 /* NewCustomerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCustomerTableViewController.swift; sourceTree = "<group>"; };
 		7C7D098324C3EFBD001280C5 /* EditOrderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrderTableViewController.swift; sourceTree = "<group>"; };
+		7C7E8DD425E013B800373C45 /* NumberExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberExtension.swift; sourceTree = "<group>"; };
 		7C88E38E24BB9242002D449E /* RejectOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RejectOrderModel.swift; sourceTree = "<group>"; };
 		7C8B72A324DDBEC900404C52 /* SalesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesTableViewController.swift; sourceTree = "<group>"; };
 		7C8B72A524DDF48400404C52 /* SalesReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReportViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +226,7 @@
 				7C1C997724C28DA700DE9A2B /* UILabelExtension.swift */,
 				7CC644EE24C667C8007E5B23 /* UIViewExtension.swift */,
 				7C3540E124C77EBA0001B4A2 /* UIViewController.swift */,
+				7C7E8DD425E013B800373C45 /* NumberExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -636,6 +640,7 @@
 				7C3142B925DEE0A8000512D2 /* widget.swift in Sources */,
 				7C3142D925DEE73B000512D2 /* WebApi.swift in Sources */,
 				7C3142DC25DEE8C6000512D2 /* OrdersModel.swift in Sources */,
+				7C7E8DD625E013B800373C45 /* NumberExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,6 +674,7 @@
 				7C1C461924C2006200591641 /* BaseUIView.swift in Sources */,
 				7C42B37324B57E46008C014D /* ArticlesViewTableCell.swift in Sources */,
 				7C70395224AF1B2E0031E123 /* OrderTableViewCell.swift in Sources */,
+				7C7E8DD525E013B800373C45 /* NumberExtension.swift in Sources */,
 				7C65C20C24C133F200158112 /* CustomerModel.swift in Sources */,
 				7C7992DC24C35F1E0070FEFF /* StatesList.swift in Sources */,
 				7C7D098024C3B4FD001280C5 /* PhoneNumberTextField.swift in Sources */,

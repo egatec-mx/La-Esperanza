@@ -6,16 +6,12 @@
 //  Copyright © 2020 Efrain Garcia Rocha. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class WebApi: NSObject, URLSessionDelegate {
-    var userDefaults: UserDefaults?
-    var baseURL: String = ""
-    
-    override init() {
-        userDefaults = UserDefaults(suiteName: "group.mx.com.egatec.esperanza")
-        baseURL = userDefaults?.string(forKey: "SERVER_URL") ?? ""
-    }
+    static var suiteName: String = ""
+    static var baseURL: String = ""
     
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         
@@ -24,7 +20,7 @@ class WebApi: NSObject, URLSessionDelegate {
     }
         
     func DoPost(_ action: String, jsonData: Data, onCompleteHandler: @escaping (_ result: Data?, _ error: Error?) -> Void) {
-        let composedURL: String = "\(baseURL)/\(action)"
+        let composedURL: String = "\(WebApi.baseURL)/\(action)"
         let configuration: URLSessionConfiguration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 600
         configuration.timeoutIntervalForResource = 600
@@ -36,8 +32,8 @@ class WebApi: NSObject, URLSessionDelegate {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        if userDefaults?.value(forKey: "JWTToken") != nil {
-            request.addValue("Bearer \(userDefaults?.string(forKey: "JWTToken") ?? "")", forHTTPHeaderField: "Authorization")
+        if let authToken = (UserDefaults(suiteName: WebApi.suiteName))?.string(forKey: "JWTToken") {
+            request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         }
         
         request.httpBody = jsonData
@@ -62,7 +58,7 @@ class WebApi: NSObject, URLSessionDelegate {
     }
     
     func DoGet(_ action: String, onCompleteHandler: @escaping (_ result: Data?, _ error: Error?) -> Void) {
-        let composedURL: String = "\(baseURL)/\(action)"
+        let composedURL: String = "\(WebApi.baseURL)/\(action)"
         let configuration: URLSessionConfiguration = URLSessionConfiguration.default
         configuration.timeoutIntervalForResource = 600
         configuration.timeoutIntervalForRequest = 600
@@ -74,8 +70,8 @@ class WebApi: NSObject, URLSessionDelegate {
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        if userDefaults?.value(forKey: "JWTToken") != nil{
-            request.addValue("Bearer \(userDefaults?.string(forKey: "JWTToken") ?? "")", forHTTPHeaderField: "Authorization")
+        if let authToken = (UserDefaults(suiteName: WebApi.suiteName))?.string(forKey: "JWTToken") {
+            request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         }
                 
         let task = session.dataTask(with: request) { (data, response, error) -> Void in

@@ -13,55 +13,53 @@ import WidgetKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    let serverURL: String = "https://esperanza.egatec.com.mx/mobile/api"
+    let suiteName: String = "group.mx.com.egatec.esperanza"
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        let serverURL: String = "https://esperanza.egatec.com.mx/mobile/api"
-        
+                
         // Override point for customization after application launch.
         registerForPushNotifications()
         
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         
         application.applicationIconBadgeNumber = 0
-        
-        if UserDefaults.standard.value(forKey: "SavedCredentials") == nil {
-            UserDefaults.standard.register(defaults: ["SavedCredentials" : false])
-        }
-        
-        if UserDefaults.standard.value(forKey: "UserName") == nil {
-            UserDefaults.standard.register(defaults: ["UserName" : ""])
-        }
-        
-        if UserDefaults.standard.value(forKey: "UserPassword") == nil {
-            UserDefaults.standard.register(defaults: ["UserPassword" : ""])
-        }
-        
-        if UserDefaults.standard.value(forKey: "DEFAULT_LOCALE") == nil {
-            UserDefaults.standard.register(defaults: ["DEFAULT_LOCALE": "es_MX"])
-        }
-        
-        if UserDefaults.standard.value(forKey: "SERVER_URL") == nil {
-            UserDefaults.standard.register(defaults: ["SERVER_URL" : serverURL])
-        }
-        
-        UserDefaults.standard.synchronize()
-        
-        if let userDefaultsShared = UserDefaults(suiteName: "group.mx.com.egatec.esperanza") {
-            if userDefaultsShared.value(forKey: "SERVER_URL") == nil {
-                userDefaultsShared.register(defaults: ["SERVER_URL" : serverURL])
+                
+        if let appDefaults = UserDefaults(suiteName: suiteName) {
+            if appDefaults.value(forKey: "SavedCredentials") == nil {
+                appDefaults.register(defaults: ["SavedCredentials" : false])
             }
             
-            if userDefaultsShared.value(forKey: "JWTToken") == nil {
-                userDefaultsShared.register(defaults: ["JWTToken" : ""])
+            if appDefaults.value(forKey: "UserName") == nil {
+                appDefaults.register(defaults: ["UserName" : ""])
             }
             
-            userDefaultsShared.synchronize()
+            if appDefaults.value(forKey: "UserPassword") == nil {
+                appDefaults.register(defaults: ["UserPassword" : ""])
+            }
+            
+            if appDefaults.value(forKey: "DEFAULT_LOCALE") == nil {
+                appDefaults.register(defaults: ["DEFAULT_LOCALE": "es_MX"])
+            }
+                        
+            if appDefaults.value(forKey: "SERVER_URL") == nil {
+                appDefaults.register(defaults: ["SERVER_URL" : serverURL])
+            }
+            
+            if appDefaults.value(forKey: "JWTToken") == nil {
+                appDefaults.register(defaults: ["JWTToken" : ""])
+            }
+            
+            appDefaults.synchronize()
         }
         
         print("Current: \(Locale.current.languageCode!)")
         print("Auto: \(Locale.autoupdatingCurrent.languageCode!)")
         print("Preferred: \(Locale.preferredLanguages[0])")
+        
+        WebApi.baseURL = serverURL
+        WebApi.suiteName = suiteName
         
         WidgetCenter.shared.reloadAllTimelines()
                 

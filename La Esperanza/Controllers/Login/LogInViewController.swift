@@ -10,6 +10,7 @@ import UIKit
 import LocalAuthentication
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
+    let appDefaults: UserDefaults = UserDefaults(suiteName: (UIApplication.shared.delegate as! AppDelegate).suiteName)!
     let authenticationContext = LAContext()
     let webApi: WebApi = WebApi()
     let alerts: AlertsHelper = AlertsHelper()
@@ -25,17 +26,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let serverURL = UserDefaults.standard.string(forKey: "SERVER_URL")
-        
-        if let userDefaultsShared = UserDefaults(suiteName: "group.mx.com.egatec.esperanza") {
-            if userDefaultsShared.value(forKey: "SERVER_URL") == nil {
-                userDefaultsShared.set(serverURL, forKey: "SERVER_URL")
-                userDefaultsShared.synchronize()
-            }
-        }
-        
-        savedCredentials = UserDefaults.standard.bool(forKey: "SavedCredentials")
+                        
+        savedCredentials = appDefaults.bool(forKey: "SavedCredentials")
         
         if savedCredentials && useFaceID {
             logInWithCredentials()
@@ -115,8 +107,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func logInWithCredentials() {
-        loginModel.userName = UserDefaults.standard.string(forKey: "UserName")!
-        loginModel.password = UserDefaults.standard.string(forKey: "UserPassword")!
+        loginModel.userName = appDefaults.string(forKey: "UserName")!
+        loginModel.password = appDefaults.string(forKey: "UserPassword")!
         
         doLogIn()
     }
@@ -153,10 +145,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         if !loginModel.token.isEmpty {
-                            if let userDefaultsShared = UserDefaults(suiteName: "group.mx.com.egatec.esperanza") {
-                                userDefaultsShared.set(loginModel.token, forKey: "JWTToken")
-                                userDefaultsShared.synchronize()
-                            }
+                            appDefaults.set(loginModel.token, forKey: "JWTToken")
+                            appDefaults.synchronize()
                                                         
                             if !self.savedCredentials {
                                 self.loginModel.password = TextFieldPassword.text!
@@ -182,26 +172,27 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         var authError: NSError?
         
         if self.authenticationContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &authError) {
-            self.authenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: NSLocalizedString("auth_reason", tableName: "messages", comment: "")) { succes, error in
+            self.authenticationContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: NSLocalizedString("auth_reason", tableName: "messages", comment: "")) { [self] succes, error in
                 
                 if succes {
-                    if !self.savedCredentials {
-                        UserDefaults.standard.set(self.loginModel.userName, forKey: "UserName")
-                        UserDefaults.standard.set(self.loginModel.password, forKey: "UserPassword")
-                        UserDefaults.standard.set(true, forKey: "SavedCredentials")
-                        UserDefaults.standard.synchronize()
+                    if !savedCredentials {
+                        appDefaults.set(loginModel.userName, forKey: "UserName")
+                        appDefaults.set(loginModel.password, forKey: "UserPassword")
+                        appDefaults.set(true, forKey: "SavedCredentials")
+                        appDefaults.synchronize()
                     }
                     
-                    self.registerDevice()
+                    registerDevice()
                     
                 } else {
                     var message: String = ""
                     var canContinue: Bool = false;
-                    self.useFaceID = false
-                    UserDefaults.standard.set("", forKey: "UserName")
-                    UserDefaults.standard.set("", forKey: "UserPassword")
-                    UserDefaults.standard.set(false, forKey: "SavedCredentials")
-                    UserDefaults.standard.synchronize()
+                    useFaceID = false
+                    
+                    appDefaults.set("", forKey: "UserName")
+                    appDefaults.set("", forKey: "UserPassword")
+                    appDefaults.set(false, forKey: "SavedCredentials")
+                    appDefaults.synchronize()
                     
                     switch error {
                         case LAError.authenticationFailed?:
@@ -212,10 +203,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                           message = NSLocalizedString("error_auth_fallback", tableName: "messages", comment: "")
                         case LAError.biometryNotAvailable?:
                           message = NSLocalizedString("error_auth_biometric_not_available", tableName: "messages", comment: "")
-                          canContinue = !self.savedCredentials
+                          canContinue = !savedCredentials
                         case LAError.biometryNotEnrolled?:
                           message = NSLocalizedString("error_auth_not_enrolled", tableName: "messages", comment: "")
-                          canContinue = !self.savedCredentials
+                          canContinue = !savedCredentials
                         case LAError.biometryLockout?:
                           message = NSLocalizedString("error_auth_biometric_locked", tableName: "messages", comment: "")
                         default:
@@ -223,11 +214,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                     }
                     
                     if canContinue {
-                        self.alerts.showErrorAlert(self, message: message, onComplete: {
-                            self.registerDevice()
+                        alerts.showErrorAlert(self, message: message, onComplete: {
+                            registerDevice()
                         })
                     } else {
-                        self.alerts.showErrorAlert(self, message: message, onComplete: nil)
+                        alerts.showErrorAlert(self, message: message, onComplete: nil)
                     }
                 }
             }
@@ -261,10 +252,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func sessionExpired(_ segue: UIStoryboardSegue) {
-        self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_session_timeout", tableName: "messages", comment: ""), onComplete: {
-            self.TextFieldPassword.text = ""
-            self.TextFieldUsername.text = ""
-            self.logInWithCredentials()
+        self.alerts.showErrorAlert(self, message: NSLocalizedString("alert_session_timeout", tableName: "messages", comment: ""), onComplete: { [self] in
+            
+            appDefaults.set("", forKey: "JWTToken")
+            appDefaults.synchronize()
+            
+            TextFieldPassword.text = ""
+            TextFieldUsername.text = ""
+            logInWithCredentials()
         })
     }
 }
