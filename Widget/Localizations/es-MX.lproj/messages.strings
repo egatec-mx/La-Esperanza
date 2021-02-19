@@ -9,5 +9,5 @@
 "w-kind" = "La Esperanza Widget";
 "w-description" = "Visualice los pedidos pendientes";
 "w-widget-title" = "Pedidos";
-"w-fetch-failed" = "No hay pedidos nuevos";
+"w-empty" = "No hay pedidos nuevos";
 "w-no-connection" = "Sin conexión";

@@ -21,6 +21,7 @@ struct Order: Hashable {
 struct LastOrdersEntry: TimelineEntry {
     public let date: Date
     public let orders: [Order]
+    public let error: Bool
     var relevance: TimelineEntryRelevance? {
         return TimelineEntryRelevance(score: 100)
     }
@@ -36,7 +37,7 @@ struct LastOrdersLoader {
             
             guard response != nil else { return }
             
-            do{
+            do {
                 if let data = response {
                     let orders = try JSONDecoder().decode([OrdersModel].self, from: data)
                     let parsedOrders = parseOrders(fromData: orders)
@@ -50,7 +51,7 @@ struct LastOrdersLoader {
     }
     
     static func parseOrders(fromData data:[OrdersModel]) -> [Order] {
-        var parsedOrders:[Order] = []
+        var parsedOrders: [Order] = []
         for order in data.reversed().prefix(5) {
             parsedOrders.append(Order(Id: order.orderId, Customer: order.customer, Amount: order.orderTotal, Status: order.statusId))
         }
@@ -60,15 +61,18 @@ struct LastOrdersLoader {
 
 struct LastOrdersProvider: TimelineProvider {
     func placeholder(in context: Context) -> LastOrdersEntry {
-        var entry: LastOrdersEntry = LastOrdersEntry(date: Date(), orders: [])
+        var entry: LastOrdersEntry = LastOrdersEntry(date: Date(), orders: [], error: false)
         LastOrdersLoader.fetch { result in
             let newOrders: [Order]
+            var failed: Bool = false
             if case .success(let fetchedOrders) = result {
                 newOrders = fetchedOrders
+                failed = false
             } else {
                 newOrders = []
+                failed = true
             }
-            entry = LastOrdersEntry(date: Date(), orders: newOrders)
+            entry = LastOrdersEntry(date: Date(), orders: newOrders, error: failed)
         }
         return entry
     }
@@ -76,28 +80,34 @@ struct LastOrdersProvider: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (LastOrdersEntry) -> Void) {
         LastOrdersLoader.fetch { result in
             let newOrders: [Order]
+            var failed: Bool = false
             if case .success(let fetchedOrders) = result {
                 newOrders = fetchedOrders
+                failed = false
             } else {
                 newOrders = []
+                failed = true
             }
-            let entry = LastOrdersEntry(date: Date(), orders: newOrders)
+            let entry = LastOrdersEntry(date: Date(), orders: newOrders, error: failed)
             completion(entry)
         }
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<LastOrdersEntry>) -> Void) {
         let currentDate = Date()
-        let refreshDate = Calendar.current.date(byAdding: .second, value: 30, to: currentDate)
+        let futureDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)
         LastOrdersLoader.fetch { result in
             let newOrders: [Order]
+            var failed: Bool = false
             if case .success(let fetchedOrders) = result {
                 newOrders = fetchedOrders
+                failed = false
             } else {
                 newOrders = []
+                failed = true
             }
-            let entry = LastOrdersEntry(date: Date(), orders: newOrders)
-            let timeline = Timeline(entries: [entry], policy: .after(refreshDate!))
+            let entry = LastOrdersEntry(date: Date(), orders: newOrders, error: failed)
+            let timeline = Timeline(entries: [entry], policy: .after(futureDate!))
             completion(timeline)
         }
     }
@@ -106,7 +116,7 @@ struct LastOrdersProvider: TimelineProvider {
 }
 
 struct WidgetView: View {
-    let entry: LastOrdersEntry    
+    let entry: LastOrdersEntry
     var body: some View {
         VStack {
             HStack(alignment: .firstTextBaseline, spacing: nil, content: {
@@ -119,70 +129,40 @@ struct WidgetView: View {
                     .frame(alignment: .trailing)
                     .foregroundColor(.gray)
             })
-            .padding(.vertical, 3.0)
+            .padding(.vertical, 1.0)
             .padding(.horizontal, 15.0)
             
             if entry.orders.count > 0 {
                 VStack(alignment: .leading, spacing: 5, content: {
                     ForEach(entry.orders, id: \.self) { o in
                         HStack(alignment: .center, spacing: 10, content: {
-                            Group{
-                                switch o.Status {
-                                case 1:
-                                    Image(systemName: "bell")
-                                        .foregroundColor(Color(UIColor.systemTeal.cgColor))
-                                        .font(.system(size: 16))
-                                        .fixedSize()
-                                        .frame(width: 16, height: 16)
-                                case 2:
-                                    Image(systemName: "clock")
-                                        .foregroundColor(.orange)
-                                        .font(.system(size: 16))
-                                        .fixedSize()
-                                        .frame(width: 16, height: 16)
-                                case 3:
-                                    Image(systemName: "car")
-                                        .foregroundColor(.purple)
-                                        .font(.system(size: 16))
-                                        .fixedSize()
-                                        .frame(width: 16, height: 16)
-                                case 4:
-                                    Image(systemName: "hand.thumbsup")
-                                        .foregroundColor(.green)
-                                        .font(.system(size: 16))
-                                        .fixedSize()
-                                        .frame(width: 16, height: 16)
-                                case 5:
-                                    Image(systemName: "trash.slash")
-                                        .foregroundColor(.red)
-                                        .font(.system(size: 16))
-                                        .fixedSize()
-                                        .frame(width: 16, height: 16)
-                                case 6:
-                                    Image(systemName: "hand.thumbsdown")
-                                        .foregroundColor(.pink)
-                                        .font(.system(size: 16))
-                                        .fixedSize()
-                                        .frame(width: 16, height: 16)
-                                default:
-                                    Image(systemName: "bell")
-                                        .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                                        .font(.system(size: 16))
-                                        .fixedSize()
-                                        .frame(width: 16, height: 16)
-                                }
-                                Text("#\(String(o.Id).leftPadding(toLength: 6, withPad: "0"))").fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                                Text(o.Customer).frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                            Group {
+                                Image(systemName: statusIcon(o.Status).name)
+                                    .foregroundColor(statusIcon(o.Status).color)
+                                    .font(.system(size: 16))
+                                    .fixedSize()
+                                    .frame(width: 16, height: 16, alignment: .center)
+                                Text("#\(String(o.Id).leftPadding(toLength: 6, withPad: "0"))")
+                                    .fontWeight(.bold)
+                                Text(o.Customer)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 Text(currencyText(o.Amount))
                             }.font(.system(size: 12))
-                        }).padding(.horizontal, 10.0)
+                        }).padding(.horizontal, 5.0)
                     }
                 }).frame(alignment: .leading).padding(.horizontal,10)
             } else {
-                Text(NSLocalizedString("w-fetch-failed", tableName: "messages", comment: ""))
-                    .font(.system(size: 20))
-                    .foregroundColor(.green)
-                    .frame(alignment: .center)
+                if entry.error {
+                    Text(NSLocalizedString("w-no-connection", tableName: "messages", comment: ""))
+                        .font(.system(size: 20))
+                        .foregroundColor(.red)
+                        .frame(alignment: .center)
+                } else {
+                    Text(NSLocalizedString("w-empty", tableName: "messages", comment: ""))
+                        .font(.system(size: 20))
+                        .foregroundColor(.green)
+                        .frame(alignment: .center)
+                }
             }
         }
         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .center)
@@ -199,10 +179,38 @@ func currencyText(_ amout: Decimal) -> String {
     return format.string(for: amout)!
 }
 
+func statusIcon(_ status: Int) -> (name: String, color: Color) {
+    var imgName: String = ""
+    var imgColor: Color = .clear
+    switch status {
+    case 1:
+        imgName = "bell"
+        imgColor = Color(UIColor.systemTeal.cgColor)
+    case 2:
+        imgName = "clock"
+        imgColor = .orange
+    case 3:
+        imgName = "car"
+        imgColor = .purple
+    case 4:
+        imgName = "hand.thumbsup"
+        imgColor = .green
+    case 5:
+        imgName = "trash.slash"
+        imgColor = .red
+    case 6:
+        imgName = "hand.thumbsdown"
+        imgColor = .pink
+    default:
+        imgName = "bell"
+        imgColor = Color(UIColor.systemTeal.cgColor)
+    }
+    return (imgName, imgColor)
+}
+
 @main
 struct widget: Widget {
     let kind: String = NSLocalizedString("w-kind", tableName: "messages", comment: "")
-
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: LastOrdersProvider()) { entry in
             WidgetView(entry: entry)
@@ -221,7 +229,7 @@ struct widget_Previews: PreviewProvider {
             Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
             Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
             Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5)
-        ]))
+        ], error: false))
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

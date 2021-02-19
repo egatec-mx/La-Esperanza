@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 class OrdersViewController: UITableViewController, UISearchBarDelegate {
     let webApi: WebApi = WebApi()
@@ -206,6 +207,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                                     alerts.showSuccessAlert(self, message: cancelOrderModel.message, onComplete: {
                                         getOrdersReport()
                                         tableView.reloadData()
+                                        WidgetCenter.shared.reloadAllTimelines()
                                     })
                                 }
                             }
@@ -272,6 +274,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                                     alerts.showSuccessAlert(self, message: cancelOrderModel.message, onComplete: {
                                         getOrdersReport()
                                         tableView.reloadData()
+                                        WidgetCenter.shared.reloadAllTimelines()
                                     })
                                 }
                             }
@@ -350,6 +353,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                                     alerts.showSuccessAlert(self, message: moveOrderModel.message, onComplete: {
                                         getOrdersReport()
                                         tableView.reloadData()
+                                        WidgetCenter.shared.reloadAllTimelines()
                                     })
                                 }
                             }
@@ -418,6 +422,7 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
                     
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
+                    WidgetCenter.shared.reloadAllTimelines()
                     
                     if self.badgeValue > 0 {
                         self.tabBarItem.badgeValue = String(self.badgeValue)
@@ -475,5 +480,6 @@ class OrdersViewController: UITableViewController, UISearchBarDelegate {
         guard let ordersView = sender.destination as? OrdersViewController else { return }
         ordersView.getOrdersReport()
         ordersView.tableView.reloadData()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

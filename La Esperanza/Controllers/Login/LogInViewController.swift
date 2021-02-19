@@ -26,6 +26,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let serverURL = UserDefaults.standard.string(forKey: "SERVER_URL")
+        
+        if let userDefaultsShared = UserDefaults(suiteName: "group.mx.com.egatec.esperanza") {
+            if userDefaultsShared.value(forKey: "SERVER_URL") == nil {
+                userDefaultsShared.set(serverURL, forKey: "SERVER_URL")
+                userDefaultsShared.synchronize()
+            }
+        }
+        
         savedCredentials = UserDefaults.standard.bool(forKey: "SavedCredentials")
         
         if savedCredentials && useFaceID {
@@ -144,11 +153,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                         }
                         
                         if !loginModel.token.isEmpty {
-                            UserDefaults.standard.set(loginModel.token, forKey: "JWTToken")
-                            UserDefaults.standard.synchronize()
-                            
                             if let userDefaultsShared = UserDefaults(suiteName: "group.mx.com.egatec.esperanza") {
-                                userDefaultsShared.set(UserDefaults.standard.string(forKey: "SERVER_URL"), forKey: "SERVER_URL")
                                 userDefaultsShared.set(loginModel.token, forKey: "JWTToken")
                                 userDefaultsShared.synchronize()
                             }

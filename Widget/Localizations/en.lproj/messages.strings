@@ -9,5 +9,5 @@
 "w-kind" = "La Esperanza Widget";
 "w-description" = "See your new orders from screen";
 "w-widget-title" = "New Orders";
-"w-fetch-failed" = "No new orders";
+"w-empty" = "No new orders";
 "w-no-connection" = "No connection";

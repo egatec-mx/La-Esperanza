@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let serverURL: String = "https://esperanza.egatec.com.mx/mobile/api"
+        
         // Override point for customization after application launch.
         registerForPushNotifications()
         
@@ -27,10 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.register(defaults: ["SavedCredentials" : false])
         }
         
-        if UserDefaults.standard.value(forKey: "JWTToken") == nil {
-            UserDefaults.standard.register(defaults: ["JWTToken" : ""])
-        }
-        
         if UserDefaults.standard.value(forKey: "UserName") == nil {
             UserDefaults.standard.register(defaults: ["UserName" : ""])
         }
@@ -39,13 +37,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.register(defaults: ["UserPassword" : ""])
         }
         
-        if UserDefaults.standard.value(forKey: "SERVER_URL") == nil {
-            UserDefaults.standard.register(defaults: ["SERVER_URL" : "https://esperanza.egatec.com.mx/mobile/api"])
-        }
-        
         if UserDefaults.standard.value(forKey: "DEFAULT_LOCALE") == nil {
             UserDefaults.standard.register(defaults: ["DEFAULT_LOCALE": "es_MX"])
-        }        
+        }
+        
+        if UserDefaults.standard.value(forKey: "SERVER_URL") == nil {
+            UserDefaults.standard.register(defaults: ["SERVER_URL" : serverURL])
+        }
+        
+        UserDefaults.standard.synchronize()
+        
+        if let userDefaultsShared = UserDefaults(suiteName: "group.mx.com.egatec.esperanza") {
+            if userDefaultsShared.value(forKey: "SERVER_URL") == nil {
+                userDefaultsShared.register(defaults: ["SERVER_URL" : serverURL])
+            }
+            
+            if userDefaultsShared.value(forKey: "JWTToken") == nil {
+                userDefaultsShared.register(defaults: ["JWTToken" : ""])
+            }
+            
+            userDefaultsShared.synchronize()
+        }
         
         print("Current: \(Locale.current.languageCode!)")
         print("Auto: \(Locale.autoupdatingCurrent.languageCode!)")
