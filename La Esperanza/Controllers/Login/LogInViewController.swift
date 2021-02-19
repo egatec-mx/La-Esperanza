@@ -147,6 +147,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                             UserDefaults.standard.set(loginModel.token, forKey: "JWTToken")
                             UserDefaults.standard.synchronize()
                             
+                            if let userDefaultsShared = UserDefaults(suiteName: "group.mx.com.egatec.esperanza") {
+                                userDefaultsShared.set(UserDefaults.standard.string(forKey: "SERVER_URL"), forKey: "SERVER_URL")
+                                userDefaultsShared.set(loginModel.token, forKey: "JWTToken")
+                                userDefaultsShared.synchronize()
+                            }
+                                                        
                             if !self.savedCredentials {
                                 self.loginModel.password = TextFieldPassword.text!
                             }

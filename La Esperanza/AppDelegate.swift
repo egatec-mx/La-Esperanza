@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import UserNotifications
+import WidgetKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -44,11 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if UserDefaults.standard.value(forKey: "DEFAULT_LOCALE") == nil {
             UserDefaults.standard.register(defaults: ["DEFAULT_LOCALE": "es_MX"])
-        }
+        }        
         
         print("Current: \(Locale.current.languageCode!)")
         print("Auto: \(Locale.autoupdatingCurrent.languageCode!)")
         print("Preferred: \(Locale.preferredLanguages[0])")
+        
+        WidgetCenter.shared.reloadAllTimelines()
                 
         return true
     }
@@ -155,15 +158,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         application.applicationIconBadgeNumber = 0
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         application.applicationIconBadgeNumber = 0
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         application.applicationIconBadgeNumber = 0
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }

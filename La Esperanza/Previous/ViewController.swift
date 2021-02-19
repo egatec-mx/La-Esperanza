@@ -78,15 +78,3 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         })
     }
 }
-
-extension String {
-    func leftPadding(toLength: Int, withPad character: Character) -> String {
-        let length = self.count
-        if length < toLength {
-            return String(repeatElement(character, count: toLength - length)) + self
-        } else {
-            return self
-        }
-    }
-
-}

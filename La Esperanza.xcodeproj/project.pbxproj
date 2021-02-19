@@ -17,6 +17,14 @@
 		7C2AA5D724C0090F00F5CE94 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AA5D624C0090F00F5CE94 /* EditProductViewController.swift */; };
 		7C2DE86924BF6D7100491D85 /* ProductsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2DE86824BF6D7100491D85 /* ProductsTableViewController.swift */; };
 		7C2DE87024BF708F00491D85 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2DE86F24BF708F00491D85 /* ProductModel.swift */; };
+		7C3142B425DEE0A8000512D2 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3142B325DEE0A8000512D2 /* WidgetKit.framework */; };
+		7C3142B625DEE0A8000512D2 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3142B525DEE0A8000512D2 /* SwiftUI.framework */; };
+		7C3142B925DEE0A8000512D2 /* widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3142B825DEE0A8000512D2 /* widget.swift */; };
+		7C3142BB25DEE0A9000512D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C3142BA25DEE0A9000512D2 /* Assets.xcassets */; };
+		7C3142BF25DEE0A9000512D2 /* Widget Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7C3142B225DEE0A8000512D2 /* Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7C3142D125DEE213000512D2 /* messages.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7C3142D325DEE213000512D2 /* messages.strings */; };
+		7C3142D925DEE73B000512D2 /* WebApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C60244D24AE2B4100FB6D5A /* WebApi.swift */; };
+		7C3142DC25DEE8C6000512D2 /* OrdersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C70394E24AEFC5D0031E123 /* OrdersModel.swift */; };
 		7C3540E224C77EBA0001B4A2 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3540E124C77EBA0001B4A2 /* UIViewController.swift */; };
 		7C3540E524C781E40001B4A2 /* WaitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3540E424C781E40001B4A2 /* WaitViewController.swift */; };
 		7C42B36D24B518B2008C014D /* OrderDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C42B36C24B518B2008C014D /* OrderDetailsModel.swift */; };
@@ -57,9 +65,9 @@
 		7CB05022245DD0EA00CF8245 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB05021245DD0EA00CF8245 /* SceneDelegate.swift */; };
 		7CB05024245DD0EA00CF8245 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB05023245DD0EA00CF8245 /* ViewController.swift */; };
 		7CB05027245DD0EA00CF8245 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CB05025245DD0EA00CF8245 /* Main.storyboard */; };
-		7CB0502A245DD0EA00CF8245 /* esperanza.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7CB05028245DD0EA00CF8245 /* esperanza.xcdatamodeld */; };
 		7CB0502C245DD0EB00CF8245 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB0502B245DD0EB00CF8245 /* Assets.xcassets */; };
 		7CB0502F245DD0EB00CF8245 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CB0502D245DD0EB00CF8245 /* LaunchScreen.storyboard */; };
+		7CB173BD25DF293B00577E2D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C24776E24C27BA8009433AA /* StringExtension.swift */; };
 		7CB2C90D24C5EE8E00E40A2E /* MethodOfPaymentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */; };
 		7CC644EF24C667C8007E5B23 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC644EE24C667C8007E5B23 /* UIViewExtension.swift */; };
 		7CC644F124C678AE007E5B23 /* NewOrderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC644F024C678AE007E5B23 /* NewOrderTableViewController.swift */; };
@@ -68,6 +76,30 @@
 		7CD3EBEF24DE1ABE00291DFC /* TodaySalesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD3EBEE24DE1ABE00291DFC /* TodaySalesModel.swift */; };
 		7CE1885024DB63FE00FBD52B /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE1884F24DB63FE00FBD52B /* DocumentViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7C3142BD25DEE0A9000512D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CB05014245DD0EA00CF8245 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C3142B125DEE0A8000512D2;
+			remoteInfo = widgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7C3142C325DEE0A9000512D2 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7C3142BF25DEE0A9000512D2 /* Widget Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7C0CC26B24C4DA1600D015F5 /* AlertsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsHelper.swift; sourceTree = "<group>"; };
@@ -80,6 +112,15 @@
 		7C2AA5D624C0090F00F5CE94 /* EditProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProductViewController.swift; sourceTree = "<group>"; };
 		7C2DE86824BF6D7100491D85 /* ProductsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsTableViewController.swift; sourceTree = "<group>"; };
 		7C2DE86F24BF708F00491D85 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		7C3142B225DEE0A8000512D2 /* Widget Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Widget Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C3142B325DEE0A8000512D2 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		7C3142B525DEE0A8000512D2 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		7C3142B825DEE0A8000512D2 /* widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = widget.swift; sourceTree = "<group>"; };
+		7C3142BA25DEE0A9000512D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7C3142BC25DEE0A9000512D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C3142D225DEE213000512D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/messages.strings; sourceTree = "<group>"; };
+		7C3142D625DEE216000512D2 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/messages.strings"; sourceTree = "<group>"; };
+		7C3142E425DF04A1000512D2 /* widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = widget.entitlements; path = Widget/widget.entitlements; sourceTree = SOURCE_ROOT; };
 		7C3540E124C77EBA0001B4A2 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		7C3540E424C781E40001B4A2 /* WaitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitViewController.swift; sourceTree = "<group>"; };
 		7C42B36C24B518B2008C014D /* OrderDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsModel.swift; sourceTree = "<group>"; };
@@ -125,10 +166,9 @@
 		7CB0501F245DD0EA00CF8245 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CB05021245DD0EA00CF8245 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7CB05023245DD0EA00CF8245 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7CB05029245DD0EA00CF8245 /* esperanza.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = esperanza.xcdatamodel; sourceTree = "<group>"; };
 		7CB0502B245DD0EB00CF8245 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CB05030245DD0EB00CF8245 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7CB05038245DD18C00CF8245 /* esperanza.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = esperanza.entitlements; sourceTree = "<group>"; };
+		7CB05038245DD18C00CF8245 /* esperanza.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = esperanza.entitlements; path = "La Esperanza/esperanza.entitlements"; sourceTree = SOURCE_ROOT; };
 		7CB1C3EF245F2A3F00876B6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7CB1C3F0245F2A3F00876B6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CB2C90C24C5EE8E00E40A2E /* MethodOfPaymentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodOfPaymentList.swift; sourceTree = "<group>"; };
@@ -141,6 +181,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7C3142AF25DEE0A8000512D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C3142B625DEE0A8000512D2 /* SwiftUI.framework in Frameworks */,
+				7C3142B425DEE0A8000512D2 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7CB05019245DD0EA00CF8245 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -212,6 +261,26 @@
 				7C2DE86F24BF708F00491D85 /* ProductModel.swift */,
 			);
 			path = Products;
+			sourceTree = "<group>";
+		};
+		7C3142B725DEE0A8000512D2 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				7C3142E425DF04A1000512D2 /* widget.entitlements */,
+				7C3142BC25DEE0A9000512D2 /* Info.plist */,
+				7C3142B825DEE0A8000512D2 /* widget.swift */,
+				7C3142BA25DEE0A9000512D2 /* Assets.xcassets */,
+				7C3142CC25DEE1A8000512D2 /* Localizations */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		7C3142CC25DEE1A8000512D2 /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				7C3142D325DEE213000512D2 /* messages.strings */,
+			);
+			path = Localizations;
 			sourceTree = "<group>";
 		};
 		7C3540E324C781CB0001B4A2 /* Wait */ = {
@@ -362,6 +431,8 @@
 			isa = PBXGroup;
 			children = (
 				7C76FFF5245F2CCB00BACB47 /* WebKit.framework */,
+				7C3142B325DEE0A8000512D2 /* WidgetKit.framework */,
+				7C3142B525DEE0A8000512D2 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -388,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				7CB0501E245DD0EA00CF8245 /* La Esperanza */,
+				7C3142B725DEE0A8000512D2 /* Widget */,
 				7CB0501D245DD0EA00CF8245 /* Products */,
 				7C76FFF4245F2CCA00BACB47 /* Frameworks */,
 			);
@@ -397,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				7CB0501C245DD0EA00CF8245 /* La Esperanza.app */,
+				7C3142B225DEE0A8000512D2 /* Widget Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -409,7 +482,6 @@
 				7CB0501F245DD0EA00CF8245 /* AppDelegate.swift */,
 				7CB05021245DD0EA00CF8245 /* SceneDelegate.swift */,
 				7CB0502B245DD0EB00CF8245 /* Assets.xcassets */,
-				7CB05028245DD0EA00CF8245 /* esperanza.xcdatamodeld */,
 				7C70394A24AEBCA90031E123 /* InfoPlist.strings */,
 				7CB0502D245DD0EB00CF8245 /* LaunchScreen.storyboard */,
 				7CB05025245DD0EA00CF8245 /* Main.storyboard */,
@@ -456,6 +528,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7C3142B125DEE0A8000512D2 /* Widget Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7C3142C025DEE0A9000512D2 /* Build configuration list for PBXNativeTarget "Widget Extension" */;
+			buildPhases = (
+				7C3142AE25DEE0A8000512D2 /* Sources */,
+				7C3142AF25DEE0A8000512D2 /* Frameworks */,
+				7C3142B025DEE0A8000512D2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Widget Extension";
+			productName = widgetExtension;
+			productReference = 7C3142B225DEE0A8000512D2 /* Widget Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		7CB0501B245DD0EA00CF8245 /* La Esperanza */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7CB05033245DD0EB00CF8245 /* Build configuration list for PBXNativeTarget "La Esperanza" */;
@@ -463,10 +552,12 @@
 				7CB05018245DD0EA00CF8245 /* Sources */,
 				7CB05019245DD0EA00CF8245 /* Frameworks */,
 				7CB0501A245DD0EA00CF8245 /* Resources */,
+				7C3142C325DEE0A9000512D2 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7C3142BE25DEE0A9000512D2 /* PBXTargetDependency */,
 			);
 			name = "La Esperanza";
 			productName = esperanza;
@@ -479,10 +570,13 @@
 		7CB05014245DD0EA00CF8245 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1120;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Efrain Garcia Rocha";
 				TargetAttributes = {
+					7C3142B125DEE0A8000512D2 = {
+						CreatedOnToolsVersion = 12.4;
+					};
 					7CB0501B245DD0EA00CF8245 = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
@@ -503,11 +597,21 @@
 			projectRoot = "";
 			targets = (
 				7CB0501B245DD0EA00CF8245 /* La Esperanza */,
+				7C3142B125DEE0A8000512D2 /* Widget Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7C3142B025DEE0A8000512D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C3142D125DEE213000512D2 /* messages.strings in Resources */,
+				7C3142BB25DEE0A9000512D2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7CB0501A245DD0EA00CF8245 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -524,6 +628,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7C3142AE25DEE0A8000512D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CB173BD25DF293B00577E2D /* StringExtension.swift in Sources */,
+				7C3142B925DEE0A8000512D2 /* widget.swift in Sources */,
+				7C3142D925DEE73B000512D2 /* WebApi.swift in Sources */,
+				7C3142DC25DEE8C6000512D2 /* OrdersModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7CB05018245DD0EA00CF8245 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -564,7 +679,6 @@
 				7CB05022245DD0EA00CF8245 /* SceneDelegate.swift in Sources */,
 				7C8EC1A424C73B740014C974 /* DeviceModel.swift in Sources */,
 				7C0CC26C24C4DA1600D015F5 /* AlertsHelper.swift in Sources */,
-				7CB0502A245DD0EA00CF8245 /* esperanza.xcdatamodeld in Sources */,
 				7C42B37724B588BF008C014D /* ArticlesTableView.swift in Sources */,
 				7C65C20624C1273800158112 /* NewProductTableViewController.swift in Sources */,
 				7C60245324AE4A6D00FB6D5A /* ActionModel.swift in Sources */,
@@ -587,7 +701,24 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7C3142BE25DEE0A9000512D2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7C3142B125DEE0A8000512D2 /* Widget Extension */;
+			targetProxy = 7C3142BD25DEE0A9000512D2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		7C3142D325DEE213000512D2 /* messages.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7C3142D225DEE213000512D2 /* en */,
+				7C3142D625DEE216000512D2 /* es-MX */,
+			);
+			name = messages.strings;
+			sourceTree = "<group>";
+		};
 		7C65120F24AEB64B00E1CEFB /* messages.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -627,6 +758,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7C3142C125DEE0A9000512D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widget/widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2102;
+				DEVELOPMENT_TEAM = F9F38B26L3;
+				INFOPLIST_FILE = widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = mx.com.egatec.esperanza.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		7C3142C225DEE0A9000512D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widget/widget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2102;
+				DEVELOPMENT_TEAM = F9F38B26L3;
+				INFOPLIST_FILE = widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = mx.com.egatec.esperanza.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		7CB05031245DD0EB00CF8245 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -663,6 +842,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = F9F38B26L3;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -679,13 +859,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -725,6 +906,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = F9F38B26L3;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -735,12 +917,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -748,13 +931,14 @@
 		7CB05034245DD0EB00CF8245 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "La Esperanza/esperanza.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2101;
+				CURRENT_PROJECT_VERSION = 2102;
 				DEVELOPMENT_TEAM = F9F38B26L3;
 				INFOPLIST_FILE = "La Esperanza/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -769,13 +953,14 @@
 		7CB05035245DD0EB00CF8245 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "La Esperanza/esperanza.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2101;
+				CURRENT_PROJECT_VERSION = 2102;
 				DEVELOPMENT_TEAM = F9F38B26L3;
 				INFOPLIST_FILE = "La Esperanza/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -790,6 +975,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7C3142C025DEE0A9000512D2 /* Build configuration list for PBXNativeTarget "Widget Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C3142C125DEE0A9000512D2 /* Debug */,
+				7C3142C225DEE0A9000512D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7CB05017245DD0EA00CF8245 /* Build configuration list for PBXProject "La Esperanza" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -809,19 +1003,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		7CB05028245DD0EA00CF8245 /* esperanza.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				7CB05029245DD0EA00CF8245 /* esperanza.xcdatamodel */,
-			);
-			currentVersion = 7CB05029245DD0EA00CF8245 /* esperanza.xcdatamodel */;
-			path = esperanza.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 7CB05014245DD0EA00CF8245 /* Project object */;
 }

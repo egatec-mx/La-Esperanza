@@ -1,0 +1,13 @@
+/* 
+  messages.strings
+  La Esperanza
+
+  Created by Efrain Garcia Rocha on 18/02/21.
+  Copyright © 2021 Efrain Garcia Rocha. All rights reserved.
+*/
+"w-title" = "La Esperanza";
+"w-kind" = "La Esperanza Widget";
+"w-description" = "See your new orders from screen";
+"w-widget-title" = "New Orders";
+"w-fetch-failed" = "No new orders";
+"w-no-connection" = "No connection";

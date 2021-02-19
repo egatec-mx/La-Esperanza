@@ -9,7 +9,13 @@
 import UIKit
 
 class WebApi: NSObject, URLSessionDelegate {
-    let baseURL: String = UserDefaults.standard.string(forKey: "SERVER_URL") ?? ""
+    var userDefaults: UserDefaults = UserDefaults.standard
+    var baseURL: String = ""
+    
+    override init() {
+        userDefaults = UserDefaults(suiteName: "group.mx.com.egatec.esperanza") ?? UserDefaults.standard
+        baseURL = userDefaults.string(forKey: "SERVER_URL") ?? ""
+    }
     
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         
@@ -30,8 +36,8 @@ class WebApi: NSObject, URLSessionDelegate {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        if UserDefaults.standard.value(forKey: "JWTToken") != nil {
-            request.addValue("Bearer \(UserDefaults.standard.string(forKey: "JWTToken")!)", forHTTPHeaderField: "Authorization")
+        if userDefaults.value(forKey: "JWTToken") != nil {
+            request.addValue("Bearer \(userDefaults.string(forKey: "JWTToken")!)", forHTTPHeaderField: "Authorization")
         }
         
         request.httpBody = jsonData
@@ -68,8 +74,8 @@ class WebApi: NSObject, URLSessionDelegate {
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        if UserDefaults.standard.value(forKey: "JWTToken") != nil{
-            request.addValue("Bearer \(UserDefaults.standard.string(forKey: "JWTToken")!)", forHTTPHeaderField: "Authorization")
+        if userDefaults.value(forKey: "JWTToken") != nil{
+            request.addValue("Bearer \(userDefaults.string(forKey: "JWTToken")!)", forHTTPHeaderField: "Authorization")
         }
                 
         let task = session.dataTask(with: request) { (data, response, error) -> Void in
