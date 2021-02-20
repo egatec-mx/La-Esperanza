@@ -128,7 +128,7 @@ struct WidgetView: View {
             HStack(alignment: .center, spacing: nil, content: {
                 Spacer()
                 Image(systemName: "network")
-                    .foregroundColor(statusNetwork())
+                    .foregroundColor((entry.error ? .red : .green))
                     .fixedSize()
                     .frame(width: 16, height: 16)
             })
@@ -218,18 +218,6 @@ func statusIcon(_ status: Int) -> (name: String, color: Color) {
         imgColor = Color(UIColor.systemTeal.cgColor)
     }
     return (imgName, imgColor)
-}
-
-func statusNetwork() -> Color {
-    if let token = UserDefaults(suiteName: suiteName)?.string(forKey: "JWTToken") {
-        if !token.isEmpty {
-            return .green
-        } else {
-            return .orange
-        }
-    } else {
-        return .red
-    }
 }
 
 func filterOrdersView(_ family: WidgetFamily, orders: [Order]) -> ArraySlice<Order> {
