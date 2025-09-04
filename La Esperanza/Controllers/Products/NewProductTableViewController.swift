@@ -66,7 +66,7 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
                     webApi.DoPost("products/add", jsonData: data, onCompleteHandler: { response, error in
                         guard error == nil else {
                             if (error as NSError?)?.code == 401 {
-                                hideWait({[self] () -> Void in
+                                self.hideWait({[self] () -> Void in
                                     performSegue(withIdentifier: "TimeoutSegue", sender: self)
                                 })
                             }
@@ -77,22 +77,22 @@ class NewProductTableViewController: UITableViewController, UITextFieldDelegate 
                         
                         do {
                             if let data = response {
-                                productModel = try JSONDecoder().decode(ProductModel.self, from: data)
+                                self.productModel = try JSONDecoder().decode(ProductModel.self, from: data)
                             }
                         } catch {
-                            hideWait {
+                            self.hideWait {
                                 return
                             }
                         }
                         
-                        hideWait {
-                            if productModel.errors.count > 0 {
-                                alerts.processErrors(self, errors: productModel.errors)
+                        self.hideWait {
+                            if self.productModel.errors.count > 0 {
+                                self.alerts.processErrors(self, errors: self.productModel.errors)
                             }
                             
-                            if !productModel.message.isEmpty {
-                                alerts.showSuccessAlert(self, message: productModel.message, onComplete: {
-                                    performSegue(withIdentifier: "GoBackSegue", sender: self)
+                            if !self.productModel.message.isEmpty {
+                                self.alerts.showSuccessAlert(self, message: self.productModel.message, onComplete: {
+                                    self.performSegue(withIdentifier: "GoBackSegue", sender: self)
                                 })
                             }
                         }
