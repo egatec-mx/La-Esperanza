@@ -1,0 +1,62 @@
+﻿@model Customers
+
+<input type="hidden" asp-for="CustomerId" />
+<input type="hidden" asp-for="CustomerActive" />
+<fieldset>
+    <legend class="text-dark">
+        <i class="fa fa-id-card fa-fw"></i> Informaci&oacute;n
+    </legend>
+    <hr class="border-dark mt-0" />
+    <div class="form-row">
+        <div class="col form-group">
+            <input asp-for="CustomerName" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerName).CapitalFirstLetter()" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col form-group">
+            <input asp-for="CustomerLastname" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerLastname).CapitalFirstLetter()" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col form-group">
+            <input type="tel" inputmode="tel" asp-for="CustomerPhone" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerPhone).CapitalFirstLetter()" data-mask="true" data-inputmask="'mask':'(99) 9999 - 9999'" minlength="10" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col form-group">
+            <input asp-for="CustomerMail" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerMail).CapitalFirstLetter()" />
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend class="text-dark">
+        <i class="fa fa-map-signs fa-fw"></i> Direcci&oacute;n
+    </legend>
+    <hr class="border-dark mt-0" />
+    <div class="form-row">
+        <div class="col form-group">
+            <input asp-for="CustomerStreet" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerStreet).CapitalFirstLetter()" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col form-group">
+            <input asp-for="CustomerColony" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerColony).CapitalFirstLetter()" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col form-group">
+            <input asp-for="CustomerCity" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerCity).CapitalFirstLetter()" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col form-group">
+            <select asp-for="StateId" class="form-control" asp-items="ViewBag.States"></select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col form-group">
+            <input type="tel" inputmode="tel" asp-for="CustomerZipcode" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerZipcode).CapitalFirstLetter()" value="" data-mask="true" data-inputmask="'mask':'99999'" />
+        </div>
+    </div>
+</fieldset>
+

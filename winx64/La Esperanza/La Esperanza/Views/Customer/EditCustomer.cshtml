@@ -1,0 +1,73 @@
+﻿@model Customers
+
+<form asp-action="EditCustomer" asp-controller="Customer" method="put" novalidate>
+    <input type="hidden" asp-for="CustomerId" />
+    <fieldset>
+        <legend class="text-info">
+            <i class="fa fa-id-card fa-fw"></i> Informaci&oacute;n
+        </legend>
+        <hr class="border-info mt-0" />
+        <div asp-validation-summary="All" class="alert alert-danger p-1 my-2">
+            <div class="media">
+                <i class="fa fa-exclamation-circle fa-fw fa-2x m-1"></i>
+                <div class="media-body mt-2">
+                    <p class="p-0 m-0">
+                        Revise la siguiente informaci&oacute;n:
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <input asp-for="CustomerName" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerName).CapitalFirstLetter()" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <input asp-for="CustomerLastname" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerLastname).CapitalFirstLetter()" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <input type="tel" inputmode="tel" asp-for="CustomerPhone" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerPhone).CapitalFirstLetter()" data-mask="true" data-inputmask="'mask':'(99) 9999 - 9999'" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <input asp-for="CustomerMail" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerMail).CapitalFirstLetter()" />
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend class="text-info">
+            <i class="fa fa-map-signs fa-fw"></i> Direcci&oacute;n
+        </legend>
+        <hr class="border-info mt-0" />
+        <div class="form-row">
+            <div class="col form-group">
+                <input asp-for="CustomerStreet" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerStreet).CapitalFirstLetter()" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <input asp-for="CustomerColony" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerColony).CapitalFirstLetter()" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <input asp-for="CustomerCity" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerCity).CapitalFirstLetter()" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <select asp-for="StateId" class="form-control" asp-items="ViewBag.States"></select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <input type="tel" inputmode="tel" asp-for="CustomerZipcode" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.CustomerZipcode).CapitalFirstLetter()" data-mask="true" data-inputmask="'mask':'99999'" />
+            </div>
+        </div>
+        <input type="hidden" asp-for="CustomerActive" />
+    </fieldset>
+</form>

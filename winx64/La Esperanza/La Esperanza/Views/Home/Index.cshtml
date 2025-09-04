@@ -1,0 +1,288 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="container-fluid p-2 p-md-4">
+    <h1><i class="fa fa-tachometer-alt fa-fw"></i> Tablero de pedidos</h1>
+    <hr />
+    <div id="helpsection" class="collapse">
+        <p class="text-justify">
+            La secci&oacute;n del tablero, muestra diferentes tableros, donde se muestran los diferentes procesos de los pedidos,
+            que enlistan los &uacute;ltimos cinco pedidos y estad&iacute;ticas para un panorama general.
+        </p>
+        <p class="text-justify">
+            Esta secci&oacute;n <b>NO</b> reemplaza las secciones dedicadas a cada proceso, esta secci&oacute;n es solo
+            para informaci&oacute;n y estad&iacute;stica.
+        </p>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="btn-group btn-group-lg btn-block my-3">
+                <a asp-action="Index" asp-controller="Home" class="btn btn-dark"><i class="fa fa-home fa-fw"></i><span class="d-none d-md-inline"> Inicio</span></a>
+                <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#helpsection"><i class="fa fa-question-circle fa-fw"></i><span class="d-none d-md-inline"> Ayuda</span></button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-plus-circle fa-fw'></i> Nuevo pedido" data-url="@Url.Action("AddOrder","Order")"><i class="fa fa-plus-circle fa-fw"></i><span class="d-none d-md-inline"> Crear</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col my-3">
+            <div class="card border-primary shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2><i class="fa fa-shopping-basket fa f-w"></i> Nuevos</h2>
+                </div>
+                <div class="card-body">
+                    <p>Solo se muestran los &uacute;ltimos 5</p>
+                    <table class="table table-striped table-borderless" cellpadding="0" cellspacing="0" id="neworders">
+                        <thead class="text-center">
+                            <tr>
+                                <th><i class="fa fa-ticket-alt fa-2x"></i></th>
+                                <th><i class="fa fa-money-bill fa-2x"></i></th>
+                                <th><i class="fa fa-user-tie fa-2x"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer font-weight-bold">
+                    <div class="row">
+                        <div class="col text-left">
+                            Total: <span id="newtotal"></span>
+                        </div>
+                        <div class="col text-right">
+                            <a href="@Url.Action("OrdersList","Order")" class="btn btn-primary btn-sm">
+                                Ver todos <i class="fa fa-arrow-circle-right fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col my-3">
+            <div class="card border-warning shadow">
+                <div class="card-header bg-warning text-white">
+                    <h2><i class="fa fa-chalkboard-teacher fa-fw"></i> Para preparar</h2>
+                </div>
+                <div class="card-body">
+                    <p>Solo se muestran los &uacute;ltimos 5</p>
+                    <table class="table table-striped table-borderless" cellpadding="0" cellspacing="0" id="processorders">
+                        <thead class="text-center">
+                            <tr>
+                                <th><i class="fa fa-ticket-alt fa-2x"></i></th>
+                                <th><i class="fa fa-money-bill fa-2x"></i></th>
+                                <th><i class="fa fa-user-tie fa-2x"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer font-weight-bold">
+                    <div class="row">
+                        <div class="col text-left">
+                            Total: <span id="processtotal"></span>
+                        </div>
+                        <div class="col text-right">
+                            <a href="@Url.Action("ProcessingOrdersList","Order")" class="btn btn-warning btn-sm">
+                                Ver todos <i class="fa fa-arrow-circle-right fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col my-3">
+            <div class="card border-success shadow">
+                <div class="card-header bg-success text-white">
+                    <h2><i class="fa fa-motorcycle fa-fw"></i> Para entregar</h2>
+                </div>
+                <div class="card-body">
+                    <p>Solo se muestran los &uacute;ltimos 5</p>
+                    <table class="table table-striped table-borderless" cellpadding="0" cellspacing="0" id="deliverorders">
+                        <thead class="text-center">
+                            <tr>
+                                <th><i class="fa fa-ticket-alt fa-2x"></i></th>
+                                <th><i class="fa fa-money-bill fa-2x"></i></th>
+                                <th><i class="fa fa-user-tie fa-2x"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer font-weight-bold">
+                    <div class="row">
+                        <div class="col text-left">
+                            Total: <span id="delivertotal"></span>
+                        </div>
+                        <div class="col text-right">
+                            <a href="@Url.Action("DeliveryOrdersList","Order")" class="btn btn-success btn-sm">
+                                Ver todos <i class="fa fa-arrow-circle-right fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col my-3">
+            <div class="card border-dark shadow">
+                <div class="card-header bg-dark text-white">
+                    <h2><i class="fa fa-check-circle fa-fw"></i> Completados</h2>
+                </div>
+                <div class="card-body">
+                    <p>Solo se muestran los &uacute;ltimos 5</p>
+                    <table class="table table-striped table-borderless" cellpadding="0" cellspacing="0" id="completeorders">
+                        <thead class="text-center">
+                            <tr>
+                                <th><i class="fa fa-ticket-alt fa-2x"></i></th>
+                                <th><i class="fa fa-money-bill fa-2x"></i></th>
+                                <th><i class="fa fa-user-tie fa-2x"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer font-weight-bold">
+                    <div class="row">
+                        <div class="col text-left">
+                            Total: <span id="completetotal"></span>
+                        </div>
+                        <div class="col text-right">
+                            <a href="@Url.Action("CompletedOrdersList","Order")" class="btn btn-dark btn-sm">
+                                Ver todos <i class="fa fa-arrow-circle-right fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col my-3">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h2><i class="fa fa-trash"></i> Cancelados</h2>
+                </div>
+                <div class="card-body">
+                    <p>Solo se muestran los &uacute;ltimos 5</p>
+                    <table class="table table-striped table-borderless" cellpadding="0" cellspacing="0" id="cancelorders">
+                        <thead class="text-center">
+                            <tr>
+                                <th><i class="fa fa-ticket-alt fa-2x"></i></th>
+                                <th><i class="fa fa-money-bill fa-2x"></i></th>
+                                <th><i class="fa fa-user-tie fa-2x"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer font-weight-bold">
+                    <div class="row">
+                        <div class="col text-left">
+                            Total: <span id="canceltotal"></span>
+                        </div>
+                        <div class="col text-right">
+                            <a href="@Url.Action("CanceledOrdersList","Order")" class="btn btn-danger btn-sm">
+                                Ver todos <i class="fa fa-arrow-circle-right fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col my-3">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-light border-danger">
+                    <h2><i class="fa fa-handshake-slash fa-fw text-danger"></i> Rechazados</h2>
+                </div>
+                <div class="card-body">
+                    <p>Solo se muestran los &uacute;ltimos 5</p>
+                    <table class="table table-striped table-borderless" cellpadding="0" cellspacing="0" id="rejectedorders">
+                        <thead class="text-center">
+                            <tr>
+                                <th><i class="fa fa-ticket-alt fa-2x"></i></th>
+                                <th><i class="fa fa-money-bill fa-2x"></i></th>
+                                <th><i class="fa fa-user-tie fa-2x"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer font-weight-bold">
+                    <div class="row">
+                        <div class="col text-left">
+                            Total: <span id="rejectedtotal"></span>
+                        </div>
+                        <div class="col text-right">
+                            <a href="@Url.Action("RejectedOrdersList","Order")" class="btn btn-outline-danger btn-sm">
+                                Ver todos <i class="fa fa-arrow-circle-right fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col my-3">
+            <div class="card border-secondary shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h2><i class="fa fa-money-bill fa-fw"></i> Ventas x d&iacute;a</h2>
+                </div>
+                <div class="card-body">
+                    <p>Solo se muestran los &uacute;ltimos 5 inicialmente. Para buscar otras fechas, ingrese una fecha de inicio y una de fin, después haga clic en el icono de buscar.</p>
+                    <form asp-action="SalesByDay" asp-controller="Home" method="post" novalidate class="form-inline justify-content-center">
+                        @Html.AntiForgeryToken()
+                        <label for="StartDate" class="col-form-label-sm mb-2 mr-sm-2">Inicio: </label>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                            <input type="date" inputmode="date" id="StartDate" name="StartDate" class="form-control" placeholder="Inicio" autocomplete="off" />
+                        </div>
+                        <label for="EndDate" class="col-form-label-sm mb-2 mr-sm-2">Fin: </label>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                            <input type="date" inputmode="date" id="EndDate" name="EndDate" class="form-control" placeholder="Fin" autocomplete="off" />
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary btn-lg my-2 mt-md-0" data-action="submitSearch"><i class="fa fa-search-dollar"></i> Buscar</button>
+                    </form>
+                    <hr />
+                    <table class="table table-striped table-borderless" cellpadding="0" cellspacing="0" id="salesbyday">
+                        <thead class="text-left">
+                            <tr>
+                                <th><i class="fa fa-calendar-alt fa-2x"></i></th>
+                                <th><i class="fa fa-ticket-alt fa-2x"></i></th>
+                                <th><i class="fa fa-money-bill fa-2x"></i></th>
+                                <th><i class="fa fa-info-circle fa-2x"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_FormModalPartial" />
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <environment names="Development">
+        <script src="~/js/dashboard.js"></script>
+    </environment>
+    <environment names="Production">
+        <script src="~/js/dashboard.min.js"></script>
+    </environment>
+}

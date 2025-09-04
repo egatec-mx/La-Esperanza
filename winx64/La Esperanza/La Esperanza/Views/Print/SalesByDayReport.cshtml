@@ -1,0 +1,90 @@
+﻿@model List<Orders>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <title>@Model.FirstOrDefault().OrderDeliveredDate.Value.Date.ToShortDateString()</title>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/print.min.css" rel="stylesheet" />
+</head>
+<body>
+    <table class="table table-light table-borderless table-striped" cellpadding="0" cellspacing="0">
+        <thead class="text-left">
+            <tr>
+                <th colspan="2" class="text-center">
+                    Reporte del: <h3>@Model.FirstOrDefault().OrderDeliveredDate.Value.Date.ToShortDateString()</h3>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Orders order in Model)
+            {
+                <tr>
+                    <td colspan="2" class="py-2 px-0 m-0 border-bottom border-info">
+                        <table class="table table-sm m-0 p-0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td class="w-25"><i class="fa fa-hashtag fa-fw"></i> <strong>@order.OrderId.ToString().PadLeft(6, '0')</strong></td>
+                                    <td colspan="2"><i class="fa fa-user-tie fa-fw"></i> @order.Customer.CustomerName @order.Customer.CustomerLastname</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-25"><i class="fa fa-clock fa-fw"></i> @order.OrderDeliveredDate.Value.ToShortTimeString()</td>
+                                    <td><i class="fa fa-truck fa-fw"></i> @(order.OrderDeliveryTax.HasValue ? order.OrderDeliveryTax.Value.ToString("C2") : "$0.00")</td>
+                                    <td><i class="fa fa-file-invoice-dollar fa-fw"></i> @order.OrderTotal.ToString("C2")</td>
+                                </tr>
+                                <tr>
+                                    <td class="w-25"><i class="fa fa-hand-holding-usd fa-fw"></i> @(order.MopId.HasValue ? order.Mop.MopDescription : "N/A")</td>
+                                    <td><i class="fa fa-calculator fa-fw"></i> @(order.MopId.HasValue ? order.Mop.MopTax.ToString("P2") : "0.00")</td>
+                                    <td><i class="fa fa-university fa-fw"></i> @((order.OrderTotal - (order.OrderTotal * (order.MopId.HasValue ? order.Mop.MopTax : 0))).ToString("C2"))</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="text-right font-weight-bold">Total de pedidos:</td>
+                <td>@Model.Count</td>
+            </tr>
+            <tr>
+                <td class="text-right font-weight-bold">Total cobrado:</td>
+                <td>@Model.Sum(o => o.OrderTotal).ToString("C2")</td>
+            </tr>
+            <tr>
+                <td class="text-right font-weight-bold">Total de cargos por env&iacute;o:</td>
+                <td>@Model.Sum(o => o.OrderDeliveryTax.HasValue ? o.OrderDeliveryTax.Value : 0).ToString("C2")</td>
+            </tr>
+            <tr>
+                <td class="text-right font-weight-bold">Total comisi&oacute;n <q>Mercado pago</q>:</td>
+                <td>@(Model.Sum(o => o.MopId.HasValue ? o.OrderTotal * o.Mop.MopTax: 0).ToString("C2"))</td>
+            </tr>
+            <tr>
+                <td class="text-right font-weight-bold">Total final:</td>
+                <td>@((Model.Sum(o => o.OrderTotal - (o.MopId.HasValue ? (o.OrderTotal * o.Mop.MopTax) : 0)) - Model.Sum(o => o.OrderDeliveryTax.HasValue ? o.OrderDeliveryTax.Value : 0)).ToString("C2"))</td>
+            </tr>
+        </tfoot>
+    </table>
+    <hr />
+    <div class="alert alert-light m-0 p-2">
+        <h5 class="mb-0">Simbolog&iacute;a</h5>
+        <ul class="fa-ul mb-0">
+            <li><span class="fa-li"><i class="fa fa-hashtag fa-fw"></i></span> N&uacute;mero de pedido</li>
+            <li><span class="fa-li"><i class="fa fa-user-tie fa-fw"></i></span> Cliente</li>
+            <li><span class="fa-li"><i class="fa fa-clock fa-fw"></i></span> Hora de entrega del pedido</li>
+            <li><span class="fa-li"><i class="fa fa-truck fa-fw"></i></span> Monto del cargo por env&iacute;o</li>
+            <li><span class="fa-li"><i class="fa fa-file-invoice-dollar fa-fw"></i></span> Total cobrado del pedido</li>
+            <li><span class="fa-li"><i class="fa fa-hand-holding-usd fa-fw"></i></span> M&eacute;todo de pago</li>
+            <li><span class="fa-li"><i class="fa fa-calculator fa-fw"></i></span> Comisi&oacute;n de pago de <q>Mercado pago</q></li>
+            <li><span class="fa-li"><i class="fa fa-university fa-fw"></i></span> Total final</li>
+        </ul>
+    </div>
+    <script src="~/lib/font-awesome/js/all.js"></script>
+</body>
+</html>

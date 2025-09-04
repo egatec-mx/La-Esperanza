@@ -1,0 +1,14 @@
+﻿@model Users
+
+<form asp-action="UnlockUser" asp-controller="Account" method="put" novalidate>
+    <input type="hidden" asp-for="UserId" />
+    <fieldset>
+        <legend class="text-info">
+            <i class="fa fa-info-circle fa-fw"></i> Informaci&oacute;n
+        </legend>
+        <hr class="border-info mt-0" />
+        <p class="text-justify">
+            ¿Quiere desbloquear al usuario <b>@Model.UserFirstname @Model.UserLastname</b>?
+        </p>
+    </fieldset>
+</form>

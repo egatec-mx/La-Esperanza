@@ -1,0 +1,29 @@
+﻿@model Orders
+
+<form asp-action="DeleteOrder" asp-controller="Order" method="delete" novalidate>
+    <input type="hidden" asp-for="OrderId" />
+    <fieldset>
+        <legend class="text-danger">
+            <i class="fa fa-exclamation-circle fa-fw"></i> Advertencia
+        </legend>
+        <hr class="border-danger mt-0" />
+        <div asp-validation-summary="All" class="alert alert-danger p-1 my-2">
+            <div class="media">
+                <i class="fa fa-exclamation-circle fa-fw fa-2x m-1"></i>
+                <div class="media-body mt-2">
+                    <p class="p-0 m-0">
+                        Revise la siguiente informaci&oacute;n:
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p class="text-justify">
+            ¿Confirma que desea cancelar el pedido No. <b>@Model.OrderId.ToString().PadLeft(6, '0')</b>?
+        </p>
+        <div class="form-row">
+            <div class="col form-group">
+                <textarea asp-for="OrderCanceledReason" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.OrderCanceledReason).CapitalFirstLetter()" data-val="true" data-val-required="Se requiere de ingresar un motivo de cancelación" required></textarea>
+            </div>
+        </div>
+    </fieldset>
+</form>

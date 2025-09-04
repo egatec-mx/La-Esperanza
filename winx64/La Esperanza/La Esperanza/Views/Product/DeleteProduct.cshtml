@@ -1,0 +1,14 @@
+﻿@model Products
+
+<form asp-action="DeleteProduct" asp-controller="Product" method="delete" novalidate>
+    <input type="hidden" asp-for="ProductId" />
+    <fieldset>
+        <legend class="text-danger">
+            <i class="fa fa-exclamation-circle fa-fw"></i> Advertencia
+        </legend>
+        <hr class="border-danger mt-0" />
+        <p class="text-justify">
+            ¿Quiere borrar permanentemente el producto <b>@Model.ProductName</b>?
+        </p>
+    </fieldset>
+</form>

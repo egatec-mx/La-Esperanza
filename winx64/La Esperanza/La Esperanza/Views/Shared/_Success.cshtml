@@ -1,0 +1,11 @@
+﻿<div class="alert alert-success" role="alert">
+    <div class="media">
+        <i class="fa fa-info-circle fa-2x mr-2"></i>
+        <div class="media-body">
+            <p class="font-weight-bold mb-0 mt-1">@ViewBag.Message</p>
+        </div>
+    </div>
+</div>
+<script>
+    $.showNotification('La Esperanza te notifica que:', '@Html.Raw(ViewBag.Message)');
+</script>
