@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "La-Esperanza", "La-Esperanza\La-Esperanza.csproj", "{DD3E5722-88CD-47D4-8690-5690C8C2266F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "La Esperanza", "La Esperanza\La Esperanza.csproj", "{DD3E5722-88CD-47D4-8690-5690C8C2266F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "La-Esperanza.Api", "La-Esperanza.Api\La-Esperanza.Api.csproj", "{FB85A8E9-CCF0-4492-8BDC-1AE7BD502F45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "La Esperanza Api", "La Esperanza Api\La Esperanza Api.csproj", "{FB85A8E9-CCF0-4492-8BDC-1AE7BD502F45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
