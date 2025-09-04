@@ -1,0 +1,136 @@
+﻿@model LoginModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Acceso";
+}
+
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <meta name="author" content="EGATEC Soluciones" />
+    <meta name="description" content="Control de pedidos Carnicería La Esperanza" />
+    <meta name="keywords" content="Pedidos, Carnicería, Esperanza, La Esperanza, Control, Carne, Bistek, Chicharrón, Puerco, Res" />
+    <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="La Esperanza">
+    <meta name="application-name" content="La Esperanza">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-navbutton-color" content="#000000" />
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#000000">
+    <title>La Esperanza - @ViewBag.Title</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <link href="https://fonts.googleapis.com/css2?family=Bellota+Text:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/site.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="alertInstall" class="alert alert-info fixed-top collapse">
+        <div class="row">
+            <div class="col-1 mx-0 px-0 d-flex items-align-center justify-content-center">
+                <button type="button" class="close text-danger" data-dismiss="alert" aria-label="Close">
+                    <i class="fa fa-times-circle"></i>
+                </button>
+            </div>
+            <div class="col-8 mx-0 px-1 mt-md-2">
+                Inst&aacute;lame como App para una experiencia mucho más veloz.
+            </div>
+            <div class="col-3 mx-0 px-0 text-md-right">
+                <a href="#" id="linkInstall" class="btn btn-success">Instalar</a>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex container-fluid min-vh-100 align-items-center justify-content-center align-content-center">
+        <form asp-antiforgery="true" novalidate>
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="card-group bg-transparent vw-100 card-login">
+                <div class="card rounded-0 border-0 m-0 bg-transparent">
+                    <div class="card-body d-flex align-items-center bg-transparent">
+                        <img src="~/images/logo.png" class="m-auto" width="256" height="256" alt="La Esperanza" />
+                    </div>
+                </div>
+                <div class="card rounded-0 border-0 m-0 p-md-3 bg-transparent">
+                    <div class="card-body py-2 bg-transparent">
+                        <h3 class="card-title text-center"><i class="fa fa-lock fa-fw"></i> Acceso</h3>
+                        <hr class="my-1" />
+                        <div asp-validation-summary="All" class="alert alert-danger p-1 my-2">
+                            <div class="media">
+                                <i class="fa fa-exclamation-circle fa-fw fa-2x m-1"></i>
+                                <div class="media-body mt-2">
+                                    <p class="p-0 m-0">
+                                        Revise la siguiente informaci&oacute;n:
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-success p-1 my-2 @(ViewBag.Message != null ? string.Empty : "collapse")">
+                            <div class="media">
+                                <i class="fa fa-exclamation-circle fa-fw fa-2x m-1"></i>
+                                <div class="media-body mt-2">
+                                    <p class="p-0 m-0">
+                                        @ViewBag.Message
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col form-group my-1">
+                                <label asp-for="Username" class="sr-only"></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input asp-for="Username" class="form-control" placeholder="@Html.DisplayNameFor(u=>u.Username).CapitalFirstLetter()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col form-group my-1">
+                                <div class="input-group">
+                                    <label asp-for="Password" class="sr-only"></label>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                    </div>
+                                    <input asp-for="Password" class="form-control" placeholder="@Html.DisplayNameFor(u=>u.Password).CapitalFirstLetter()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col form-group my-1 p-0 text-right">
+                                <a asp-action="ForgotPassword" asp-controller="Account" class="btn btn-link">olvid&eacute; mi contraseña</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <div class="row">
+                            <div class="col text-right">
+                                <button type="submit" class="btn btn-primary btn-block btn-lg">
+                                    Continuar
+                                    <i class="fa fa-arrow-circle-right fa-fw"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validate/localization/messages_es.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/site.min.js"></script>
+    <script src="~/js/pwa.min.js"></script>
+</body>
+</html>

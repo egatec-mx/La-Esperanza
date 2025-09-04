@@ -1,0 +1,17 @@
+﻿@model Customers
+
+
+<fieldset>
+    <legend class="text-info">
+        <i class="fa fa-map-signs fa-fw"></i> Direcci&oacute;n
+    </legend>
+    <hr class="border-info mt-0" />
+    <address>
+        @Model.CustomerStreet<br />
+        @Model.CustomerColony <br />
+        @Model.CustomerCity <br />
+        @Model.State.StateName <br />
+        M&eacute;xico <br />
+        <abbr title="Código Postal">C.P</abbr> @Model.CustomerZipcode
+    </address>
+</fieldset>

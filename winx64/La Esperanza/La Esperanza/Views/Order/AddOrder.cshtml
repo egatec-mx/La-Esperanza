@@ -1,0 +1,144 @@
+﻿@model Orders
+
+<form asp-action="AddOrder" asp-controller="Order" method="post" novalidate data-action="order">
+    <input type="hidden" asp-for="OrderId" />
+    <input type="hidden" asp-for="OrderSubtotal" />
+    <input type="hidden" asp-for="OrderTax" />
+    <input type="hidden" asp-for="OrderTotal" />
+    <input type="hidden" asp-for="StatusId" />
+    <input type="hidden" asp-for="CustomerId" />
+    <fieldset>
+        <legend class="text-dark">
+            <i class="fa fa-user-tie fa-fw"></i> Cliente
+        </legend>
+        <hr class="border-dark mt-0" />
+        <div asp-validation-summary="All" class="alert alert-danger p-1 my-2">
+            <div class="media">
+                <i class="fa fa-exclamation-circle fa-fw fa-2x m-1"></i>
+                <div class="media-body mt-2">
+                    <p class="p-0 m-0">
+                        Revise la siguiente informaci&oacute;n:
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" id="customer" name="customer" class="form-control" placeholder="Escriba el nombre de un cliente" data-val="true" data-val-required="El cliente es requerido" data-smart="true" data-target="#newCustomer" autocomplete="off" />
+        </div>
+    </fieldset>
+    <div class="collapse mb-5" id="newCustomer">
+        <partial name="AddCustomerWithOrder" for="Customer" />
+    </div>
+    <fieldset>
+        <legend class="text-dark">
+            <i class="fa fa-list fa-fw"></i> Art&iacute;culos
+        </legend>
+        <hr class="border-dark mt-0" />
+        <div data-articles>
+            <div class="card my-3" data-index="0">
+                <div class="card-header d-flex justify-content-between p-1">
+                    <h5 class="m-2">Art&iacute;culo #1</h5>
+                    <button type="button" class="btn btn-danger" data-action="remove">
+                        <i class="fa fa-trash-alt"></i>
+                    </button>
+                </div>
+                <div class="card-body p-1">
+                    <input type="hidden" id="OrderDetails0_OrderDetailId" name="OrderDetails[0].OrderDetailId" value="0" />
+                    <div class="form-row my-2">
+                        <label for="OrderDetails0_OrderDetailQuantity" class="col-form-label col-3 text-right">Cantidad</label>
+                        <div class="col-9">
+                            <input type="text" inputmode="decimal" id="OrderDetails0_OrderDetailQuantity" name="OrderDetails[0].OrderDetailQuantity" class="form-control text-right" value="1" data-val="false" />
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <label for="OrderDetails0_ProductId" class="col-form-label col-3 text-right">Producto</label>
+                        <div class="col-9">
+                            <select id="OrderDetails0_ProductId" name="OrderDetails[0].ProductId" class="form-control" data-val="true" data-val-required="Seleccione un producto en el artículo #1"></select>
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <label for="OrderDetails0_OrderDetailPrice" class="col-form-label col-3 text-right">Precio</label>
+                        <div class="col-9">
+                            <input type="text" inputmode="decimal" id="OrderDetails0_OrderDetailPrice" name="OrderDetails[0].OrderDetailPrice" class="form-control" value="0" data-val="false" data-mask="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" />
+                        </div>
+                    </div>
+                    <div class="form-row my-2">
+                        <label for="OrderDetails0_OrderDetailTotal" class="col-form-label col-3 text-right">Total</label>
+                        <div class="col-9">
+                            <input type="text" inputmode="decimal" id="OrderDetails0_OrderDetailTotal" name="OrderDetails[0].OrderDetailTotal" class="form-control" value="0" data-val="false" data-mask="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" />
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <div class="col form-group text-right">
+                <button type="button" class="btn btn-secondary" data-action="add">
+                    <i class="fa fa-plus-circle"></i>
+                    Agregar art&iacute;culo
+                </button>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend class="text-dark">
+            <i class="fa fa-truck fa-fw"></i> Env&iacute;o
+        </legend>
+        <hr class="border-dark mt-0" />
+        <div class="form-row mb-3">
+            <label asp-for="OrderDeliveryTax" class="col col-md-8 col-form-label text-right">Cargo por envío</label>
+            <div class="col form-group text-right">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text font-weight-bolder">$</span>
+                    </div>
+                    <input type="text" inputmode="decimal" asp-for="OrderDeliveryTax" class="form-control" value="0.00" data-val="false" data-mask="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>
+            <i class="fa fa-calculator fa-fw"></i> Total
+        </legend>
+        <hr class="border-dark mt-0" />
+        <div class="form-row mb-3">
+            <div class="col text-right">
+                <h3 id="TextTotal">$0.00</h3>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>
+            <i class="fa fa-credit-card fa-fw"></i> M&eacute;todo de pago
+        </legend>
+        <hr class="border-dark mt-0" />
+        <div class="form-row mb-3">
+            <div class="col">
+                <select asp-for="MopId" asp-items="ViewBag.Mop" class="form-control" data-val="true" data-val-required="El método de pago es requerido"></select>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>
+            <i class="fa fa-calendar-check fa-fw"></i> Fecha de entrega
+        </legend>
+        <hr class="border-dark mt-0" />
+        <div class="form-row mb-3">
+            <div class="col">
+                <input type="datetime-local" asp-for="OrderScheduleDate" class="form-control" placeholder="Seleccione una fecha de entrega" data-date="true" data-val="true" data-val-required="La fecha de entrega es requerida" />
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend class="text-dark">
+            <i class="fa fa-sticky-note fa-fw"></i> Notas
+        </legend>
+        <hr class="border-dark mt-0" />
+        <div class="form-row">
+            <div class="col form-group">
+                <textarea asp-for="OrderNotes" class="form-control"></textarea>
+            </div>
+        </div>
+    </fieldset>
+</form>

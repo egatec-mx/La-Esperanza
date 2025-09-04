@@ -1,0 +1,110 @@
+﻿@model List<Orders>
+
+@{
+    Layout = null;
+}
+
+<div class="alert alert-info m-0 p-2">
+    <h5 class="d-flex justify-content-between mb-0" data-toggle="collapse" data-target="#symbol">Mostrar simbolog&iacute;a <i class="fa fa-chevron-circle-right mt-1 fa-fw"></i></h5>
+    <ul class="fa-ul collapse mb-0" id="symbol">
+        <li><span class="fa-li"><i class="fa fa-hashtag fa-fw"></i></span> N&uacute;mero de pedido</li>
+        <li><span class="fa-li"><i class="fa fa-user-tie fa-fw"></i></span> Cliente</li>
+        <li><span class="fa-li"><i class="fa fa-file-pdf fa-fw"></i></span> Compartir archivo PDF del pedido</li>
+        <li><span class="fa-li"><i class="fa fa-clock fa-fw"></i></span> Hora de entrega del pedido</li>
+        <li><span class="fa-li"><i class="fa fa-truck fa-fw"></i></span> Monto del cargo por env&iacute;o</li>
+        <li><span class="fa-li"><i class="fa fa-file-invoice-dollar fa-fw"></i></span> Total cobrado del pedido</li>
+        <li><span class="fa-li"><i class="fa fa-hand-holding-usd fa-fw"></i></span> M&eacute;todo de pago</li>
+        <li><span class="fa-li"><i class="fa fa-calculator fa-fw"></i></span> Comisi&oacute;n de pago de <q>Mercado pago</q></li>
+        <li><span class="fa-li"><i class="fa fa-university fa-fw"></i></span> Total final cobrado</li>
+    </ul>
+</div>
+<hr />
+<table class="table table-light table-borderless table-striped" cellpadding="0" cellspacing="0">
+    <thead class="text-left">
+        <tr>
+            <th colspan="2" class="text-center">
+                Reporte del: <h3>@Model.FirstOrDefault().OrderDeliveredDate.Value.Date.ToShortDateString()</h3>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Orders order in Model)
+        {
+            <tr>
+                <td colspan="2" class="py-2 px-0 m-0 border-bottom border-info">
+                    <table class="table table-sm m-0 p-0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td style="width:30%"><i class="fa fa-hashtag fa-fw"></i> <strong>@order.OrderId.ToString().PadLeft(6, '0')</strong></td>
+                                <td style="width:40%"><i class="fa fa-user-tie fa-fw"></i> @order.Customer.CustomerName @order.Customer.CustomerLastname</td>
+                                @if (ViewBag.IsApple)
+                                {
+                                    <td style="width:30%" class="text-right"><a href="#" data-apple="true" data-url="@Url.Action("PrintAppleOrder", "Print", new { Id = order.OrderId })" class="text-danger" title="Descargar Recibo en PDF"><i class="fa fa-file-pdf fa-fw fa-2x"></i></a></td>
+                                }
+                                else
+                                {
+                                    <td style="width:30%" class="text-right"><a href="@Url.Action("PrintOrder", "Print", new { Id = order.OrderId })" class="text-danger" title="Descargar Recibo en PDF"><i class="fa fa-file-pdf fa-fw fa-2x"></i></a></td>
+                                }
+                            </tr>
+                            <tr>
+                                <td style="width:30%"><i class="fa fa-clock fa-fw"></i> @order.OrderDeliveredDate.Value.ToShortTimeString()</td>
+                                <td style="width:40%"><i class="fa fa-truck fa-fw"></i> @(order.OrderDeliveryTax.HasValue ? order.OrderDeliveryTax.Value.ToString("C2") : "$0.00")</td>
+                                <td style="width:30%"><i class="fa fa-file-invoice-dollar fa-fw"></i> @order.OrderTotal.ToString("C2")</td>
+                            </tr>
+                            <tr>
+                                <td style="width:30%"><i class="fa fa-hand-holding-usd fa-fw"></i> @(order.MopId.HasValue ? order.Mop.MopDescription : "N/A")</td>
+                                <td style="width:40%"><i class="fa fa-calculator fa-fw"></i> @(order.MopId.HasValue ? order.Mop.MopTax.ToString("P2") : "0.00")</td>
+                                <td style="width:30%"><i class="fa fa-university fa-fw"></i> @((order.OrderTotal - (order.OrderTotal * (order.MopId.HasValue ? order.Mop.MopTax : 0))).ToString("C2"))</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-right font-weight-bold">Total de pedidos:</td>
+            <td>@Model.Count</td>
+        </tr>
+        <tr>
+            <td class="text-right font-weight-bold">Total cobrado:</td>
+            <td>@Model.Sum(o => o.OrderTotal).ToString("C2")</td>
+        </tr>
+        <tr>
+            <td class="text-right font-weight-bold">Total de cargos por env&iacute;o:</td>
+            <td>@Model.Sum(o => o.OrderDeliveryTax.HasValue ? o.OrderDeliveryTax.Value : 0).ToString("C2")</td>
+        </tr>
+        <tr>
+            <td class="text-right font-weight-bold">Total comisi&oacute;n <q>Mercado pago</q>:</td>
+            <td>@(Model.Sum(o => o.MopId.HasValue ? o.OrderTotal * o.Mop.MopTax: 0).ToString("C2"))</td>
+        </tr>
+        <tr>
+            <td class="text-right font-weight-bold">Total final:</td>
+            <td>@((Model.Sum(o => o.OrderTotal - (o.MopId.HasValue ? (o.OrderTotal * o.Mop.MopTax) : 0)) - Model.Sum(o => o.OrderDeliveryTax.HasValue ? o.OrderDeliveryTax.Value : 0)).ToString("C2"))</td>
+        </tr>
+        <tr>
+            @if (ViewBag.IsApple)
+            {
+                <td colspan="2" class="text-center"><a href="#" data-apple="true" data-url="@Url.Action("PrintAppleSalesReport", "Print", new { Id = ViewBag.ReportDate })" class="btn btn-lg btn-block btn-danger" title="Descargar Reporte en PDF"><i class="fa fa-file-pdf fa-fw"></i> Descargar</a></td>
+            }
+            else
+            {
+                <td colspan="2" class="text-center"><a href="@Url.Action("PrintSalesReport", "Print", new { Id = ViewBag.ReportDate })" class="btn btn-lg btn-block btn-danger" title="Descargar Reporte en PDF"><i class="fa fa-file-pdf fa-fw"></i> Descargar</a></td>
+            }
+        </tr>
+    </tfoot>
+</table>
+
+@if (ViewBag.IsApple)
+{
+    <script>
+        $('a[data-apple="true"]').click(function (e) {
+            e.preventDefault();
+            var url = $(this).data('url');
+            $('#waitModal').modal('show');
+            $.sendPrintToApple(url);
+        });
+    </script>
+
+}

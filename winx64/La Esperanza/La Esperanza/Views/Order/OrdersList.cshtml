@@ -1,0 +1,145 @@
+﻿@model IEnumerable<IGrouping<DateTime, Orders>>
+
+@{
+    ViewData["Title"] = "Pedidos nuevos";
+}
+
+<div class="container-fluid p-2 p-md-4">
+    <h1><i class="fa fa-shopping-basket fa-fw text-primary"></i> Nuevos pedidos</h1>
+    <hr />
+    <div id="helpsection" class="collapse">
+        <p class="text-justify">
+            Aqu&iacute; se muestra la lista de pedidos nuevos, cada pedido tiene un flujo que debe recorrer para poderse completar, este es el primer paso de 3 definidos.
+            <br />
+            El primer paso consta de crear un pedido nuevo, y este se mostrar&aacute; en la lista de abajo, los pedidos tendr&aacute;n el estado de "nuevo",
+            y se pueden modificar libremente para agregar o quitar productos, cambiar las notas del producto, incluso cambiar de cliente.
+            <br />
+            Todos los pedidos se pueden cancelar en cualquier momento.
+            <br />
+            Cada pedido est&aacute; acompañado de un bloque de íconos que sirven para distintas acciones, cuya informaci&oacute;n se detalla a continuaci&oacute;n.
+        </p>
+        <fieldset>
+            <legend>
+                Leyenda
+            </legend>
+            <ul class="fa-ul">
+                <li><span class="fa-li"><i class="fa fa-plus-circle text-primary"></i></span>&nbsp; Este bot&oacute;n permite agregar un nuevo pedido.</li>
+                <li><span class="fa-li"><i class="fa fa-list text-info"></i></span>&nbsp; Este bot&oacute;n se usa para visualizar los detalles del pedido.</li>
+                <li><span class="fa-li"><i class="fa fa-chalkboard-teacher text-success"></i></span>&nbsp; Este bot&oacute;n se usa para pasar el pedido al siguiente paso "preparaci&oacute;n".</li>
+                <li><span class="fa-li"><i class="fa fa-edit text-warning"></i></span>&nbsp; Este bot&oacute;n se usa para modificar el pedido.</li>
+                <li><span class="fa-li"><i class="fa fa-trash text-danger"></i></span>&nbsp; Este bot&oacute;n se usa para cancelar el pedido.</li>
+            </ul>
+        </fieldset>
+    </div>
+    <div class="btn-group btn-group-lg btn-block my-3">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-dark"><i class="fa fa-home fa-fw"></i><span class="d-none d-md-inline"> Inicio</span></a>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#helpsection"><i class="fa fa-question-circle fa-fw"></i><span class="d-none d-md-inline"> Ayuda</span></button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-plus-circle fa-fw'></i> Nuevo pedido" data-url="@Url.Action("AddOrder","Order")"><i class="fa fa-plus-circle fa-fw"></i><span class="d-none d-md-inline"> Crear</span></button>
+    </div>
+
+    @if (Model.Count() == 0)
+    {
+        <div class="text-center p-5">
+            <i class="fa fa-sad-tear fa-6x text-primary"></i>
+            <h3>
+                ¡No hay!
+            </h3>
+        </div>
+    }
+    else
+    {
+        foreach (var order in Model)
+        {
+            <div class="card my-3 shadow border-dark">
+                <div class="card-header bg-dark text-white">
+                    <h2>
+                        Entrega: @order.Key.ToShortDateString()
+                    </h2>
+                </div>
+                <div class="card-body p-1 p-md-3">
+                    <div class="row">
+                        @foreach (var ticket in order)
+                        {
+                            <div class="col-md-4">
+                                <div class="card my-3 border-primary shadow">
+                                    <div class="card-header font-weight-bolder bg-primary text-white">
+                                        <h4 class="mb-0"><i class="fa fa-ticket-alt fa-fw"></i> @ticket.OrderId.ToString().PadLeft(6, '0')</h4>
+                                    </div>
+                                    <div class="card-body p-1">
+                                        <div class="form-row">
+                                            <label class="col-form-label col-2 text-right font-weight-bold"><i class="fa fa-user-tie fa-2x"></i></label>
+                                            <div class="col mt-2">
+                                                <h5 class="m-0">@ticket.Customer.CustomerName @ticket.Customer.CustomerLastname</h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <label class="col-form-label col-2 text-right font-weight-bold"><i class="fab fa-whatsapp fa-2x"></i></label>
+                                            <div class="col mt-2">
+                                                <h5 class="m-0">
+                                                    <a href="@($"https://wa.me/521{ticket.Customer.CustomerPhone}")" target="_blank">
+                                                        @string.Format("({0}) {1} - {2}", ticket.Customer.CustomerPhone.Substring(0, 2), ticket.Customer.CustomerPhone.Substring(2, 4), ticket.Customer.CustomerPhone.Substring(6))
+                                                    </a>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <label class="col-form-label col-2 text-right font-weight-bold">
+                                                @switch (ticket.MopId)
+                                                {
+                                                    case 1:
+                                                        <i class="fa fa-coins fa-fw fa-2x"></i>
+                                                        break;
+                                                    case 2:
+                                                    case 3:
+                                                        <i class="fa fa-credit-card fa-fw fa-2x"></i>
+                                                        break;
+                                                    case 4:
+                                                        <i class="fa fa-university fa-fw fa-2x"></i>
+                                                        break;
+                                                    case 5:
+                                                        <i class="fa fa-hand-holding-usd fa-fw fa-2x"></i>
+                                                        break;
+                                                    default:
+                                                        <i class="fa fa-times fa-fw fa-2x"></i>
+                                                        break;
+                                                }
+                                            </label>
+                                            <div class="col mt-2">
+                                                <h5 class="m-0">@(ticket.MopId.HasValue ? ticket.Mop.MopDescription : "No se especificó")</h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <label class="col-form-label col-2 text-right font-weight-bold"><i class="fa fa-clock fa-2x"></i></label>
+                                            <div class="col mt-2">
+                                                <h5 class="m-0">@(ticket.OrderScheduleDate.HasValue ? ticket.OrderScheduleDate.Value.ToShortTimeString() : "En el día")</h5>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col px-3 py-2 text-right">
+                                                <h5 class="mb-0">Total: @ticket.OrderTotal.ToString("C2")</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer p-1 bg-transparent border-0">
+                                        <div class="btn-group btn-group-lg btn-block">
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#detailsModal" data-title="<i class='fa fa-list fa-fw'></i> Detalles del pedido" data-id="@ticket.OrderId" data-url="@Url.Action("DetailsOrder", "Order")"><i class="fa fa-list fa-fw"></i></button>
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-chalkboard-teacher fa-fw'></i> Avanzar el pedido" data-id="@ticket.OrderId" data-url="@Url.Action("MoveOrder", "Order")"><i class="fa fa-chalkboard-teacher fa-fw"></i></button>
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-edit fa-fw'></i> Modificar pedido" data-id="@ticket.OrderId" data-url="@Url.Action("EditOrder", "Order")"><i class="fa fa-edit fa-fw"></i></button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-trash fa-fw'></i> Cancelar pedido" data-id="@ticket.OrderId" data-url="@Url.Action("DeleteOrder", "Order")"><i class="fa fa-trash fa-fw"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<partial name="_FormModalPartial" />
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

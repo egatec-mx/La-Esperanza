@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "La Esperanza", "La Esperanza\La Esperanza.csproj", "{DD3E5722-88CD-47D4-8690-5690C8C2266F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaEsperanza.Api", "La Esperanza.Api\LaEsperanza.Api.csproj", "{FB85A8E9-CCF0-4492-8BDC-1AE7BD502F45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD3E5722-88CD-47D4-8690-5690C8C2266F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD3E5722-88CD-47D4-8690-5690C8C2266F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD3E5722-88CD-47D4-8690-5690C8C2266F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD3E5722-88CD-47D4-8690-5690C8C2266F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB85A8E9-CCF0-4492-8BDC-1AE7BD502F45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB85A8E9-CCF0-4492-8BDC-1AE7BD502F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB85A8E9-CCF0-4492-8BDC-1AE7BD502F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB85A8E9-CCF0-4492-8BDC-1AE7BD502F45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {617ECB83-3602-4CDC-A20B-288A1A874265}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/egatec
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = La\u0020Esperanza\\La\u0020Esperanza.csproj
+		SccProjectName1 = La\u0020Esperanza
+		SccLocalPath1 = La\u0020Esperanza
+		SccProjectUniqueName2 = La\u0020Esperanza.Api\\LaEsperanza.Api.csproj
+		SccProjectName2 = La\u0020Esperanza.Api
+		SccLocalPath2 = La\u0020Esperanza.Api
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Users>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<div class="container-fluid p-2 p-md-4">
+    <h1><i class="fa fa-users fa-fw"></i> Lista de usuarios</h1>
+    <hr />
+    <div id="helpsection" class="collapse">
+        <p class="text-justify">
+            Aqu&iacute; se muestra la lista de usuarios que usan el sistema, cada usuario representa a una persona, los usuarios cuentan con un "Rol" el cual le permite realizar
+            algunas acciones dentro del sistema o le restringe el acceso hacia algunas secciones.
+        </p>
+        <fieldset>
+            <legend>
+                Leyenda
+            </legend>
+            <ul class="fa-ul">
+                <li><span class="fa-li"><i class="fa fa-user-plus text-primary"></i></span>&nbsp; Este bot&oacute;n permite agregar un nuevo usuario al sistema.</li>
+                <li><span class="fa-li"><i class="fa fa-user-lock text-success"></i></span>&nbsp; Este bot&oacute;n se usa para debloquear un usuario que tiene su cuenta bloqueada debido a varios intentos fallidos para ingresar al sistema.</li>
+                <li><span class="fa-li"><i class="fa fa-user-edit text-warning"></i></span>&nbsp; Este bot&oacute;n se usa para modificar la informaci&oacute;n del usuario.</li>
+                <li><span class="fa-li"><i class="fa fa-user-times text-danger"></i></span>&nbsp; Este bot&oacute;n se usa para borrar al usuario del sistema.</li>
+            </ul>
+        </fieldset>
+    </div>
+    <div class="btn-group btn-group-lg btn-block my-3">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-dark"><i class="fa fa-home fa-fw"></i><span class="d-none d-md-inline"> Inicio</span></a>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#helpsection"><i class="fa fa-question-circle fa-fw"></i><span class="d-none d-md-inline"> Ayuda</span></button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-user-plus fa-fw'></i> Nuevo usuario" data-url="@Url.Action("AddUser","Account")"><i class="fa fa-user-plus fa-fw"></i></button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-borderless table-striped table-sm" cellpadding="0" cellspacing="0" style="min-width:800px;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Apellido(s)</th>
+                    <th>Usuario desde</th>
+                    <th>Rol</th>
+                    <th>¿Bloqueado?</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Users user in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-user-lock fa-fw'></i> Desbloquear usuario" data-id="@user.UserId" data-url="@Url.Action("UnlockUser","Account")"><i class="fa fa-user-lock fa-fw"></i></button>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-user-edit fa-fw'></i> Modificar usuario" data-id="@user.UserId" data-url="@Url.Action("EditUser","Account")"><i class="fa fa-user-edit fa-fw"></i></button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-user-times fa-fw'></i> Borrar usuario" data-id="@user.UserId" data-url="@Url.Action("DeleteUser","Account")"><i class="fa fa-user-times fa-fw"></i></button>
+                            </div>
+                        </td>
+                        <td>@user.UserUsername</td>
+                        <td>@user.UserFirstname</td>
+                        <td>@user.UserLastname</td>
+                        <td>@user.UserCreatedDate.ToLongDateString()</td>
+                        <td>@user.Role.RoleName</td>
+                        <td>@(user.UserLocked ? "Bloqueado" : "No")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<partial name="_FormModalPartial" />
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

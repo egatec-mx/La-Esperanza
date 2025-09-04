@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Products>
+
+@{
+    ViewData["Title"] = "Productos";
+}
+
+<div class="container-fluid p-2 p-md-4">
+    <h1><i class="fa fa-boxes fa-fw"></i> Lista de productos</h1>
+    <div id="helpsection" class="collapse">
+        <p class="text-justify">
+            Aqu&iacute; se muestra la lista de productos que se han registrado en el sistema para poder llevar el registro de los pedidos que
+            cada cliente realiza, al igual que su precio.
+        </p>
+        <fieldset>
+            <legend>
+                Leyenda
+            </legend>
+            <ul class="fa-ul">
+                <li><span class="fa-li"><i class="fa fa-plus-circle text-primary"></i></span>&nbsp; Este bot&oacute;n permite agregar un nuevo producto al sistema.</li>
+                <li><span class="fa-li"><i class="fa fa-edit text-warning"></i></span>&nbsp; Este bot&oacute;n se usa para modificar la informaci&oacute;n del producto.</li>
+                <li><span class="fa-li"><i class="fa fa-trash text-danger"></i></span>&nbsp; Este bot&oacute;n se usa para borrar un producto del sistema.</li>
+            </ul>
+        </fieldset>
+    </div>
+    <div class="btn-group btn-group-lg btn-block my-3">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-dark"><i class="fa fa-home fa-fw"></i><span class="d-none d-md-inline"> Inicio</span></a>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#helpsection"><i class="fa fa-question-circle fa-fw"></i><span class="d-none d-md-inline"> Ayuda</span></button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-plus-circle fa-fw'></i> Nuevo producto" data-url="@Url.Action("AddProduct","Product")"><i class="fa fa-plus-circle fa-fw"></i></button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-borderless table-striped table-sm" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Products product in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-edit fa-fw'></i> Modificar producto" data-id="@product.ProductId" data-url="@Url.Action("EditProduct","Product")"><i class="fa fa-edit fa-fw"></i></button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal" data-title="<i class='fa fa-trash fa-fw'></i> Borrar producto" data-id="@product.ProductId" data-url="@Url.Action("DeleteProduct","Product")"><i class="fa fa-trash fa-fw"></i></button>
+                            </div>
+                        </td>
+                        <td>@product.ProductName</td>
+                        <td>@product.ProductPrice.ToString("C2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<partial name="_FormModalPartial" />
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

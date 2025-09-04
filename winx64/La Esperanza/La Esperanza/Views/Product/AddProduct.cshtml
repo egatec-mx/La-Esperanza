@@ -1,0 +1,32 @@
+﻿@model Products
+
+<form asp-action="AddProduct" asp-controller="Product" method="post" novalidate>
+    <input type="hidden" asp-for="ProductId" />
+    <input type="hidden" asp-for="ProductActive" />
+    <fieldset>
+        <legend class="text-info">
+            <i class="fa fa-id-card fa-fw"></i> Informaci&oacute;n
+        </legend>
+        <hr class="border-info mt-0" />
+        <div asp-validation-summary="All" class="alert alert-danger p-1 my-2">
+            <div class="media">
+                <i class="fa fa-exclamation-circle fa-fw fa-2x m-1"></i>
+                <div class="media-body mt-2">
+                    <p class="p-0 m-0">
+                        Revise la siguiente informaci&oacute;n:
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <input asp-for="ProductName" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.ProductName).CapitalFirstLetter()" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
+                <input type="text" inputmode="decimal" asp-for="ProductPrice" class="form-control" placeholder="@Html.DisplayNameFor(m=>m.ProductPrice).CapitalFirstLetter()" data-mask="true" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'placeholder': '0'" value="" />
+            </div>
+        </div>
+    </fieldset>
+</form>

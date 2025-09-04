@@ -1,0 +1,14 @@
+﻿@model Orders
+
+<form asp-action="MoveOrder" asp-controller="Order" method="put" novalidate>
+    <input type="hidden" asp-for="OrderId" />
+    <fieldset>
+        <legend class="text-warning">
+            <i class="fa fa-exclamation-circle fa-fw"></i> Advertencia
+        </legend>
+        <hr class="border-warning mt-0" />
+        <p class="text-justify">
+            ¿Confirma que desea mover el pedido No. <b>@Model.OrderId.ToString().PadLeft(6, '0')</b> al siguiente paso?
+        </p>
+    </fieldset>
+</form>

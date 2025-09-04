@@ -1,0 +1,14 @@
+﻿@model Customers
+
+<form asp-action="DeleteCustomer" asp-controller="Customer" method="delete" novalidate>
+    <input type="hidden" asp-for="CustomerId" />
+    <fieldset>
+        <legend class="text-danger">
+            <i class="fa fa-exclamation-circle fa-fw"></i> Advertencia
+        </legend>
+        <hr class="border-danger mt-0" />
+        <p class="text-justify">
+            ¿Quiere borrar permanentemente el cliente <b>@Model.CustomerName @Model.CustomerLastname</b>?
+        </p>
+    </fieldset>
+</form>
