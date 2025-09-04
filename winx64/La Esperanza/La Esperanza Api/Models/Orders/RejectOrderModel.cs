@@ -1,4 +1,6 @@
-﻿namespace LaEsperanza.Api.Models
+﻿using La_Esperanza_Api.Models.Base;
+
+namespace La_Esperanza_Api.Models.Orders
 {
     public class RejectOrderModel : BaseModel
     {

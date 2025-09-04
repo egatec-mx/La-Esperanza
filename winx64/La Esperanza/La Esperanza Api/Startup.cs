@@ -1,6 +1,6 @@
-using LaEsperanza.Api.Data;
-using LaEsperanza.Api.Services;
-using LaEsperanza.Api.Settings;
+using La_Esperanza_Api.Data;
+using La_Esperanza_Api.Services;
+using La_Esperanza_Api.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using System;
 using System.Globalization;
 using System.Text;
 
-namespace LaEsperanza.Api
+namespace La_Esperanza_Api
 {
     public class Startup
     {

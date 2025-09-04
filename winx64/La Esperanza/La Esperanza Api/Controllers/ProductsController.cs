@@ -1,6 +1,6 @@
-﻿using LaEsperanza.Api.Data;
-using LaEsperanza.Api.Data.Models;
-using LaEsperanza.Api.Models;
+﻿using La_Esperanza_Api.Data;
+using La_Esperanza_Api.Data.Models;
+using La_Esperanza_Api.Models.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LaEsperanza.Api.Controllers
+namespace La_Esperanza_Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

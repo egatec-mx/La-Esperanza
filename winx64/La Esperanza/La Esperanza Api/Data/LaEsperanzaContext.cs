@@ -1,7 +1,7 @@
-﻿using LaEsperanza.Api.Data.Models;
+﻿using La_Esperanza_Api.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LaEsperanza.Api.Data
+namespace La_Esperanza_Api.Data
 {
     public partial class LaEsperanzaContext : DbContext
     {

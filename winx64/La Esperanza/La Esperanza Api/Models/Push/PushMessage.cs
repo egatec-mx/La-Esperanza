@@ -1,4 +1,4 @@
-﻿namespace LaEsperanza.Api.Models
+﻿namespace La_Esperanza_Api.Models.Push
 {
     public class PushMessage
     {

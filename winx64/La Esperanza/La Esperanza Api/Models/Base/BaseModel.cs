@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LaEsperanza.Api.Models
+namespace La_Esperanza_Api.Models.Base
 {
     public abstract class BaseModel
     {

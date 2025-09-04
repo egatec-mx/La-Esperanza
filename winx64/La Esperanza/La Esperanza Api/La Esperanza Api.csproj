@@ -10,7 +10,7 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<UserSecretsId>39f04a2f-e939-4a4b-bf90-810047032486</UserSecretsId>
-		<StartupObject>LaEsperanza.Api.Program</StartupObject>
+		<StartupObject>La_Esperanza_Api.Program</StartupObject>
 	</PropertyGroup>
 
 
@@ -60,9 +60,9 @@
 		<None Remove="Properties\Resources.es" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Reference Include="Barcode.Express.Core">
-	    <HintPath>..\..\..\..\!SharedLibraries\Barcode.Express.Core\Barcode.Express.Core.dll</HintPath>
-	  </Reference>
+		<Reference Include="Barcode.Express.Core">
+			<HintPath>..\..\..\..\!SharedLibraries\Barcode.Express.Core\Barcode.Express.Core.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="Properties\Resources.Designer.cs">

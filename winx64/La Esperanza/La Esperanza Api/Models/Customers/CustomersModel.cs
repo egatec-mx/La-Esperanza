@@ -1,9 +1,8 @@
-﻿using LaEsperanza.Api.Data.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace LaEsperanza.Api.Models
+namespace La_Esperanza_Api.Models.Customers
 {
-    public class CustomersModel : Customers
+    public class CustomersModel : Data.Models.Customers
     {
         public string Message { get; set; }
         public List<string> Errors { get; set; }

@@ -1,4 +1,6 @@
-﻿@model LaEsperanza.Api.Models.Reports.SalesByRangeModel
+﻿@using La_Esperanza_Api.Data.Models
+@using La_Esperanza_Api.Models.Reports
+@model SalesByRangeModel
 
 @{
     Layout = null;
@@ -21,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (LaEsperanza.Api.Data.Models.Orders order in Model.Orders)
+            @foreach (Orders order in Model.Orders)
             {
                 <tr>
                     <td colspan="2" class="py-2 px-0 m-0 border-bottom border-info">

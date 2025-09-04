@@ -1,8 +1,9 @@
-﻿using LaEsperanza.Api.Data;
-using LaEsperanza.Api.Data.Models;
-using LaEsperanza.Api.Models;
-using LaEsperanza.Api.Services;
-using LaEsperanza.Helpers;
+﻿using La_Esperanza_Api.Data;
+using La_Esperanza_Api.Data.Models;
+using La_Esperanza_Api.Helpers;
+using La_Esperanza_Api.Models.Orders;
+using La_Esperanza_Api.Models.Products;
+using La_Esperanza_Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace LaEsperanza.Api.Controllers
+namespace La_Esperanza_Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -39,7 +40,7 @@ namespace LaEsperanza.Api.Controllers
             {
                 List<OrdersListModel> newOrders = await _dbContext.Orders.
                     Where(o => new int[] { 1, 2, 3 }.Contains(o.StatusId) ||
-                    (new int[] { 4, 5, 6 }.Contains(o.StatusId) && o.OrderScheduleDate.Value.Date >= DateTime.Now.Date))
+                    new int[] { 4, 5, 6 }.Contains(o.StatusId) && o.OrderScheduleDate.Value.Date >= DateTime.Now.Date)
                     .Select(o => new OrdersListModel
                     {
                         OrderId = o.OrderId,

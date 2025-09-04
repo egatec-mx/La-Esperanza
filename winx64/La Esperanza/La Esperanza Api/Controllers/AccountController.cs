@@ -1,8 +1,8 @@
-﻿using LaEsperanza.Api.Data;
-using LaEsperanza.Api.Data.Models;
-using LaEsperanza.Api.Helpers;
-using LaEsperanza.Api.Models;
-using LaEsperanza.Api.Settings;
+﻿using La_Esperanza_Api.Data;
+using La_Esperanza_Api.Data.Models;
+using La_Esperanza_Api.Helpers;
+using La_Esperanza_Api.Models.Account;
+using La_Esperanza_Api.Settings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +16,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaEsperanza.Api.Controllers
+namespace La_Esperanza_Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -150,7 +150,7 @@ namespace LaEsperanza.Api.Controllers
                     if (model.DevicePushAuth.Contains("Apple"))
                     {
                         Devices dbDevice = await _dbContext.Devices.FirstOrDefaultAsync(d => d.DevicePushP256dh == model.DevicePushP256dh).ConfigureAwait(true);
-                        
+
                         if (dbDevice != null)
                         {
                             dbDevice.DeviceNotificationCount = 0;
@@ -160,7 +160,7 @@ namespace LaEsperanza.Api.Controllers
                             {
                                 dbDevice.DeviceRegistrationDate = DateTime.Now;
                             }
-                            
+
                             _dbContext.Entry(dbDevice).State = EntityState.Modified;
 
                             _ = await _dbContext.SaveChangesAsync().ConfigureAwait(true);

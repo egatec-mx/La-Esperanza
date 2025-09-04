@@ -1,13 +1,12 @@
-﻿using LaEsperanza.Api.Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace LaEsperanza.Api.Models.Reports
+namespace La_Esperanza_Api.Models.Reports
 {
     public class SalesByRangeModel
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public List<Orders> Orders { get; set; }
+        public List<Data.Models.Orders> Orders { get; set; }
     }
 }

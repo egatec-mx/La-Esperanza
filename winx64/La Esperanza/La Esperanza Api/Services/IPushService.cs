@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace LaEsperanza.Api.Services
+namespace La_Esperanza_Api.Services
 {
     public interface IPushService
     {

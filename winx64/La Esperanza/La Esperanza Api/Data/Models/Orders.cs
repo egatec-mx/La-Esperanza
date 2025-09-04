@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LaEsperanza.Api.Data.Models
+namespace La_Esperanza_Api.Data.Models
 {
     public partial class Orders
     {

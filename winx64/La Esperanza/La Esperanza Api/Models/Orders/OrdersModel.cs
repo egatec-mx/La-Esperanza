@@ -1,7 +1,8 @@
-﻿using System;
+﻿using La_Esperanza_Api.Models.Base;
+using System;
 using System.Collections.Generic;
 
-namespace LaEsperanza.Api.Models
+namespace La_Esperanza_Api.Models.Orders
 {
     public class OrdersModel : BaseModel
     {

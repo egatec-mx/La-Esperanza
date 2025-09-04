@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace LaEsperanza.Api
+namespace La_Esperanza_Api
 {
     public class Program
     {

@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace LaEsperanza.Helpers
+namespace La_Esperanza_Api.Helpers
 {
     public static class CodeGeneratorHelper
     {

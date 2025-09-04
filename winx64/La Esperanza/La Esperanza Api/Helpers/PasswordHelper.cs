@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace LaEsperanza.Api.Helpers
+namespace La_Esperanza_Api.Helpers
 {
     public static class PasswordHelper
     {

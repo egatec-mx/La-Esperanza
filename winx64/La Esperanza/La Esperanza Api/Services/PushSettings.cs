@@ -1,4 +1,4 @@
-﻿namespace LaEsperanza.Api.Services
+﻿namespace La_Esperanza_Api.Services
 {
     public class ApplePushSettings
     {

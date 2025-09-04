@@ -1,4 +1,4 @@
-﻿namespace LaEsperanza.Api.Settings
+﻿namespace La_Esperanza_Api.Settings
 {
     public class JWTSettings
     {

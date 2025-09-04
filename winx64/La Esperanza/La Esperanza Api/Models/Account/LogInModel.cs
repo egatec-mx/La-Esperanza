@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using La_Esperanza_Api.Models.Base;
+using System.ComponentModel.DataAnnotations;
 
-namespace LaEsperanza.Api.Models
+namespace La_Esperanza_Api.Models.Account
 {
     public class LogInModel : BaseModel
     {

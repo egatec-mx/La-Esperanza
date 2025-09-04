@@ -1,6 +1,6 @@
-﻿using LaEsperanza.Api.Data;
-using LaEsperanza.Api.Data.Models;
-using LaEsperanza.Api.Models;
+﻿using La_Esperanza_Api.Data;
+using La_Esperanza_Api.Data.Models;
+using La_Esperanza_Api.Models.Push;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -21,7 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebPush;
 
-namespace LaEsperanza.Api.Services
+namespace La_Esperanza_Api.Services
 {
     public class PushService : IPushService
     {
