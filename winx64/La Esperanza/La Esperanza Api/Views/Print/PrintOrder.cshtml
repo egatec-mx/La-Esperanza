@@ -1,0 +1,241 @@
+﻿@using La_Esperanza_Api.Data.Models
+@model Orders
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es-mx">
+<head>
+    <title>@Model.OrderId.ToString().PadLeft(6, '0')</title>
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/print.min.css" rel="stylesheet" />
+</head>
+<body>
+    <table class="table table-borderless table-sm" cellpadding="0" cellspacing="0" width="100%">
+        <tbody>
+            <tr>
+                <td valign="middle" style="width:172px;">
+                    <img src="~/images/logo.png" width="172" height="172" />
+                </td>
+                <td valign="top" class="text-left">
+                    <p class="small">
+                        <strong>La Esperanza, Carnicer&iacute;a y Tociner&iacute;a</strong> <br />
+                        Mar&iacute;a Nelly L&oacute;pez Robles, RFC: LORN5606255P5 <br />
+                        Calle Volcán Popocatepetl #67, <br />
+                        Colonia La Pradera, <br />
+                        Delegaci&oacute;n Gustavo A. Madero, <br />
+                        Ciudad de M&eacute;xico, <br />
+                        CP. 07500 <br />
+                        Tel: (55) 2912 - 4083
+                    </p>
+                </td>
+                <td valign="middle" class="text-center" style="width:172px;">
+                    @if (!string.IsNullOrEmpty(Model.OrderQrCode))
+                    {
+                        <img src="data:image/png;base64, @Model.OrderQrCode" width="172" height="172" />
+                    }
+                </td>
+                <td valign="middle">
+                    <table class="table table-borderless table-sm small" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td class="text-right" style="width:40%;"><strong>Número:</strong></td>
+                                <td>@Model.OrderId.ToString().PadLeft(6, '0')</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right" style="width:40%;"><strong>Fecha:</strong></td>
+                                <td>@Model.OrderDate.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right" style="width:40%;"><strong>Hora:</strong></td>
+                                <td>@Model.OrderDate.ToShortTimeString()</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right" style="width:40%;"><strong>Pago:</strong></td>
+                                <td>@(Model.MopId.HasValue ? Model.Mop.MopDescription : "No se especificó")</td>
+                            </tr>
+                            @switch (Model.StatusId)
+                            {
+                                case 4:
+                                    <tr>
+                                        <td class="text-right" style="width:40%;"><strong>Entrega:</strong></td>
+                                        <td>@(Model.OrderDeliveredDate.HasValue ? Model.OrderDeliveredDate.Value.ToShortDateString() : string.Empty)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" style="width:40%;"><strong>Hora:</strong></td>
+                                        <td>@(Model.OrderDeliveredDate.HasValue ? Model.OrderDeliveredDate.Value.ToShortTimeString() : string.Empty)</td>
+                                    </tr>
+                                    break;
+                                case 5:
+                                    <tr>
+                                        <td class="text-right" style="width:40%;"><strong>Entrega:</strong></td>
+                                        <td>@(Model.OrderCanceledDate.HasValue ? Model.OrderCanceledDate.Value.ToShortDateString() : string.Empty)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" style="width:40%;"><strong>Hora:</strong></td>
+                                        <td>@(Model.OrderCanceledDate.HasValue ? Model.OrderCanceledDate.Value.ToShortTimeString() : string.Empty)</td>
+                                    </tr>
+                                    break;
+                                case 6:
+                                    <tr>
+                                        <td class="text-right" style="width:40%;"><strong>Entrega:</strong></td>
+                                        <td>@(Model.OrderRejectedDate.HasValue ? Model.OrderRejectedDate.Value.ToShortDateString() : string.Empty)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" style="width:40%;"><strong>Hora:</strong></td>
+                                        <td>@(Model.OrderRejectedDate.HasValue ? Model.OrderRejectedDate.Value.ToShortTimeString() : string.Empty)</td>
+                                    </tr>
+                                    break;
+                                default:
+                                    <tr>
+                                        <td class="text-right" style="width:40%;"><strong>Entrega:</strong></td>
+                                        <td>@(Model.OrderScheduleDate.HasValue ? Model.OrderScheduleDate.Value.ToShortDateString() : string.Empty)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" style="width:40%;"><strong>Hora:</strong></td>
+                                        <td>@(Model.OrderScheduleDate.HasValue ? Model.OrderScheduleDate.Value.ToShortTimeString() : string.Empty)</td>
+                                    </tr>
+                                    break;
+                            }
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h1 class="text-dark text-center">
+        <i class="fa fa-ticket-alt"></i>
+        Pedido
+    </h1>
+    <fieldset>
+        <legend class="text-dark">
+            <i class="fa fa-user-tie"></i>
+            Cliente
+        </legend>
+        <hr class="mt-0 border-dark" />
+        <table class="table table-borderless table-sm" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td valign="top" style="width:40%">
+                        <label class="font-weight-bold">Nombre:</label> @Model.Customer.CustomerName @Model.Customer.CustomerLastname <br />
+                        <label class="font-weight-bold">Teléfono:</label> @string.Format("({0}) {1} - {2}", Model.Customer.CustomerPhone.Substring(0, 2), Model.Customer.CustomerPhone.Substring(2, 4), Model.Customer.CustomerPhone.Substring(6))
+                    </td>
+                    <td valign="top">
+                        <label class="font-weight-bold">Direcci&oacute;n:</label>
+                    </td>
+                    <td valign="top">
+                        <address>
+                            @Model.Customer.CustomerStreet, <br />
+                            @Model.Customer.CustomerColony, <br />
+                            @Model.Customer.CustomerCity, @Model.Customer.State.StateName <br />
+                            @Model.Customer.State.Country.CountryName, <abbr>C.P.</abbr> @Model.Customer.CustomerZipcode
+                        </address>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset class="mt-2">
+        <legend>
+            <i class="fa fa-list"></i>
+            Art&iacute;culos
+        </legend>
+        <hr class="mt-0 border-dark" />
+        <table class="table table-sm table-borderless" cellpadding="0" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Cantidad (kg)</th>
+                    <th>Producto</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (OrderDetails detail in Model.OrderDetails)
+                {
+                    <tr>
+                        <td class="font-weight-bold text-dark">
+                            @detail.OrderDetailQuantity.ToString("F2")
+                        </td>
+                        <td>
+                            @detail.Product.ProductName
+                        </td>
+                        <td>
+                            @detail.OrderDetailTotal.ToString("C2")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr class="py-4">
+                    <td colspan="2" class="text-right font-weight-bold">
+                        Cargo por env&iacute;o
+                    </td>
+                    <td colspan="2">
+                        @(Model.OrderDeliveryTax.HasValue ? Model.OrderDeliveryTax.Value.ToString("C2") : "$0.00")
+                    </td>
+                </tr>
+                <tr class="py-4">
+                    <td colspan="2" class="text-right font-weight-bolder">
+                        Total  del pedido
+                    </td>
+                    <td>
+                        @Model.OrderTotal.ToString("C2")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+    @if (!string.IsNullOrEmpty(Model.OrderNotes))
+    {
+        <fieldset>
+            <legend>
+                <i class="fa fa-sticky-note"></i>
+                Notas
+            </legend>
+            <hr class="mt-0 border-dark" />
+            <p class="my-3">@Html.Raw(Model.OrderNotes?.Replace("\r\n", "<br />").Replace("\n", "<br />"))</p>
+        </fieldset>
+    }
+    @switch (Model.StatusId)
+    {
+        case 5:
+            <fieldset>
+                <legend>
+                    <i class="fa fa-sticky-note"></i>
+                    Razón de cancelación
+                </legend>
+                <hr class="mt-0 border-dark" />
+                <p class="my-3">@Html.Raw(Model.OrderCanceledReason?.Replace("\r\n", "<br />").Replace("\n", "<br />"))</p>
+            </fieldset>
+            break;
+        case 6:
+            <fieldset>
+                <legend>
+                    <i class="fa fa-sticky-note"></i>
+                    Razón de rechazo
+                </legend>
+                <hr class="mt-0 border-dark" />
+                <p class="my-3">@Html.Raw(Model.OrderRejectedReason?.Replace("\r\n", "<br />").Replace("\n", "<br />"))</p>
+            </fieldset>
+            break;
+    }
+    <div class="seal">
+        @switch (Model.StatusId)
+        {
+            case 4:
+                <div class="text-success">ENTREGADO</div>
+                break;
+            case 5:
+                <div class="text-danger">CANCELADO</div>
+                break;
+            case 6:
+                <div class="text-danger">RECHAZADO</div>
+                break;
+        }
+    </div>
+    <script src="~/lib/font-awesome/js/all.js"></script>
+</body>
+</html>

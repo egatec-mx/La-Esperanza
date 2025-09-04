@@ -1,0 +1,94 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UserSecretsId>39f04a2f-e939-4a4b-bf90-810047032486</UserSecretsId>
+		<StartupObject>La_Esperanza_Api.Program</StartupObject>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<Folder Include="Settings\">
+		</Folder>
+		<Folder Include="Data\">
+		</Folder>
+		<Folder Include="Helpers\">
+		</Folder>
+		<Folder Include="Models\Base\">
+		</Folder>
+		<Folder Include="Models\Orders\">
+		</Folder>
+		<Folder Include="Models\Customers\">
+		</Folder>
+		<Folder Include="Models\Account\">
+		</Folder>
+		<Folder Include="Models\Products\">
+		</Folder>
+		<Folder Include="Services\">
+		</Folder>
+		<Folder Include="Models\Push\">
+		</Folder>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.7" />
+		<PackageReference Include="Rotativa.NetCore" Version="1.0.4" />
+		<PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+		<PackageReference Include="WebPush-NetCore" Version="1.0.2" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.10" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="LaEsperanza.Api.csproj.vspscc" />
+		<None Remove="Properties\Resources.es" />
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="Barcode.Express.Core">
+			<HintPath>..\..\..\..\!SharedLibraries\Barcode.Express.Core\Barcode.Express.Core.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DependentUpon>Resources.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Services\PushService.cs">
+			<DependentUpon>IPushService.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Apple\APN.p12">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Apple\AuthKey_628P3CNM4X.p8">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Rotativa\wkhtmltoimage.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Rotativa\wkhtmltopdf.exe">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Rotativa\wkhtmltox.dll">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>
