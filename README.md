@@ -21,7 +21,7 @@ La aplicación está diseñada para cubrir dos roles principales:
 
 Este proyecto se encuentra en **fase inicial de desarrollo**. Existe un código base creado hace más de 6 años, pero debido a su obsolescencia tecnológica, se ha decidido **migrar y reconstruir** la aplicación utilizando tecnologías modernas, escalables y seguras.
 
-## 🚀 Características
+🚀 Características
 
 - ✅ Genera Pedidos desde el lado del Proveedor
 - ✅ Tiene sitio Web
