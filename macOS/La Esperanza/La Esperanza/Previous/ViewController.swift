@@ -13,7 +13,7 @@ import PDFKit
 class ViewController: UIViewController, WKScriptMessageHandler {
     @objc var WebView: WKWebView!
     let openPDF: String = "openPDF"
-    let baseUrl: String = "https://esperanza.egatec.com.mx"
+    let baseUrl: String = ""
     let hideModalScript: String = "$('#waitModal').modal('hide');"
     
     override func viewDidLoad() {
