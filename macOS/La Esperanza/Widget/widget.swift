@@ -9,8 +9,8 @@
 import WidgetKit
 import SwiftUI
 
-let serverURL: String = "https://esperanza.egatec.com.mx/mobile/api"
-let suiteName: String = "group.mx.com.egatec.esperanza"
+let serverURL: String = ""
+let suiteName: String = ""
 
 struct Order: Hashable {
     let Id: CLongLong
@@ -185,9 +185,13 @@ struct WidgetView: View {
             }
         })
         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .top)
-        .foregroundColor(.white)
-        .background(Color.black)
+        .foregroundColor(.primary)
+        .background(.thinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
         .padding(0)
+        .containerBackground(for:.widget) {
+            Color(.systemBackground)
+        }
     }
 }
 
@@ -246,56 +250,21 @@ struct widget: Widget {
 
 struct widget_Previews: PreviewProvider {
     static var previews: some View {
-        Group{
+        Group {
             WidgetView(entry: WidgetEntry(date: Date(), orders: [
-                Order(Id: 10334, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10334, Customer: "María del Carmen", Amount: 150.00, Status: 1),
                 Order(Id: 10335, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-                Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-                Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-                Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
-                Order(Id: 10339, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
-                Order(Id: 10340, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-                Order(Id: 10341, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-                Order(Id: 10342, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-                Order(Id: 10343, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
-                Order(Id: 10344, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
-                Order(Id: 10345, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-                Order(Id: 10346, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-                Order(Id: 10347, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-                Order(Id: 10348, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
-                Order(Id: 10334, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
-                Order(Id: 10335, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-                Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-                Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-                Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
-                Order(Id: 10339, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
-                Order(Id: 10340, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-                Order(Id: 10341, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-                Order(Id: 10342, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-                Order(Id: 10343, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
-                Order(Id: 10344, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
-                Order(Id: 10345, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-                Order(Id: 10346, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-                Order(Id: 10347, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-                Order(Id: 10348, Customer: "Carmen Frutas", Amount: 150.00, Status: 5)
+                Order(Id: 10336, Customer: "Araceli", Amount: 750.00, Status: 3),
+                Order(Id: 10337, Customer: "Gloria", Amount: 1150.00, Status: 4),
+                Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5)
             ], error: false)).previewContext(WidgetPreviewContext(family: .systemLarge))
             
             WidgetView(entry: WidgetEntry(date: Date(), orders: [
-                Order(Id: 10334, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
+                Order(Id: 10334, Customer: "María del Carmen", Amount: 150.00, Status: 1),
                 Order(Id: 10335, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-                Order(Id: 10336, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-                Order(Id: 10337, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-                Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
-                Order(Id: 10339, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
-                Order(Id: 10340, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-                Order(Id: 10341, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-                Order(Id: 10342, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-                Order(Id: 10343, Customer: "Carmen Frutas", Amount: 150.00, Status: 5),
-                Order(Id: 10344, Customer: "María del Carmen Rodríguez", Amount: 150.00, Status: 1),
-                Order(Id: 10345, Customer: "Ara Lago", Amount: 550.50, Status: 2),
-                Order(Id: 10346, Customer: "Araceli Álvarez", Amount: 750.00, Status: 3),
-                Order(Id: 10347, Customer: "Gloria Nelly Vargas López", Amount: 1150.00, Status: 4),
-                Order(Id: 10348, Customer: "Carmen Frutas", Amount: 150.00, Status: 5)
+                Order(Id: 10336, Customer: "Araceli", Amount: 750.00, Status: 3),
+                Order(Id: 10337, Customer: "Gloria", Amount: 1150.00, Status: 4),
+                Order(Id: 10338, Customer: "Carmen Frutas", Amount: 150.00, Status: 5)
             ], error: false)).previewContext(WidgetPreviewContext(family: .systemMedium))
         }
     }

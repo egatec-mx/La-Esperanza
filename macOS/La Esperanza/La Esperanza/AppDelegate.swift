@@ -14,8 +14,8 @@ import WidgetKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let serverURL: String = "https://esperanza.egatec.com.mx/mobile/api"
-    let suiteName: String = "group.mx.com.egatec.esperanza"
+    let serverURL: String = ""
+    let suiteName: String = ""
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
                 
