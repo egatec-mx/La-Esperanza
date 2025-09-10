@@ -8,8 +8,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
-		<UserSecretsId>aspnet-La_Esperanza-F8027D46-DF27-401A-8549-FF8BCE165B19</UserSecretsId>
+		<TargetFramework>net8.0</TargetFramework>
+		<UserSecretsId></UserSecretsId>
 		<RootNamespace>La_Esperanza</RootNamespace>
 		<CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
 		<StartupObject>La_Esperanza.Program</StartupObject>
@@ -24,7 +24,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore"
+			Version="5.0.7" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.7" />
@@ -44,12 +45,6 @@
 
 	<ItemGroup>
 		<None Include="bundleconfig.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="Barcode.Express.Core">
-	    <HintPath>..\..\..\..\!SharedLibraries\Barcode.Express.Core\Barcode.Express.Core.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>
