@@ -4,14 +4,10 @@ namespace La_Esperanza.Data
 {
     public partial class LaEsperanzaContext : DbContext
     {
-        public LaEsperanzaContext()
-        {
-        }
+        public LaEsperanzaContext() => Database.EnsureCreated();
 
         public LaEsperanzaContext(DbContextOptions<LaEsperanzaContext> options)
-            : base(options)
-        {
-        }
+            : base(options) => Database.EnsureCreated();
 
         public virtual DbSet<Countries> Countries { get; set; }
         public virtual DbSet<Customers> Customers { get; set; }
@@ -27,6 +23,7 @@ namespace La_Esperanza.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.EnableServiceProviderCaching(true);
             optionsBuilder.UseLazyLoadingProxies();
         }
 

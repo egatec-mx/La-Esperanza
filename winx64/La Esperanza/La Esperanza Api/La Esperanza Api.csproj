@@ -14,7 +14,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Apple\" />
+	  <Compile Remove="Apple\**" />
+	  <Content Remove="Apple\**" />
+	  <EmbeddedResource Remove="Apple\**" />
+	  <None Remove="Apple\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Folder Include="Settings\">
 		</Folder>
 		<Folder Include="Data\">

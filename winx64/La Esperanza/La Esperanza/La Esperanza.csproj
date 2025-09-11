@@ -9,11 +9,18 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<UserSecretsId></UserSecretsId>
+		<UserSecretsId>70092a41-b32e-4db9-b9b1-f0db8cf9d06b</UserSecretsId>
 		<RootNamespace>La_Esperanza</RootNamespace>
 		<CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
 		<StartupObject>La_Esperanza.Program</StartupObject>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Apple\**" />
+	  <Content Remove="Apple\**" />
+	  <EmbeddedResource Remove="Apple\**" />
+	  <None Remove="Apple\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Content Remove="bundleconfig.json" />
@@ -24,8 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore"
-			Version="5.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.7" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.7" />
@@ -39,7 +45,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Apple\" />
 		<Folder Include="wwwroot\lib\" />
 	</ItemGroup>
 
