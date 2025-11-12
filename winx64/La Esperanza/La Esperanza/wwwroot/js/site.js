@@ -299,7 +299,7 @@ function urlB64ToUint8Array(base64String) {
                 var select = api.element.find('#OrderDetails' + api.index + '_ProductId');
                 select.append('<option value="">--- Seleccione uno ---</option>');
                 $.each(api.products, function (_i, product) {
-                    select.append('<option value="' + product.Key + '">' + product.Value + '</option>');
+                    select.append('<option value="' + product.key + '">' + product.value + '</option>');
                 });
             },
             addRow: function (e) {
@@ -523,7 +523,7 @@ function urlB64ToUint8Array(base64String) {
                     success: function (data) {
                         api.list.html('');
                         $.each(data, function (_i, v) {
-                            var rowTemplate = api.config.resultTemplate.replace(/{id}/g, v.Key).replace(/{name}/g, v.Value);
+                            var rowTemplate = api.config.resultTemplate.replace(/{id}/g, v.key).replace(/{name}/g, v.value);
                             api.list.append(rowTemplate);
                             api.list.find('li').last().on('click', api, api.select);
                         });
