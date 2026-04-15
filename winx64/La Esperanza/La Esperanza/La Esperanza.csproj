@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<UserSecretsId>70092a41-b32e-4db9-b9b1-f0db8cf9d06b</UserSecretsId>
 		<RootNamespace>La_Esperanza</RootNamespace>
 		<CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
@@ -16,10 +16,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Apple\**" />
-	  <Content Remove="Apple\**" />
-	  <EmbeddedResource Remove="Apple\**" />
-	  <None Remove="Apple\**" />
+		<Compile Remove="Apple\**" />
+		<Content Remove="Apple\**" />
+		<EmbeddedResource Remove="Apple\**" />
+		<None Remove="Apple\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -31,16 +31,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.7" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.6" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="10.0.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.6" />
 		<PackageReference Include="Rotativa.NetCore" Version="1.0.4" />
-		<PackageReference Include="System.Drawing.Common" Version="9.0.8" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.34.0" />
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.6.7" />
-		<PackageReference Include="WebEssentials.AspNetCore.PWA" Version="1.0.65" />
+		<PackageReference Include="System.Drawing.Common" Version="10.0.6" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.17.0" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.7.2" />
+		<PackageReference Include="WebEssentials.AspNetCore.PWA" Version="1.0.85" />
 		<PackageReference Include="WebPush-NetCore" Version="1.0.2" />
 	</ItemGroup>
 
